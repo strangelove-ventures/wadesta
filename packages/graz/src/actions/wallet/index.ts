@@ -2,6 +2,7 @@ import { RECONNECT_SESSION_KEY } from "../../constant";
 import { grazSessionDefaultValues, useGrazInternalStore, useGrazSessionStore } from "../../store";
 import type { Wallet } from "../../types/wallet";
 import { WALLET_TYPES, WalletType } from "../../types/wallet";
+import { getCapsule } from "./capsule";
 import { getCosmostation } from "./cosmostation";
 import { getKeplr } from "./keplr";
 import { getLeap } from "./leap";
@@ -85,6 +86,9 @@ export const getWallet = (type: WalletType = useGrazInternalStore.getState().wal
       case WalletType.XDEFI: {
         return getXDefi();
       }
+      case WalletType.CAPSULE: {
+        return getCapsule();
+      }
       default: {
         throw new Error("Unknown wallet type");
       }
@@ -100,6 +104,10 @@ export const getWallet = (type: WalletType = useGrazInternalStore.getState().wal
 
 export const getAvailableWallets = (): Record<WalletType, boolean> => {
   return Object.fromEntries(WALLET_TYPES.map((type) => [type, checkWallet(type)])) as Record<WalletType, boolean>;
+};
+
+export const isCapsule = (type: WalletType): boolean => {
+  return type === WalletType.CAPSULE;
 };
 
 export const isWalletConnect = (type: WalletType): boolean => {

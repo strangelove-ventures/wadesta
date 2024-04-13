@@ -1,6 +1,6 @@
 import type { ChainInfo } from "@keplr-wallet/types";
 
-import type { ChainConfig, GrazInternalStore } from "../store";
+import type { CapsuleConfig, ChainConfig, GrazInternalStore } from "../store";
 import { useGrazInternalStore } from "../store";
 import type { WalletType } from "../types/wallet";
 
@@ -8,6 +8,7 @@ export interface ConfigureGrazArgs {
   defaultWallet?: WalletType;
   chains: ChainInfo[];
   chainsConfig?: Record<string, ChainConfig>;
+  capsuleConfig?: CapsuleConfig;
   onNotFound?: () => void;
   onReconnectFailed?: () => void;
   walletConnect?: GrazInternalStore["walletConnect"];
@@ -27,6 +28,7 @@ export const configureGraz = (args: ConfigureGrazArgs): ConfigureGrazArgs => {
   useGrazInternalStore.setState((prev) => ({
     walletConnect: args.walletConnect || prev.walletConnect,
     walletType: args.defaultWallet || prev.walletType,
+    capsuleConfig: args.capsuleConfig || prev.capsuleConfig,
     walletDefaultOptions: args.walletDefaultOptions || prev.walletDefaultOptions,
     chains: args.chains,
     chainsConfig: args.chainsConfig || prev.chainsConfig,
