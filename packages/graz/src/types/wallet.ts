@@ -50,7 +50,7 @@ export type Wallet = Pick<
   init?: () => Promise<unknown>;
   disable?: (chainIds?: string | undefined) => Promise<void>;
   setDefaultOptions?: (options: KeplrIntereactionOptions) => void;
-  onSuccessLogin?: () => Promise<void>;
+  onAfterLoginSuccessful?: () => Promise<void>;
 };
 
 export type SignDirectParams = Parameters<Wallet["signDirect"]>;

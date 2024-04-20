@@ -26,14 +26,12 @@ export const connect = async (args?: ConnectArgs): Promise<ConnectResult> => {
     const { recentChainIds: recentChains, chains, walletType } = useGrazInternalStore.getState();
 
     const currentWalletType = args?.walletType || walletType;
-
     const isWalletAvailable = checkWallet(currentWalletType);
     if (!isWalletAvailable) {
       throw new Error(`${currentWalletType} is not available`);
     }
 
     const wallet = getWallet(currentWalletType);
-
     const chainIds = typeof args?.chainId === "string" ? [args.chainId] : args?.chainId || recentChains;
     if (!chainIds) {
       throw new Error("No last known connected chain, connect action requires chain ids");
@@ -60,10 +58,51 @@ export const connect = async (args?: ConnectArgs): Promise<ConnectResult> => {
 
     const { accounts: _account } = useGrazSessionStore.getState();
     await wallet.init?.();
+    if (
+      isCapsule(currentWalletType) &&
+      useGrazSessionStore.getState().capsuleClient &&
+      Object.values(useGrazSessionStore.getState().accounts || []).length > 0
+    ) {
+      const connectedChains = chainIds.map((x) => chains!.find((y) => y.chainId === x)!);
+      const _resAcc = useGrazSessionStore.getState().accounts;
+      useGrazSessionStore.setState({ status: "connecting" });
+
+      const key = await wallet.getKey(chainIds[0]!);
+      const resultAcccounts: Record<string, Key> = {};
+      chainIds.forEach((chainId) => {
+        resultAcccounts[chainId] = {
+          ...key,
+          bech32Address: toBech32(
+            chains!.find((x) => x.chainId === chainId)!.bech32Config.bech32PrefixAccAddr,
+            fromBech32(key.bech32Address).data,
+          ),
+        };
+      });
+      useGrazSessionStore.setState((prev) => ({
+        accounts: { ...(prev.accounts || {}), ...resultAcccounts },
+      }));
+
+      useGrazInternalStore.setState((prev) => ({
+        recentChainIds: [...(prev.recentChainIds || []), ...chainIds].filter((thing, i, arr) => {
+          return arr.indexOf(thing) === i;
+        }),
+      }));
+      useGrazSessionStore.setState((prev) => ({
+        activeChainIds: [...(prev.activeChainIds || []), ...chainIds].filter((thing, i, arr) => {
+          return arr.indexOf(thing) === i;
+        }),
+      }));
+      useGrazSessionStore.setState({
+        status: "connected",
+      });
+      return { accounts: _resAcc!, walletType: currentWalletType, chains: connectedChains };
+    }
     await wallet.enable(chainIds);
     if (isCapsule(currentWalletType)) {
-      // ignore the return value
-      throw new Error("CAPSULE_OPEN_MODAL");
+      const connectedChains = chainIds.map((x) => chains!.find((y) => y.chainId === x)!);
+      const _resAcc = useGrazSessionStore.getState().accounts;
+      useGrazSessionStore.setState({ status: "connecting" });
+      return { accounts: _resAcc!, walletType: currentWalletType, chains: connectedChains };
     }
     if (!isWalletConnect(currentWalletType)) {
       const key = await wallet.getKey(chainIds[0]!);

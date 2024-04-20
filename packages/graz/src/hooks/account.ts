@@ -273,13 +273,7 @@ export type UseConnectChainArgs = MutationEventArgs<ConnectArgs, ConnectResult>;
 export const useConnect = ({ onError, onLoading, onSuccess }: UseConnectChainArgs = {}) => {
   const queryKey = ["USE_CONNECT", onError, onLoading, onSuccess];
   const mutation = useMutation(queryKey, connect, {
-    onError: (err, args) =>
-      Promise.resolve(() => {
-        // @ts-expect-error - ignore
-        if (err?.message !== "CAPSULE_OPEN_MODAL") {
-          onError?.(err, args);
-        }
-      }),
+    onError: (err, args) => onError?.(err, args),
     onMutate: onLoading,
     onSuccess: (connectResult) => Promise.resolve(onSuccess?.(connectResult)),
   });

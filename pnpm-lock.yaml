@@ -273,14 +273,14 @@ importers:
         specifier: 0.0.6
         version: 0.0.6
       long:
-        specifier: '*'
+        specifier: ^4
         version: 4.0.0
       wadesta:
         specifier: ^0.0.5
         version: 0.0.5(long@4.0.0)
       zustand:
-        specifier: ^4.4.1
-        version: 4.4.1(@types/react@18.2.21)(react@18.2.0)
+        specifier: ^4.5.2
+        version: 4.5.2(@types/react@18.2.21)(react@18.2.0)
     devDependencies:
       '@types/node':
         specifier: ^18.17.15
@@ -9801,7 +9801,7 @@ packages:
       eventemitter3: 4.0.7
       typescript: 5.2.2
       viem: 1.5.3(typescript@5.2.2)(zod@3.20.6)
-      zustand: 4.4.1(@types/react@18.2.21)(react@18.2.0)
+      zustand: 4.5.2(@types/react@18.2.21)(react@18.2.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -23453,12 +23453,12 @@ packages:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
-  /zustand@4.4.1(@types/react@18.2.21)(react@18.2.0):
-    resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==}
+  /zustand@4.5.2(@types/react@18.2.21)(react@18.2.0):
+    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@types/react': '>=16.8'
-      immer: '>=9.0'
+      immer: '>=9.0.6'
       react: '>=16.8'
     peerDependenciesMeta:
       '@types/react':

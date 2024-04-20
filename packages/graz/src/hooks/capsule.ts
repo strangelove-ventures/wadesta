@@ -1,3 +1,4 @@
+import { disconnect } from "../actions/account";
 import { getCapsule } from "../actions/wallet/capsule";
 import { useGrazInternalStore, useGrazSessionStore } from "../store";
 
@@ -7,14 +8,19 @@ export const useCapsule = () => {
   const capsule = getCapsule();
 
   return {
-    setModalState: (state: boolean) =>
-      useGrazInternalStore.setState({
+    setModalState: (state: boolean) => {
+      useGrazInternalStore.setState((prev) => ({
         capsuleState: {
           showModal: state,
+          chainId: prev.capsuleState?.chainId,
         },
-      }),
+      }));
+    },
     modalState: Boolean(capsuleState?.showModal),
     client: capsuleClient,
-    onSuccessfulLogin: capsule.onSuccessLogin,
+    onAfterLoginSuccessful: capsule.onAfterLoginSuccessful,
+    onLoginFailure: () => {
+      void disconnect();
+    },
   };
 };

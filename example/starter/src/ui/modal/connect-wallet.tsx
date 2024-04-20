@@ -2,6 +2,7 @@ import {
   Button,
   Heading,
   HStack,
+  Image,
   Modal,
   ModalBody,
   ModalContent,
@@ -52,7 +53,7 @@ const WalletModal = ({
                     p={4}
                     spacing={4}
                   >
-                    {/* <Image alt={wallet.name} boxSize="40px" src={wallet.imgSrc} /> */}
+                    <Image alt={wallet.name} boxSize="40px" src={wallet.imgSrc} />
                     <Text fontWeight="bold">{wallet.name}</Text>
                   </HStack>
                 ))}

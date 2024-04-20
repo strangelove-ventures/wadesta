@@ -17,7 +17,7 @@ const HomePage: NextPage = () => {
   const { data: accountData } = useAccount({
     chainId: "cosmoshub-4",
   });
-  const { client, modalState, onSuccessfulLogin, setModalState } = useCapsule();
+  const { client, modalState, onAfterLoginSuccessful, setModalState, onLoginFailure } = useCapsule();
   const { colorMode } = useColorMode();
   return (
     <Center minH="100vh">
@@ -47,11 +47,10 @@ const HomePage: NextPage = () => {
       <LeapSocialLogin
         capsule={client?.getClient() || undefined}
         onAfterLoginSuccessful={() => {
-          void onSuccessfulLogin?.();
-          console.log("login successful");
+          void onAfterLoginSuccessful?.();
         }}
         onLoginFailure={() => {
-          console.log("login failure");
+          onLoginFailure();
         }}
         setShowCapsuleModal={setModalState}
         showCapsuleModal={modalState}

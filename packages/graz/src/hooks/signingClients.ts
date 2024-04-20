@@ -64,7 +64,6 @@ export function useStargateSigningClient(
     () => ["USE_STARGATE_SIGNING_CLIENT", chains, wallet, args, activeChainIds] as const,
     [activeChainIds, args, chains, wallet],
   );
-
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [, _chains, _wallet] }) => {

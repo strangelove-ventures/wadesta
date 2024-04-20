@@ -1,7 +1,7 @@
 import type { ChainInfo } from "@keplr-wallet/types";
 
 import { useGrazInternalStore } from "../store";
-import type { WalletType } from "../types/wallet";
+import { WalletType } from "../types/wallet";
 import type { ConnectResult } from "./account";
 import { connect } from "./account";
 import { getWallet } from "./wallet";
@@ -34,7 +34,11 @@ export interface SuggestChainArgs {
 
 export const suggestChain = async ({ chainInfo, walletType }: SuggestChainArgs): Promise<ChainInfo> => {
   const wallet = getWallet(walletType);
-  await wallet.experimentalSuggestChain(chainInfo);
+  if (walletType === WalletType.CAPSULE) {
+    await connect({ chainId: chainInfo.chainId, walletType });
+  } else {
+    await wallet.experimentalSuggestChain(chainInfo);
+  }
   return chainInfo;
 };
 

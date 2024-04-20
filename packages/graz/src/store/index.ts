@@ -1,5 +1,5 @@
 import type { ChainInfo, Keplr, Key } from "@keplr-wallet/types";
-import type { CapsuleEnvironment, CapsuleProvider } from "@leapwallet/cosmos-social-login-capsule-provider";
+import type { CapsuleProvider } from "@leapwallet/cosmos-social-login-capsule-provider";
 import type { ISignClient, SignClientTypes } from "@walletconnect/types";
 import type { Web3ModalConfig } from "@web3modal/standalone";
 import { create } from "zustand";
@@ -25,7 +25,7 @@ export interface WalletConnectStore {
 
 export interface CapsuleConfig {
   apiKey: string;
-  env: CapsuleEnvironment;
+  env: "DEV" | "SANDBOX" | "BETA" | "PROD";
 }
 
 export interface CapsuleState {
@@ -64,7 +64,7 @@ export type GrazSessionPersistedStore = Pick<GrazSessionStore, "accounts" | "act
 
 export type GrazInternalPersistedStore = Pick<
   GrazInternalStore,
-  "recentChainIds" | "_reconnect" | "_reconnectConnector"
+  "recentChainIds" | "_reconnect" | "_reconnectConnector" | "walletType"
 >;
 
 export const grazInternalDefaultValues: GrazInternalStore = {
@@ -110,6 +110,7 @@ const persistOptions: PersistOptions<GrazInternalStore, GrazInternalPersistedSto
     recentChainIds: x.recentChainIds,
     _reconnect: x._reconnect,
     _reconnectConnector: x._reconnectConnector,
+    walletType: x.walletType,
   }),
   version: 2,
 };
