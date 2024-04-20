@@ -24,8 +24,8 @@ export interface WalletConnectStore {
 }
 
 export interface CapsuleConfig {
-  apiKey: string;
-  env: "DEV" | "SANDBOX" | "BETA" | "PROD";
+  apiKey?: string;
+  env?: "DEV" | "SANDBOX" | "BETA" | "PROD";
 }
 
 export interface CapsuleState {

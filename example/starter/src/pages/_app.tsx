@@ -30,8 +30,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           },
         },
         capsuleConfig: {
-          apiKey: "72c07c099c0f3d8e744bb0754a11726b",
-          env: "BETA",
+          apiKey: process.env.NEXT_PUBLIC_CAPSULE_API_KEY,
+          env: process.env.NEXT_PUBLIC_CAPSULE_ENV,
         },
         walletDefaultOptions: {
           sign: {
