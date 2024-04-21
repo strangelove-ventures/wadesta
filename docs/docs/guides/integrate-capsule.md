@@ -6,7 +6,30 @@
 yarn add @leapwallet/cosmos-social-login-capsule-provider-ui
 ```
 
-## Example Next JS
+## Fill your Capsule Config in `GrazProvider`
+
+```javascript
+<GrazProvider
+  grazOptions={{
+    chains,
+    onReconnectFailed: () => {
+      console.log("reconnect failed");
+    },
+    autoReconnect: false,
+    walletConnect: {
+      options: {
+        projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+      },
+    },
+    capsuleConfig: {
+      apiKey: process.env.NEXT_PUBLIC_CAPSULE_API_KEY,
+      env: process.env.NEXT_PUBLIC_CAPSULE_ENV,
+    },
+  }}
+/>
+```
+
+## Next JS Usage
 
 For Next JS we recommend to load the module dynamically to avoid SSR issues. And use `useCapsule` hook to get the client and other capsule related states.
 
