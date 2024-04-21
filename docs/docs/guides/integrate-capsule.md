@@ -12,15 +12,6 @@ yarn add @leapwallet/cosmos-social-login-capsule-provider-ui
 <GrazProvider
   grazOptions={{
     chains,
-    onReconnectFailed: () => {
-      console.log("reconnect failed");
-    },
-    autoReconnect: false,
-    walletConnect: {
-      options: {
-        projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
-      },
-    },
     capsuleConfig: {
       apiKey: process.env.NEXT_PUBLIC_CAPSULE_API_KEY,
       env: process.env.NEXT_PUBLIC_CAPSULE_ENV,
