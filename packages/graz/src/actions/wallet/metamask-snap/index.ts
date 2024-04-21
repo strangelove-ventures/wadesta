@@ -20,6 +20,12 @@ export interface GetMetamaskSnap {
   params?: Record<string, unknown>;
 }
 
+export interface KnownKeys {
+  [key: string]: Key
+}
+
+const knownKeysMap: KnownKeys = {};
+
 /**
  * Function to return {@link Wallet} object and throws and error if it does not exist on `window`.
  *
@@ -155,7 +161,9 @@ export const getMetamaskSnap = (params?: GetMetamaskSnap): Wallet => {
     };
 
     // getKey from @leapwallet/cosmos-snap-provider return type is wrong
-    const getKey = async (chainId: string): Promise<Key> => {
+    const getKey = async (chainId: string): Promise<Key> => {      
+      if (typeof knownKeysMap[chainId] !== 'undefined') return knownKeysMap[chainId] as Key;
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res: any = await ethereum.request({
         method: "wallet_invokeSnap",
@@ -178,9 +186,9 @@ export const getMetamaskSnap = (params?: GetMetamaskSnap): Wallet => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       delete res.pubkey;
 
-      return {
-        ...res,
-      } as Key;
+      // Cache the key for future use
+      knownKeysMap[chainId] = res;
+      return knownKeysMap[chainId] as Key;
     };
 
     const getAccount = async (chainId: string): Promise<AccountData> => {
