@@ -1,9 +1,16 @@
-import { Stack, useColorMode } from "@chakra-ui/react";
-import { useCapsule } from "graz";
-import dynamic from "next/dynamic";
-import { Card } from "src/ui/card/chain";
-import { mainnetChains } from "src/utils/graz";
+# Integrate Capsule
 
+## Install Leap Login Capsule UI
+
+```bash
+yarn add @leapwallet/cosmos-social-login-capsule-provider-ui
+```
+
+## Example Next JS
+
+For Next JS we recommend to load the module dynamically to avoid SSR issues. And use `useCapsule` hook to get the client and other capsule related states.
+
+```javascript
 const LeapSocialLogin = dynamic(
   () => import("@leapwallet/cosmos-social-login-capsule-provider-ui").then((m) => m.CustomCapsuleModalView),
   { ssr: false },
@@ -12,28 +19,22 @@ const LeapSocialLogin = dynamic(
 const HomePage = () => {
   const { client, modalState, onAfterLoginSuccessful, setModalState, onLoginFailure } = useCapsule();
 
-  const { colorMode } = useColorMode();
   return (
-    <>
-      <Stack spacing={4}>
-        {mainnetChains.map((chain) => (
-          <Card key={chain.chainId} chain={chain} />
-        ))}
-      </Stack>
+    <div>
       <LeapSocialLogin
         capsule={client?.getClient() || undefined}
         onAfterLoginSuccessful={() => {
-          void onAfterLoginSuccessful?.();
+          onAfterLoginSuccessful?.();
         }}
         onLoginFailure={() => {
           onLoginFailure();
         }}
         setShowCapsuleModal={setModalState}
         showCapsuleModal={modalState}
-        theme={colorMode}
       />
-    </>
+    </div>
   );
 };
+```
 
-export default HomePage;
+Thats it, now you can use capsule as your wallet provider.

@@ -29,6 +29,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
           },
         },
+        capsuleConfig: {
+          apiKey: process.env.NEXT_PUBLIC_CAPSULE_API_KEY,
+          env: process.env.NEXT_PUBLIC_CAPSULE_ENV,
+        },
+        walletDefaultOptions: {
+          sign: {
+            preferNoSetFee: true,
+          },
+        },
       }}
     >
       <ChakraProvider resetCSS theme={theme}>

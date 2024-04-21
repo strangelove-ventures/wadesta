@@ -1,9 +1,10 @@
-import { Stack, useColorMode } from "@chakra-ui/react";
-import { useCapsule } from "graz";
-import dynamic from "next/dynamic";
-import { Card } from "src/ui/card/chain";
-import { mainnetChains } from "src/utils/graz";
+# useCapsule
 
+Hook to interact with [@leapwallet/cosmos-social-login-capsule-provider-ui](https://www.npmjs.com/package/@leapwallet/cosmos-social-login-capsule-provider-ui)
+
+#### Usage
+
+```javascript
 const LeapSocialLogin = dynamic(
   () => import("@leapwallet/cosmos-social-login-capsule-provider-ui").then((m) => m.CustomCapsuleModalView),
   { ssr: false },
@@ -12,28 +13,32 @@ const LeapSocialLogin = dynamic(
 const HomePage = () => {
   const { client, modalState, onAfterLoginSuccessful, setModalState, onLoginFailure } = useCapsule();
 
-  const { colorMode } = useColorMode();
   return (
-    <>
-      <Stack spacing={4}>
-        {mainnetChains.map((chain) => (
-          <Card key={chain.chainId} chain={chain} />
-        ))}
-      </Stack>
+    <div>
       <LeapSocialLogin
         capsule={client?.getClient() || undefined}
         onAfterLoginSuccessful={() => {
-          void onAfterLoginSuccessful?.();
+          onAfterLoginSuccessful?.();
         }}
         onLoginFailure={() => {
           onLoginFailure();
         }}
         setShowCapsuleModal={setModalState}
         showCapsuleModal={modalState}
-        theme={colorMode}
       />
-    </>
+    </div>
   );
 };
+```
 
-export default HomePage;
+#### Return Value
+
+```tsx
+{
+  setModalState: (state: boolean) => void;
+  modalState: boolean;
+  client: CapsuleProvider | null;
+  onAfterLoginSuccessful: (() => Promise<void>) | undefined;
+  onLoginFailure: () => void;
+}
+```

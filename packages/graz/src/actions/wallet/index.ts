@@ -2,6 +2,7 @@ import { RECONNECT_SESSION_KEY } from "../../constant";
 import { grazSessionDefaultValues, useGrazInternalStore, useGrazSessionStore } from "../../store";
 import type { Wallet } from "../../types/wallet";
 import { WALLET_TYPES, WalletType } from "../../types/wallet";
+import { getCapsule } from "./capsule";
 import { getCosmostation } from "./cosmostation";
 import { getKeplr } from "./keplr";
 import { getLeap } from "./leap";
@@ -50,48 +51,63 @@ export const clearSession = () => {
  * @see {@link getKeplr}
  */
 export const getWallet = (type: WalletType = useGrazInternalStore.getState().walletType): Wallet => {
-  switch (type) {
-    case WalletType.KEPLR: {
-      return getKeplr();
+  const wallet = (() => {
+    switch (type) {
+      case WalletType.KEPLR: {
+        return getKeplr();
+      }
+      case WalletType.LEAP: {
+        return getLeap();
+      }
+      case WalletType.COSMOSTATION: {
+        return getCosmostation();
+      }
+      case WalletType.VECTIS: {
+        return getVectis();
+      }
+      case WalletType.WALLETCONNECT: {
+        return getWalletConnect();
+      }
+      case WalletType.WC_KEPLR_MOBILE: {
+        return getWCKeplr();
+      }
+      case WalletType.WC_LEAP_MOBILE: {
+        return getWCLeap();
+      }
+      case WalletType.WC_COSMOSTATION_MOBILE: {
+        return getWCCosmostation();
+      }
+      case WalletType.METAMASK_SNAP_LEAP: {
+        return getMetamaskSnapLeap();
+      }
+      case WalletType.STATION: {
+        return getStation();
+      }
+      case WalletType.XDEFI: {
+        return getXDefi();
+      }
+      case WalletType.CAPSULE: {
+        return getCapsule();
+      }
+      default: {
+        throw new Error("Unknown wallet type");
+      }
     }
-    case WalletType.LEAP: {
-      return getLeap();
-    }
-    case WalletType.COSMOSTATION: {
-      return getCosmostation();
-    }
-    case WalletType.VECTIS: {
-      return getVectis();
-    }
-    case WalletType.WALLETCONNECT: {
-      return getWalletConnect();
-    }
-    case WalletType.WC_KEPLR_MOBILE: {
-      return getWCKeplr();
-    }
-    case WalletType.WC_LEAP_MOBILE: {
-      return getWCLeap();
-    }
-    case WalletType.WC_COSMOSTATION_MOBILE: {
-      return getWCCosmostation();
-    }
-    case WalletType.METAMASK_SNAP_LEAP: {
-      return getMetamaskSnapLeap();
-    }
-    case WalletType.STATION: {
-      return getStation();
-    }
-    case WalletType.XDEFI: {
-      return getXDefi();
-    }
-    default: {
-      throw new Error("Unknown wallet type");
-    }
+  })();
+  const options = useGrazInternalStore.getState().walletDefaultOptions;
+  if (options) {
+    wallet.setDefaultOptions?.(options);
   }
+
+  return wallet;
 };
 
 export const getAvailableWallets = (): Record<WalletType, boolean> => {
   return Object.fromEntries(WALLET_TYPES.map((type) => [type, checkWallet(type)])) as Record<WalletType, boolean>;
+};
+
+export const isCapsule = (type: WalletType): boolean => {
+  return type === WalletType.CAPSULE;
 };
 
 export const isWalletConnect = (type: WalletType): boolean => {

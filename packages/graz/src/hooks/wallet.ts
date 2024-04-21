@@ -29,6 +29,7 @@ export const useActiveWalletType = () => {
       isWalletConnect: x.walletType === WalletType.WALLETCONNECT,
       isMetamaskSnapLeap: x.walletType === WalletType.METAMASK_SNAP_LEAP,
       isStation: x.walletType === WalletType.STATION,
+      isCapsule: x.walletType === WalletType.CAPSULE,
     }),
     shallow,
   );

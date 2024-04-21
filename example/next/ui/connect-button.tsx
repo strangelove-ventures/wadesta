@@ -81,6 +81,7 @@ export const ConnectButton: FC = () => {
             {wallets.metamask_snap_leap ? (
               <Button onClick={() => handleConnect(WalletType.METAMASK_SNAP_LEAP)}>Metamask Snap Leap</Button>
             ) : null}
+            {wallets.capsule ? <Button onClick={() => handleConnect(WalletType.CAPSULE)}>Capsule</Button> : null}
           </Stack>
         </ModalContent>
       </Modal>
