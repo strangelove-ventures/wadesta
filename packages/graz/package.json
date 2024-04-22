@@ -49,16 +49,10 @@
     "@cosmjs/tendermint-rpc": "*",
     "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.30",
     "@leapwallet/cosmos-social-login-capsule-provider-ui": "^0.0.47",
-    "long": "^4",
     "react": ">=17"
   },
-  "peerDependenciesMeta": {
-    "long": {
-      "optional": true
-    }
-  },
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
+    "@cosmsnap/snapper": "^0.1.29",
     "@keplr-wallet/cosmos": "^0.12.20",
     "@keplr-wallet/types": "^0.12.23",
     "@metamask/providers": "^12.0.0",
@@ -71,7 +65,7 @@
     "@web3modal/standalone": "^2.4.3",
     "cac": "^6.7.14",
     "cosmos-directory-client": "0.0.6",
-    "wadesta": "^0.0.5",
+    "long": "4",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

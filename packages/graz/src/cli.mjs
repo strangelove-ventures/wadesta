@@ -188,6 +188,23 @@ const makeRecord = async (client, { filter = "" } = {}) => {
         coinGeckoId: mainAsset.coingecko_id,
       };
 
+      const feeCurrencies = chain.fees?.fee_tokens.map((token) => ({
+        coinDenom: chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units.at(-1)?.denom || token.denom,
+        coinMinimalDenom:
+          chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units[0]?.denom || token.denom,
+        coinDecimals: Number(chain.assets?.find((asset) => asset.denom === token.denom)?.decimals),
+        coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || "",
+        gasPriceStep: {
+          low: Number(token.low_gas_price),
+          average: Number(token.average_gas_price),
+          high: Number(token.high_gas_price),
+        },
+      }));
+
+      if (!feeCurrencies) {
+        throw new Error(`⚠️\t${chain.name} has no fee currencies, skipping codegen...`);
+      }
+
       record[chain.path] = {
         chainId: chain.chain_id,
         currencies: chain.assets.map((asset) => ({
@@ -200,7 +217,7 @@ const makeRecord = async (client, { filter = "" } = {}) => {
         rpc: apis.rpc[0].address || "",
         bech32Config: Bech32Address.defaultBech32Config(chain.bech32_prefix),
         chainName: chain.chain_name,
-        feeCurrencies: [nativeCurrency],
+        feeCurrencies,
         stakeCurrency: nativeCurrency,
         bip44: {
           coinType: chain.slip44 ?? 0,

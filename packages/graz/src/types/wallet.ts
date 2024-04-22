@@ -1,4 +1,4 @@
-import type { Keplr, KeplrIntereactionOptions } from "@keplr-wallet/types";
+import type { Keplr, KeplrIntereactionOptions, Key } from "@keplr-wallet/types";
 
 export enum WalletType {
   KEPLR = "keplr",
@@ -14,6 +14,8 @@ export enum WalletType {
   WC_COSMOSTATION_MOBILE = "wc_cosmostation_mobile",
   // eslint-disable-next-line @typescript-eslint/naming-convention
   METAMASK_SNAP_LEAP = "metamask_snap_leap",
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  METAMASK_SNAP_COSMOS = "metamask_snap_cosmos",
   STATION = "station",
   XDEFI = "xdefi",
   CAPSULE = "capsule",
@@ -32,6 +34,7 @@ export const WALLET_TYPES = [
   WalletType.STATION,
   WalletType.XDEFI,
   WalletType.CAPSULE,
+  WalletType.METAMASK_SNAP_COSMOS,
 ];
 
 export type Wallet = Pick<
@@ -55,3 +58,5 @@ export type Wallet = Pick<
 
 export type SignDirectParams = Parameters<Wallet["signDirect"]>;
 export type SignAminoParams = Parameters<Wallet["signAmino"]>;
+
+export type KnownKeys = Record<string, Key>;
