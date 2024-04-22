@@ -38,6 +38,10 @@ export const listedWallets = {
     name: "Metamask Snap Leap",
     imgSrc: "/assets/wallet-icon-metamask.png",
   },
+  [WalletType.METAMASK_SNAP_COSMOS]: {
+    name: "Metamask Snap Cosmos",
+    imgSrc: "/assets/wallet-icon-metamask.png",
+  },
   [WalletType.WALLETCONNECT]: {
     name: "WalletConnect",
     imgSrc: "/assets/wallet-icon-walletconnect.png",

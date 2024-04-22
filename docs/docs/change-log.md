@@ -4,6 +4,14 @@ sidebar_position: 8
 
 # Changelog
 
+## Version 0.1.8
+
+- Added [Metamask Snap Cosmos](https://github.com/cosmos/snap) integration
+
+## Version 0.1.7
+
+- Fix Metamask Snap Leap when signing
+
 ## Version 0.1.6
 
 - Added capsule wallet integration

@@ -11,7 +11,7 @@ import type {
 import Long from "long";
 
 import { useGrazInternalStore } from "../../../store";
-import type { SignAminoParams, SignDirectParams, Wallet } from "../../../types/wallet";
+import type { KnownKeys, SignAminoParams, SignDirectParams, Wallet } from "../../../types/wallet";
 import type { ChainId } from "../../../utils/multi-chain";
 import type { GetSnapsResponse, Snap } from "./types";
 
@@ -20,11 +20,7 @@ export interface GetMetamaskSnap {
   params?: Record<string, unknown>;
 }
 
-export interface KnownKeys {
-  [key: string]: Key
-}
-
-const knownKeysMap: KnownKeys = {};
+const metamaskSnapLeapKeysMap: KnownKeys = {};
 
 /**
  * Function to return {@link Wallet} object and throws and error if it does not exist on `window`.
@@ -161,8 +157,9 @@ export const getMetamaskSnap = (params?: GetMetamaskSnap): Wallet => {
     };
 
     // getKey from @leapwallet/cosmos-snap-provider return type is wrong
-    const getKey = async (chainId: string): Promise<Key> => {      
-      if (typeof knownKeysMap[chainId] !== 'undefined') return knownKeysMap[chainId] as Key;
+    const getKey = async (chainId: string): Promise<Key> => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      if (typeof metamaskSnapLeapKeysMap[chainId] !== "undefined") return metamaskSnapLeapKeysMap[chainId]!;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res: any = await ethereum.request({
@@ -187,8 +184,8 @@ export const getMetamaskSnap = (params?: GetMetamaskSnap): Wallet => {
       delete res.pubkey;
 
       // Cache the key for future use
-      knownKeysMap[chainId] = res;
-      return knownKeysMap[chainId] as Key;
+      metamaskSnapLeapKeysMap[chainId] = res;
+      return metamaskSnapLeapKeysMap[chainId]!;
     };
 
     const getAccount = async (chainId: string): Promise<AccountData> => {

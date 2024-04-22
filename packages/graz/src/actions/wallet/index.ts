@@ -3,10 +3,11 @@ import { grazSessionDefaultValues, useGrazInternalStore, useGrazSessionStore } f
 import type { Wallet } from "../../types/wallet";
 import { WALLET_TYPES, WalletType } from "../../types/wallet";
 import { getCapsule } from "./capsule";
+import { getMetamaskSnapCosmos } from "./cosmos-metamask-snap";
 import { getCosmostation } from "./cosmostation";
 import { getKeplr } from "./keplr";
 import { getLeap } from "./leap";
-import { getMetamaskSnapLeap } from "./metamask-snap/leap";
+import { getMetamaskSnapLeap } from "./leap-metamask-snap/leap";
 import { getStation } from "./station";
 import { getVectis } from "./vectis";
 import { getWalletConnect } from "./wallet-connect";
@@ -79,6 +80,9 @@ export const getWallet = (type: WalletType = useGrazInternalStore.getState().wal
       }
       case WalletType.METAMASK_SNAP_LEAP: {
         return getMetamaskSnapLeap();
+      }
+      case WalletType.METAMASK_SNAP_COSMOS: {
+        return getMetamaskSnapCosmos();
       }
       case WalletType.STATION: {
         return getStation();
