@@ -188,18 +188,33 @@ const makeRecord = async (client, { filter = "" } = {}) => {
         coinGeckoId: mainAsset.coingecko_id,
       };
 
-      const feeCurrencies = chain.fees?.fee_tokens.map((token) => ({
-        coinDenom: chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units.at(-1)?.denom || token.denom,
-        coinMinimalDenom:
-          chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units[0]?.denom || token.denom,
-        coinDecimals: Number(chain.assets?.find((asset) => asset.denom === token.denom)?.decimals),
-        coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || "",
-        gasPriceStep: {
-          low: Number(token.low_gas_price),
-          average: Number(token.average_gas_price),
-          high: Number(token.high_gas_price),
-        },
-      }));
+      const feeCurrencies = chain.fees?.fee_tokens.map((token) => {
+        const isGasPriceStepAvailable = token.low_gas_price && token.average_gas_price && token.high_gas_price;
+
+        if (isGasPriceStepAvailable) {
+          return {
+            coinDenom:
+              chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units.at(-1)?.denom || token.denom,
+            coinMinimalDenom:
+              chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units[0]?.denom || token.denom,
+            coinDecimals: Number(chain.assets?.find((asset) => asset.denom === token.denom)?.decimals),
+            coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || "",
+            gasPriceStep: {
+              low: Number(token.low_gas_price),
+              average: Number(token.average_gas_price),
+              high: Number(token.high_gas_price),
+            },
+          };
+        }
+        return {
+          coinDenom:
+            chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units.at(-1)?.denom || token.denom,
+          coinMinimalDenom:
+            chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units[0]?.denom || token.denom,
+          coinDecimals: Number(chain.assets?.find((asset) => asset.denom === token.denom)?.decimals),
+          coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || "",
+        };
+      });
 
       if (!feeCurrencies) {
         throw new Error(`⚠️\t${chain.name} has no fee currencies, skipping codegen...`);

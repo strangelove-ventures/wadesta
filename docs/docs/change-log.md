@@ -4,6 +4,10 @@ sidebar_position: 8
 
 # Changelog
 
+## Version 0.1.9
+
+- graz cli fix null `gasPriceStep`
+
 ## Version 0.1.8
 
 - Added [Metamask Snap Cosmos](https://github.com/cosmos/snap) integration
