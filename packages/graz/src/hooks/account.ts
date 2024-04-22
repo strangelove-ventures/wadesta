@@ -198,7 +198,7 @@ export const useBalances = <TMulti extends MultiChainHookArgs>(
  */
 export const useBalance = <TMulti extends MultiChainHookArgs>(
   args: {
-    denom: string;
+    denom?: string;
     bech32Address?: string;
   } & { chainId: ChainId } & QueryConfig,
 ): UseMultiChainQueryResult<TMulti, Coin | undefined> => {
@@ -221,7 +221,11 @@ export const useBalance = <TMulti extends MultiChainHookArgs>(
       return _balances?.find((x) => x.denom === _denom);
     },
     {
-      enabled: Boolean(balances) && Boolean(balances?.length) && (args.enabled === undefined ? true : args.enabled),
+      enabled:
+        Boolean(args.denom) &&
+        Boolean(balances) &&
+        Boolean(balances?.length) &&
+        (args.enabled === undefined ? true : args.enabled),
     },
   );
 
@@ -273,7 +277,7 @@ export type UseConnectChainArgs = MutationEventArgs<ConnectArgs, ConnectResult>;
 export const useConnect = ({ onError, onLoading, onSuccess }: UseConnectChainArgs = {}) => {
   const queryKey = ["USE_CONNECT", onError, onLoading, onSuccess];
   const mutation = useMutation(queryKey, connect, {
-    onError: (err, args) => Promise.resolve(onError?.(err, args)),
+    onError: (err, args) => onError?.(err, args),
     onMutate: onLoading,
     onSuccess: (connectResult) => Promise.resolve(onSuccess?.(connectResult)),
   });

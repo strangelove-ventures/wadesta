@@ -1,4 +1,4 @@
-import type { Keplr } from "@keplr-wallet/types";
+import type { Keplr, KeplrIntereactionOptions } from "@keplr-wallet/types";
 
 export enum WalletType {
   KEPLR = "keplr",
@@ -16,6 +16,7 @@ export enum WalletType {
   METAMASK_SNAP_LEAP = "metamask_snap_leap",
   STATION = "station",
   XDEFI = "xdefi",
+  CAPSULE = "capsule",
 }
 
 export const WALLET_TYPES = [
@@ -30,6 +31,7 @@ export const WALLET_TYPES = [
   WalletType.METAMASK_SNAP_LEAP,
   WalletType.STATION,
   WalletType.XDEFI,
+  WalletType.CAPSULE,
 ];
 
 export type Wallet = Pick<
@@ -47,6 +49,8 @@ export type Wallet = Pick<
   subscription?: (reconnect: () => void) => () => void;
   init?: () => Promise<unknown>;
   disable?: (chainIds?: string | undefined) => Promise<void>;
+  setDefaultOptions?: (options: KeplrIntereactionOptions) => void;
+  onAfterLoginSuccessful?: () => Promise<void>;
 };
 
 export type SignDirectParams = Parameters<Wallet["signDirect"]>;

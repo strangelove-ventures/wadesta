@@ -4,6 +4,13 @@ sidebar_position: 8
 
 # Changelog
 
+## Version 0.1.6
+
+- Added capsule wallet integration
+- `walletDefaultOptions` param in `GrazProvider` for setting default options for wallet.
+- Added `useCapsule` hook for leap login capsule ui
+- `denom` in `useBalance` param is now optional
+
 ## Version 0.1.5
 
 - Fix typing on SigningClient hooks for single chain `opts` param

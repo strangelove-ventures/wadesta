@@ -1,16 +1,24 @@
-import { Center, HStack, Spacer, Stack, Text } from "@chakra-ui/react";
-import { useAccount } from "graz";
+import { Center, HStack, Spacer, Stack, Text, useColorMode } from "@chakra-ui/react";
+import { useAccount, useCapsule } from "graz";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import { BalanceList } from "ui/balance-list";
 import { ChainSwitcher } from "ui/chain-switcher";
 import { ConnectButton } from "ui/connect-button";
 import { ConnectStatus } from "ui/connect-status";
 import { ToggleTheme } from "ui/toggle-theme";
 
+const LeapSocialLogin = dynamic(
+  () => import("@leapwallet/cosmos-social-login-capsule-provider-ui").then((m) => m.CustomCapsuleModalView),
+  { ssr: false },
+);
+
 const HomePage: NextPage = () => {
   const { data: accountData } = useAccount({
     chainId: "cosmoshub-4",
   });
+  const { client, modalState, onAfterLoginSuccessful, setModalState, onLoginFailure } = useCapsule();
+  const { colorMode } = useColorMode();
   return (
     <Center minH="100vh">
       <Stack bgColor="whiteAlpha.100" boxShadow="md" maxW="md" p={4} rounded="md" spacing={4} w="full">
@@ -36,6 +44,18 @@ const HomePage: NextPage = () => {
           <ConnectButton />
         </HStack>
       </Stack>
+      <LeapSocialLogin
+        capsule={client?.getClient() || undefined}
+        onAfterLoginSuccessful={() => {
+          void onAfterLoginSuccessful?.();
+        }}
+        onLoginFailure={() => {
+          onLoginFailure();
+        }}
+        setShowCapsuleModal={setModalState}
+        showCapsuleModal={modalState}
+        theme={colorMode}
+      />
     </Center>
   );
 };

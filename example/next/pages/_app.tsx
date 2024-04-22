@@ -21,6 +21,10 @@ const CustomApp: NextPage<AppProps> = ({ Component, pageProps }) => {
               projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
             },
           },
+          capsuleConfig: {
+            apiKey: process.env.NEXT_PUBLIC_CAPSULE_API_KEY,
+            env: process.env.NEXT_PUBLIC_CAPSULE_ENV,
+          },
         }}
       >
         <Component {...pageProps} />
