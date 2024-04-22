@@ -234,9 +234,7 @@ export const getMetamaskSnap = (params?: GetMetamaskSnap): Wallet => {
     };
 
     const getOfflineSignerAuto = async (chainId: string) => {
-      const key = await getKey(chainId);
-      if (key.isNanoLedger) return getOfflineSignerOnlyAmino(chainId);
-      return getOfflineSignerDirect(chainId);
+      return getOfflineSignerOnlyAmino(chainId);
     };
 
     const experimentalSuggestChain = async (..._args: Parameters<Keplr["experimentalSuggestChain"]>) => {
