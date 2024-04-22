@@ -75,6 +75,7 @@ The following steps will get you up and running to contribute to `graz`:
 - `pnpm graz build`: build `graz` package
 - `pnpm install`: install all projects
 - `pnpm dev`: compiles `graz` and start the development server of the example app
+- `pnpm graz cli -g`: compiles `graz` chains, needed for running examples
 - `pnpm project:docs dev`: start the documentation website
 - `pnpm example dev`: start the example app
 
