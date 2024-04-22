@@ -36,6 +36,8 @@ const Connect = () => {
 
 ### Connect to a specific wallet
 
+Here is our list of supported wallets: [WalletType](../types/walletType.md).
+
 ```tsx
 import { WalletType } from "graz";
 const Connect = () => {
