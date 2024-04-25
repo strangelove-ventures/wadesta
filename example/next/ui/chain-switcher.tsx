@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Stack, Text } from "@chakra-ui/react";
 import { useAccount, useSuggestChainAndConnect } from "graz";
-import { osmosistestnet } from "graz/chains";
+import { osmosistestnet, stargaze } from "graz/chains";
 import type { FC } from "react";
 
 export const ChainSwitcher: FC = () => {
@@ -28,6 +28,16 @@ export const ChainSwitcher: FC = () => {
           }
         >
           {osmosistestnet.chainId}
+        </Button>
+        <Button
+          colorScheme={account ? "green" : "gray"}
+          onClick={() =>
+            suggestAndConnect({
+              chainInfo: stargaze,
+            })
+          }
+        >
+          {stargaze.chainId}
         </Button>
       </ButtonGroup>
     </Stack>
