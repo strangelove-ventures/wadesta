@@ -48,7 +48,6 @@
     "@cosmjs/stargate": "*",
     "@cosmjs/tendermint-rpc": "*",
     "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.30",
-    "@leapwallet/cosmos-social-login-capsule-provider-ui": "^0.0.47",
     "react": ">=17"
   },
   "dependencies": {
@@ -63,7 +62,6 @@
     "@walletconnect/types": "^2.10.0",
     "@walletconnect/utils": "^2.10.0",
     "@web3modal/standalone": "^2.4.3",
-    "cac": "^6.7.14",
     "cosmos-directory-client": "0.0.6",
     "long": "4",
     "zustand": "^4.5.2"

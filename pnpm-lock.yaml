@@ -74,9 +74,6 @@ importers:
       '@emotion/styled':
         specifier: ^11.11.0
         version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.21)(react@18.2.0)
-      '@leapwallet/cosmos-social-login-capsule-provider':
-        specifier: ^0.0.30
-        version: 0.0.30(@types/react@18.2.21)(fp-ts@2.16.5)(react-dom@18.2.0)(react@18.2.0)(zod@3.20.6)
       '@leapwallet/cosmos-social-login-capsule-provider-ui':
         specifier: ^0.0.47
         version: 0.0.47(@cosmjs/proto-signing@0.30.1)(@types/node@18.17.15)(@types/react@18.2.21)(fp-ts@2.16.5)(framer-motion@10.16.4)(osmojs@15.2.1)(protobufjs@7.2.3)(react-dom@18.2.0)(stridejs@0.6.2)(zod@3.20.6)
@@ -129,6 +126,9 @@ importers:
       '@graz-sh/types':
         specifier: ^0.0.4
         version: 0.0.4(long@4.0.0)
+      '@leapwallet/cosmos-social-login-capsule-provider-ui':
+        specifier: ^0.0.47
+        version: 0.0.47(@cosmjs/proto-signing@0.30.1)(@types/node@18.17.15)(@types/react@18.2.21)(fp-ts@2.16.5)(framer-motion@10.16.4)(osmojs@15.2.1)(protobufjs@7.2.3)(react-dom@18.2.0)(stridejs@0.6.2)(zod@3.20.6)
       bignumber.js:
         specifier: ^9.1.2
         version: 9.1.2
@@ -238,10 +238,7 @@ importers:
         version: 0.12.23
       '@leapwallet/cosmos-social-login-capsule-provider':
         specifier: ^0.0.30
-        version: 0.0.30(@types/react@18.2.21)(fp-ts@2.16.5)(react-dom@18.2.0)(react@18.2.0)(zod@3.20.6)
-      '@leapwallet/cosmos-social-login-capsule-provider-ui':
-        specifier: ^0.0.47
-        version: 0.0.47(@cosmjs/proto-signing@0.31.0)(@types/node@18.17.15)(@types/react@18.2.21)(fp-ts@2.16.5)(framer-motion@10.16.4)(osmojs@15.2.1)(protobufjs@7.2.3)(react-dom@18.2.0)(stridejs@0.6.2)(zod@3.20.6)
+        version: 0.0.30(@types/react@18.2.21)(fp-ts@2.16.5)(react@18.2.0)
       '@metamask/providers':
         specifier: ^12.0.0
         version: 12.0.0
@@ -266,9 +263,6 @@ importers:
       '@web3modal/standalone':
         specifier: ^2.4.3
         version: 2.4.3(react@18.2.0)
-      cac:
-        specifier: ^6.7.14
-        version: 6.7.14
       cosmos-directory-client:
         specifier: 0.0.6
         version: 0.0.6
@@ -6878,13 +6872,6 @@ packages:
       wrap-ansi-cjs: /wrap-ansi@7.0.0
     dev: false
 
-  /@jest/schemas@29.4.3:
-    resolution: {integrity: sha512-VLYKXQmtmuEz6IxJsrZwzG9NvtkQsWNnWMsKxqWNu3+CnfzJQhp0WDDKWLVV9hLKr0l3SLLFRqcYHjhtyuDVxg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      '@sinclair/typebox': 0.25.24
-    dev: false
-
   /@jest/schemas@29.6.3:
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -6896,7 +6883,7 @@ packages:
     resolution: {integrity: sha512-qbu7kN6czmVRc3xWFQcAN03RAUamgppVUdXrvl1Wr3jlNF93o9mJbGcDWrwGB6ht44u7efB1qCFgVQmca24Uog==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@jest/schemas': 29.4.3
+      '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
       '@types/node': 18.17.15
@@ -7048,23 +7035,6 @@ packages:
       stridejs: 0.6.2
     dev: false
 
-  /@leapwallet/buffer-boba@0.1.6(@cosmjs/proto-signing@0.31.0)(osmojs@15.2.1)(protobufjs@7.2.3)(stridejs@0.6.2):
-    resolution: {integrity: sha512-zDgt3Ywx2CtFoJ+kvfTdyY/72Q+7sMFZPPUQdkuhTmtkNBukN+DnEbkbupH52wM7K+XhYCjGrmO3viAwWT3jWg==}
-    peerDependencies:
-      '@cosmjs/proto-signing': 0.30.1
-      osmojs: 15.2.1
-      protobufjs: 7.2.3
-      stridejs: 0.6.2
-    dependencies:
-      '@cosmjs/proto-signing': 0.31.0
-      base64js: 1.0.1
-      cosmjs-types: 0.8.0
-      long: 5.2.0
-      osmojs: 15.2.1
-      protobufjs: 7.2.3
-      stridejs: 0.6.2
-    dev: false
-
   /@leapwallet/capsule-web-sdk-lite@0.29.1(@types/react@18.2.21)(fp-ts@2.16.5)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(zod@3.20.6):
     resolution: {integrity: sha512-yFLJ2rLy/g77uBuUC3Emqq54vSup5jVsCbS/4oez/kMKNf3h6uOfgWD803ghhen9Hg/LwTxw0v2X9kRK+QHOlw==}
     dependencies:
@@ -7193,77 +7163,7 @@ packages:
       - zod
     dev: false
 
-  /@leapwallet/cosmos-social-login-capsule-provider-ui@0.0.47(@cosmjs/proto-signing@0.31.0)(@types/node@18.17.15)(@types/react@18.2.21)(fp-ts@2.16.5)(framer-motion@10.16.4)(osmojs@15.2.1)(protobufjs@7.2.3)(react-dom@18.2.0)(stridejs@0.6.2)(zod@3.20.6):
-    resolution: {integrity: sha512-DQAi7BkWN/HIEwdJYqmYkLzmH7OjdxScu3UmsxucgKM6JuG4keuof55xFvaFaJfp2CkjfqY3bV2xlP1IGvE2lg==}
-    dependencies:
-      '@chakra-ui/react': 2.8.1(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.21)(framer-motion@10.16.4)(react-dom@18.2.0)(react@18.2.0)
-      '@cosmjs/amino': 0.31.3
-      '@emotion/react': 11.11.1(@types/react@18.2.21)(react@18.2.0)
-      '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.21)(react@18.2.0)
-      '@heroicons/react': 2.1.3(react@18.2.0)
-      '@leapwallet/buffer-boba': 0.1.6(@cosmjs/proto-signing@0.31.0)(osmojs@15.2.1)(protobufjs@7.2.3)(stridejs@0.6.2)
-      '@leapwallet/capsule-web-sdk-lite': 0.29.1(@types/react@18.2.21)(fp-ts@2.16.5)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(zod@3.20.6)
-      '@leapwallet/cosmos-social-login-core': 0.0.1
-      '@leapwallet/parser-parfait': 0.7.0(zod@3.20.6)
-      '@vanilla-extract/css': 1.14.2
-      axios: 1.6.8
-      bignumber.js: 9.1.2
-      classnames: 2.5.1
-      currency.js: 2.0.4
-      date-fns: 2.30.0
-      lerna: 7.4.2
-      long: 5.2.3
-      lottie-react: 2.4.0(react-dom@18.2.0)(react@18.2.0)
-      qr-code-styling: 1.6.0-rc.1
-      react: 18.2.0
-      react-loading-skeleton: 3.4.0(react@18.2.0)
-      swr: 2.2.5(react@18.2.0)
-      typescript: 5.2.2
-      vite: 5.2.7(@types/node@18.17.15)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@cosmjs/proto-signing'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@types/node'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bluebird
-      - bufferutil
-      - debug
-      - encoding
-      - fp-ts
-      - framer-motion
-      - immer
-      - ioredis
-      - less
-      - lightningcss
-      - osmojs
-      - protobufjs
-      - react-dom
-      - react-native
-      - sass
-      - stridejs
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - uWebSockets.js
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@leapwallet/cosmos-social-login-capsule-provider@0.0.30(@types/react@18.2.21)(fp-ts@2.16.5)(react-dom@18.2.0)(react@18.2.0)(zod@3.20.6):
+  /@leapwallet/cosmos-social-login-capsule-provider@0.0.30(@types/react@18.2.21)(fp-ts@2.16.5)(react@18.2.0):
     resolution: {integrity: sha512-hIkR8WCGH/Lmb5pBi6IYZXj4MCnHGAgZnzVuSAXCz9A0CPFk/LKHcHXgTC2KcAs3wM1B+C1e2JkpoergGTqwbQ==}
     dependencies:
       '@cosmjs/amino': 0.31.3
@@ -8077,7 +7977,7 @@ packages:
       '@octokit/request-error': 3.0.3
       '@octokit/types': 9.3.2
       is-plain-object: 5.0.0
-      node-fetch: 2.6.11
+      node-fetch: 2.7.0
       universal-user-agent: 6.0.1
     transitivePeerDependencies:
       - encoding
@@ -8653,10 +8553,6 @@ packages:
       - supports-color
     dev: false
 
-  /@sinclair/typebox@0.25.24:
-    resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
-    dev: false
-
   /@sinclair/typebox@0.27.8:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: false
@@ -9168,12 +9064,12 @@ packages:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
       '@types/eslint': 8.40.0
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.5
 
   /@types/eslint@8.40.0:
     resolution: {integrity: sha512-nbq2mvc/tBrK9zQQuItvjJl++GTN5j06DaPtp3hZCpngmG6Q3xoyEmd0TwZI0gAy/G1X0zhGBbr2imsGFdFV0g==}
     dependencies:
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.5
       '@types/json-schema': 7.0.11
 
   /@types/estree@1.0.1:
@@ -9181,7 +9077,6 @@ packages:
 
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
-    dev: false
 
   /@types/ethereumjs-util@5.2.0:
     resolution: {integrity: sha512-qwQgQqXXTRv2h2AlJef+tMEszLFkCB9dWnrJYIdAwqjubERXEc/geB+S3apRw0yQyTVnsBf8r6BhlrE8vx+3WQ==}
@@ -11659,6 +11554,7 @@ packages:
   /cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
+    dev: true
 
   /cacache@16.1.3:
     resolution: {integrity: sha512-/+Emcj9DAXxX4cwlLmRI9c166RuL3w30zp4R7Joiv2cQTtTtA+jeuCAjH3ZlGnYS3tKENSrKhAzVVP9GVyzeYQ==}
@@ -12500,7 +12396,7 @@ packages:
   /cross-fetch@3.1.6:
     resolution: {integrity: sha512-riRvo06crlE8HiqOwIpQhxwdOk4fOeR7FVM/wXoxchFEqMNUjvbs3bfo4OTgMEMHzppd4DxFBDbyySj8Cv781g==}
     dependencies:
-      node-fetch: 2.6.11
+      node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -15293,7 +15189,7 @@ packages:
   /history@4.10.1:
     resolution: {integrity: sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.24.1
       loose-envify: 1.4.0
       resolve-pathname: 3.0.0
       tiny-invariant: 1.3.1
@@ -16153,7 +16049,7 @@ packages:
   /isomorphic-unfetch@3.1.0:
     resolution: {integrity: sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==}
     dependencies:
-      node-fetch: 2.6.11
+      node-fetch: 2.7.0
       unfetch: 4.2.0
     transitivePeerDependencies:
       - encoding
@@ -17070,7 +16966,7 @@ packages:
   /media-query-parser@2.0.2:
     resolution: {integrity: sha512-1N4qp+jE0pL5Xv4uEcwVUhIkwdUO3S/9gML90nqKA7v7FcOS5vUtatfzok9S9U1EJU8dHWlcv95WLnKmmxZI9w==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.24.1
     dev: false
 
   /media-typer@0.3.0:
@@ -17536,18 +17432,6 @@ packages:
 
   /node-fetch-native@1.6.4:
     resolution: {integrity: sha512-IhOigYzAKHd244OC0JIMIUrjzctirCmPkaIfhDeGcEETWof5zKYUW7e7MYvChGWh/4CJeXEgsRyGzuF334rOOQ==}
-    dev: false
-
-  /node-fetch@2.6.11:
-    resolution: {integrity: sha512-4I6pdBY1EthSqDmJkiNk3JIT8cswwR9nfeW/cPdUagJYEQG7R95WRH74wpz7ma8Gh/9dI9FP+OU+0E4FvtA55w==}
-    engines: {node: 4.x || >=6.0.0}
-    peerDependencies:
-      encoding: ^0.1.0
-    peerDependenciesMeta:
-      encoding:
-        optional: true
-    dependencies:
-      whatwg-url: 5.0.0
     dev: false
 
   /node-fetch@2.6.7:
@@ -18319,7 +18203,7 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
     dependencies:
-      '@babel/code-frame': 7.22.5
+      '@babel/code-frame': 7.22.13
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
@@ -19307,9 +19191,9 @@ packages:
     engines: {node: ^10 || ^12 || >=14}
     requiresBuild: true
     dependencies:
-      nanoid: 3.3.6
+      nanoid: 3.3.7
       picocolors: 1.0.0
-      source-map-js: 1.0.2
+      source-map-js: 1.2.0
     dev: false
 
   /postcss@8.4.29:
@@ -19689,7 +19573,7 @@ packages:
     peerDependencies:
       react: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.24.1
       react: 18.2.0
     dev: false
 
@@ -19830,7 +19714,7 @@ packages:
       react-loadable: '*'
       webpack: '>=4.41.1 || 5.x'
     dependencies:
-      '@babel/runtime': 7.22.3
+      '@babel/runtime': 7.24.1
       react-loadable: /@docusaurus/react-loadable@5.5.2(react@17.0.2)
       webpack: 5.83.1(esbuild@0.18.4)
     dev: false
@@ -19889,7 +19773,7 @@ packages:
       react: '>=15'
       react-router: '>=5'
     dependencies:
-      '@babel/runtime': 7.22.3
+      '@babel/runtime': 7.24.1
       react: 17.0.2
       react-router: 5.3.4(react@17.0.2)
     dev: false
@@ -19899,7 +19783,7 @@ packages:
     peerDependencies:
       react: '>=15'
     dependencies:
-      '@babel/runtime': 7.22.3
+      '@babel/runtime': 7.24.1
       history: 4.10.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -19914,7 +19798,7 @@ packages:
     peerDependencies:
       react: '>=15'
     dependencies:
-      '@babel/runtime': 7.22.3
+      '@babel/runtime': 7.24.1
       history: 4.10.1
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
@@ -19949,7 +19833,7 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.22.3
+      '@babel/runtime': 7.24.1
       react: 17.0.2
       use-composed-ref: 1.3.0(react@17.0.2)
       use-latest: 1.2.1(react@17.0.2)
@@ -20134,7 +20018,7 @@ packages:
   /regenerator-transform@0.15.1:
     resolution: {integrity: sha512-knzmNAcuyxV+gQCufkYcvOqX/qIIfHLv0u5x79kRxuGojfYVky1f15TzZEu2Avte8QGepvUNTnLskf8E6X6Vyg==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.24.1
     dev: false
 
   /regexp-tree@0.1.27:
@@ -20491,7 +20375,7 @@ packages:
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
     dev: false
 
   /safe-array-concat@1.0.1:
