@@ -3,6 +3,7 @@ import { grazSessionDefaultValues, useGrazInternalStore, useGrazSessionStore } f
 import type { Wallet } from "../../types/wallet";
 import { WALLET_TYPES, WalletType } from "../../types/wallet";
 import { getCapsule } from "./capsule";
+import { getCosmiframe } from "./cosmiframe";
 import { getMetamaskSnapCosmos } from "./cosmos-metamask-snap";
 import { getCosmostation } from "./cosmostation";
 import { getKeplr } from "./keplr";
@@ -92,6 +93,9 @@ export const getWallet = (type: WalletType = useGrazInternalStore.getState().wal
       }
       case WalletType.CAPSULE: {
         return getCapsule();
+      }
+      case WalletType.COSMIFRAME: {
+        return getCosmiframe();
       }
       default: {
         throw new Error("Unknown wallet type");
