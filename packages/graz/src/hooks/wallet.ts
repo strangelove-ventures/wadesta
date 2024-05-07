@@ -30,6 +30,7 @@ export const useActiveWalletType = () => {
       isMetamaskSnapLeap: x.walletType === WalletType.METAMASK_SNAP_LEAP,
       isStation: x.walletType === WalletType.STATION,
       isCapsule: x.walletType === WalletType.CAPSULE,
+      isCosmiframe: x.walletType === WalletType.COSMIFRAME,
     }),
     shallow,
   );

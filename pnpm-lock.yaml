@@ -212,6 +212,9 @@ importers:
 
   packages/graz:
     dependencies:
+      '@cosmjs/amino':
+        specifier: '*'
+        version: 0.31.3
       '@cosmjs/cosmwasm-stargate':
         specifier: '*'
         version: 0.31.0
@@ -230,6 +233,9 @@ importers:
       '@cosmsnap/snapper':
         specifier: ^0.1.29
         version: 0.1.29
+      '@dao-dao/cosmiframe':
+        specifier: ^0.0.4
+        version: 0.0.4(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0)
       '@keplr-wallet/cosmos':
         specifier: ^0.12.20
         version: 0.12.20
@@ -4497,7 +4503,7 @@ packages:
   /@cosmjs/cosmwasm-stargate@0.31.0:
     resolution: {integrity: sha512-l6aX++3LhaAGZO46qIgrrNF40lYhOrdPfl35Z32ks6Wf3mwgbQEZwaxnoGzwUePY7/yaIiEFJ1JO6MlVPZVuag==}
     dependencies:
-      '@cosmjs/amino': 0.31.0
+      '@cosmjs/amino': 0.31.3
       '@cosmjs/crypto': 0.31.0
       '@cosmjs/encoding': 0.31.0
       '@cosmjs/math': 0.31.0
@@ -4754,7 +4760,7 @@ packages:
   /@cosmjs/proto-signing@0.31.0:
     resolution: {integrity: sha512-JNlyOJRkn8EKB9mCthkjr6lVX6eyVQ09PFdmB4/DR874E62dFTvQ+YvyKMAgN7K7Dcjj26dVlAD3f6Xs7YOGDg==}
     dependencies:
-      '@cosmjs/amino': 0.31.0
+      '@cosmjs/amino': 0.31.3
       '@cosmjs/crypto': 0.31.0
       '@cosmjs/encoding': 0.31.0
       '@cosmjs/math': 0.31.0
@@ -4890,7 +4896,7 @@ packages:
     resolution: {integrity: sha512-GYhk9lzZPj/QmYHC0VV/4AMoRzVcOP+EnB1YZCoWlBdLuVmpBYKRagJqWIrIwdk1E0gF2ZoESd2TYfdh1fqIpg==}
     dependencies:
       '@confio/ics23': 0.6.8
-      '@cosmjs/amino': 0.31.0
+      '@cosmjs/amino': 0.31.3
       '@cosmjs/encoding': 0.31.0
       '@cosmjs/math': 0.31.0
       '@cosmjs/proto-signing': 0.31.0
@@ -5038,6 +5044,17 @@ packages:
       '@keplr-wallet/proto-types': 0.12.12
       '@keplr-wallet/types': 0.12.12
       ses: 0.18.4
+    dev: false
+
+  /@dao-dao/cosmiframe@0.0.4(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0):
+    resolution: {integrity: sha512-EmzhIRsuGBZhDIWsWzvPFHpQRnnBRj3Cprhp5xSL+trnd1ESadCbIF8sobgSUHrifnPPvF9DTIrnm5RIbuBKhg==}
+    peerDependencies:
+      '@cosmjs/amino': '>= ^0.32'
+      '@cosmjs/proto-signing': '>= ^0.32'
+    dependencies:
+      '@cosmjs/amino': 0.31.3
+      '@cosmjs/proto-signing': 0.31.0
+      uuid: 9.0.1
     dev: false
 
   /@discoveryjs/json-ext@0.5.7:
@@ -15429,6 +15446,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: false
@@ -23286,7 +23304,3 @@ packages:
   /zwitch@1.0.5:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

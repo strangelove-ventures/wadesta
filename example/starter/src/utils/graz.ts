@@ -65,4 +65,8 @@ export const listedWallets = {
     name: "Capsule",
     imgSrc: "/assets/wallet-icon-capsule.jpg",
   },
+  [WalletType.COSMIFRAME]: {
+    name: "Cosmiframe",
+    imgSrc: "",
+  },
 };

@@ -19,6 +19,7 @@ export enum WalletType {
   STATION = "station",
   XDEFI = "xdefi",
   CAPSULE = "capsule",
+  COSMIFRAME = "cosmiframe",
 }
 
 export const WALLET_TYPES = [
@@ -35,6 +36,7 @@ export const WALLET_TYPES = [
   WalletType.XDEFI,
   WalletType.CAPSULE,
   WalletType.METAMASK_SNAP_COSMOS,
+  WalletType.COSMIFRAME,
 ];
 
 export type Wallet = Pick<

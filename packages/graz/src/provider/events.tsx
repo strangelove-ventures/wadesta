@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { reconnect } from "../actions/account";
 import { checkWallet } from "../actions/wallet";
+import { getCosmiframe } from "../actions/wallet/cosmiframe";
 import { getCosmostation } from "../actions/wallet/cosmostation";
 import { getKeplr } from "../actions/wallet/keplr";
 import { getLeap } from "../actions/wallet/leap";
@@ -84,6 +85,11 @@ export const useGrazEvents = () => {
       }
       if (_reconnectConnector === WalletType.XDEFI) {
         getXDefi().subscription?.(() => {
+          void reconnect({ onError: _onReconnectFailed });
+        });
+      }
+      if (_reconnectConnector === WalletType.COSMIFRAME) {
+        getCosmiframe().subscription?.(() => {
           void reconnect({ onError: _onReconnectFailed });
         });
       }
