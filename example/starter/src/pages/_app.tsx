@@ -38,6 +38,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             preferNoSetFee: true,
           },
         },
+        allowedIframeParentOrigins: ["https://daodao.zone", "https://dao.daodao.zone"],
       }}
     >
       <ChakraProvider resetCSS theme={theme}>

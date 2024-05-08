@@ -22,10 +22,18 @@ export interface ConfigureGrazArgs {
    * Defaults to 3.
    */
   multiChainFetchConcurrency?: number;
+  /**
+   * Origins to allow wrapping this app in an iframe and connecting to this
+   * Graz instance.
+   *
+   * Defaults to none, which disables the iframe wallet.
+   */
+  allowedIframeParentOrigins?: string[];
 }
 
 export const configureGraz = (args: ConfigureGrazArgs): ConfigureGrazArgs => {
   useGrazInternalStore.setState((prev) => ({
+    allowedIframeParentOrigins: args.allowedIframeParentOrigins || prev.allowedIframeParentOrigins,
     walletConnect: args.walletConnect || prev.walletConnect,
     walletType: args.defaultWallet || prev.walletType,
     capsuleConfig: args.capsuleConfig || prev.capsuleConfig,

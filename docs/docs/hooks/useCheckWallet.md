@@ -25,7 +25,7 @@ const { data: isKeplrSupported } = useCheckWallet(WalletType.KEPLR);
     WC_LEAP_MOBILE = "wc_leap_mobile",
     WC_COSMOSTATION_MOBILE = "wc_cosmostation_mobile",
     METAMASK_SNAP_LEAP = "metamask_snap_leap",
-    DAO_DAO = "dao_dao",
+    COSMIFRAME = "cosmiframe",
   }
   ```
 
@@ -42,7 +42,7 @@ const { data: isKeplrSupported } = useCheckWallet(WalletType.KEPLR);
     WalletTyoe.WC_LEAP_MOBILE,
     WalletTyoe.WC_COSMOSTATION_MOBILE,
     WalletTyoe.METAMASK_SNAP_LEAP,
-    WalletType.DAO_DAO,
+    WalletType.COSMIFRAME,
   }
   ```
 

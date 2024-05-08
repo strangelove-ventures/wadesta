@@ -9,7 +9,7 @@ import type { Wallet } from "../../types/wallet";
  * @example
  * ```ts
  * try {
- *   const daoDao = getDaoDao();
+ *   const cosmiframe = getCosmiframe();
  * } catch (error: Error) {
  *   console.error(error.message);
  * }
@@ -17,13 +17,20 @@ import type { Wallet } from "../../types/wallet";
  *
  *
  */
-export const getDaoDao = (): Wallet => {
+export const getCosmiframe = (): Wallet => {
+  const state = useGrazInternalStore.getState();
+
   if (!isInIframe()) {
-    useGrazInternalStore.getState()._notFoundFn();
+    state._notFoundFn();
     throw new Error("not in iframe");
   }
 
-  const keplr = new Cosmiframe(["https://daodao.zone", "https://dao.daodao.zone"]).getKeplrClient();
+  if (!state.allowedIframeParentOrigins?.length) {
+    state._notFoundFn();
+    throw new Error("no iframe allowed origins");
+  }
+
+  const keplr = new Cosmiframe(state.allowedIframeParentOrigins).getKeplrClient();
 
   return {
     enable: keplr.enable.bind(keplr),

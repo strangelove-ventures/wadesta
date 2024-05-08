@@ -19,8 +19,7 @@ export enum WalletType {
   STATION = "station",
   XDEFI = "xdefi",
   CAPSULE = "capsule",
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  DAO_DAO = "dao_dao",
+  COSMIFRAME = "cosmiframe",
 }
 
 export const WALLET_TYPES = [
@@ -37,7 +36,7 @@ export const WALLET_TYPES = [
   WalletType.XDEFI,
   WalletType.CAPSULE,
   WalletType.METAMASK_SNAP_COSMOS,
-  WalletType.DAO_DAO,
+  WalletType.COSMIFRAME,
 ];
 
 export type Wallet = Pick<

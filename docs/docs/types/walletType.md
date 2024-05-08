@@ -49,6 +49,6 @@ enum WalletType {
   STATION = "station",
   XDEFI = "xdefi",
   CAPSULE = "capsule",
-  DAO_DAO = "dao_dao",
+  COSMIFRAME = "cosmiframe",
 }
 ```
