@@ -33,6 +33,13 @@ export interface CapsuleState {
   chainId?: string[];
 }
 export interface GrazInternalStore {
+  /**
+   * Origins to allow wrapping this app in an iframe and connecting to this
+   * Graz instance.
+   *
+   * Defaults to none, which disables the iframe wallet.
+   */
+  allowedIframeParentOrigins: string[] | null;
   recentChainIds: string[] | null;
   capsuleConfig: CapsuleConfig | null;
   capsuleState: CapsuleState | null;
@@ -68,6 +75,7 @@ export type GrazInternalPersistedStore = Pick<
 >;
 
 export const grazInternalDefaultValues: GrazInternalStore = {
+  allowedIframeParentOrigins: null,
   recentChainIds: null,
   chains: null,
   chainsConfig: null,

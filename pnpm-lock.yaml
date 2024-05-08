@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -234,8 +238,8 @@ importers:
         specifier: ^0.1.29
         version: 0.1.29
       '@dao-dao/cosmiframe':
-        specifier: ^0.0.4
-        version: 0.0.4(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0)
+        specifier: ^0.1.0
+        version: 0.1.0(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0)
       '@keplr-wallet/cosmos':
         specifier: ^0.12.20
         version: 0.12.20
@@ -5046,8 +5050,8 @@ packages:
       ses: 0.18.4
     dev: false
 
-  /@dao-dao/cosmiframe@0.0.4(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0):
-    resolution: {integrity: sha512-EmzhIRsuGBZhDIWsWzvPFHpQRnnBRj3Cprhp5xSL+trnd1ESadCbIF8sobgSUHrifnPPvF9DTIrnm5RIbuBKhg==}
+  /@dao-dao/cosmiframe@0.1.0(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0):
+    resolution: {integrity: sha512-NW4pGt1ctqDfhn/A6RU2vwnFEu3O4aBNnBMrGnw31n+L35drYNEsA9ZB7KZsHmRRlkNx+jSuJSv2Fv0BFBDDJQ==}
     peerDependencies:
       '@cosmjs/amino': '>= ^0.32'
       '@cosmjs/proto-signing': '>= ^0.32'

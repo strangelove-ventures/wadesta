@@ -85,9 +85,7 @@ export const ConnectButton: FC = () => {
               <Button onClick={() => handleConnect(WalletType.METAMASK_SNAP_COSMOS)}>Metamask Snap Cosmos</Button>
             ) : null}
             {wallets.capsule ? <Button onClick={() => handleConnect(WalletType.CAPSULE)}>Capsule</Button> : null}
-            {wallets.cosmiframe ? (
-              <Button onClick={() => handleConnect(WalletType.COSMIFRAME)}>Cosmiframe</Button>
-            ) : null}
+            {wallets.cosmiframe ? <Button onClick={() => handleConnect(WalletType.COSMIFRAME)}>DAO DAO</Button> : null}
           </Stack>
         </ModalContent>
       </Modal>
