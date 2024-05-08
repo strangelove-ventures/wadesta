@@ -3,8 +3,8 @@ import { useEffect } from "react";
 
 import { reconnect } from "../actions/account";
 import { checkWallet } from "../actions/wallet";
-import { getCosmiframe } from "../actions/wallet/cosmiframe";
 import { getCosmostation } from "../actions/wallet/cosmostation";
+import { getDaoDao } from "../actions/wallet/daoDao";
 import { getKeplr } from "../actions/wallet/keplr";
 import { getLeap } from "../actions/wallet/leap";
 import { getStation } from "../actions/wallet/station";
@@ -88,8 +88,8 @@ export const useGrazEvents = () => {
           void reconnect({ onError: _onReconnectFailed });
         });
       }
-      if (_reconnectConnector === WalletType.COSMIFRAME) {
-        getCosmiframe().subscription?.(() => {
+      if (_reconnectConnector === WalletType.DAO_DAO) {
+        getDaoDao().subscription?.(() => {
           void reconnect({ onError: _onReconnectFailed });
         });
       }
