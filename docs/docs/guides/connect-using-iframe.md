@@ -10,7 +10,7 @@ Graz using [cosmiframe](https://github.com/DA0-DA0/cosmiframe) for establishing 
 
 It is very important to trust the outer app, since supporting this functionality opens up the possibility for the outer app to manipulate messages before asking the user to sign them.
 
-Cosmiframe enforces security by requiring you to specify allowed origins in the constructor on client instantiation. Not recommended but you can pass '\*' in the param to make it allow all domains.
+Cosmiframe enforces security by requiring you to specify allowed origins in the constructor on client instantiation.
 
 ```tsx
 <GrazProvider
