@@ -1,6 +1,6 @@
 import type { ChainInfo } from "@keplr-wallet/types";
 
-import type { CapsuleConfig, ChainConfig, GrazInternalStore } from "../store";
+import type { CapsuleConfig, ChainConfig, GrazInternalStore, IframeOptions } from "../store";
 import { useGrazInternalStore } from "../store";
 import type { WalletType } from "../types/wallet";
 
@@ -23,17 +23,14 @@ export interface ConfigureGrazArgs {
    */
   multiChainFetchConcurrency?: number;
   /**
-   * Origins to allow wrapping this app in an iframe and connecting to this
-   * Graz instance.
-   *
-   * Defaults to none, which disables the iframe wallet.
+   * Options to enable iframe wallet connection.
    */
-  allowedIframeParentOrigins?: string[];
+  iframeOptions?: IframeOptions;
 }
 
 export const configureGraz = (args: ConfigureGrazArgs): ConfigureGrazArgs => {
   useGrazInternalStore.setState((prev) => ({
-    allowedIframeParentOrigins: args.allowedIframeParentOrigins || prev.allowedIframeParentOrigins,
+    iframeOptions: args.iframeOptions || prev.iframeOptions,
     walletConnect: args.walletConnect || prev.walletConnect,
     walletType: args.defaultWallet || prev.walletType,
     capsuleConfig: args.capsuleConfig || prev.capsuleConfig,

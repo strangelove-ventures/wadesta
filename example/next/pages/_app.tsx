@@ -25,7 +25,9 @@ const CustomApp: NextPage<AppProps> = ({ Component, pageProps }) => {
             apiKey: process.env.NEXT_PUBLIC_CAPSULE_API_KEY,
             env: process.env.NEXT_PUBLIC_CAPSULE_ENV,
           },
-          allowedIframeParentOrigins: ["https://daodao.zone", "https://dao.daodao.zone"],
+          iframeOptions: {
+            allowedIframeParentOrigins: ["https://daodao.zone", "https://dao.daodao.zone", "http://localhost:3000"],
+          },
         }}
       >
         <Component {...pageProps} />
