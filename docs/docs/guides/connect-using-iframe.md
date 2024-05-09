@@ -1,4 +1,4 @@
-# Connect wallet
+# Connect wallet through iframe
 
 You can connect to a specific wallet by using the `useConnect` hook. You can connect to a specific wallet by passing the `walletType` parameter to the `connect` function.
 
