@@ -32,21 +32,10 @@ export const useGrazEvents = () => {
   useEffect(() => {
     if (
       !iframeOptions ||
-      iframeOptions.autoConnect === null ||
+      iframeOptions.autoConnect === false ||
       !iframeOptions.allowedIframeParentOrigins.length ||
       !chains
     ) {
-      return;
-    }
-
-    const autoConnectChains = [iframeOptions.autoConnect || []].flat();
-    // Select auto-connect chains from provided chains.
-    const chainIds = autoConnectChains.length
-      ? chains.flatMap((c) => (autoConnectChains.includes(c.chainId) ? c.chainId : []))
-      : // If no auto-connect chains, attempt connection to all provided.
-        chains.map((c) => c.chainId);
-
-    if (!chainIds.length) {
       return;
     }
 
@@ -54,7 +43,7 @@ export const useGrazEvents = () => {
     void cosmiframe.isReady().then((ready) => {
       if (ready) {
         return connect({
-          chainId: chainIds,
+          chainId: chains.map((c) => c.chainId),
           walletType: WalletType.COSMIFRAME,
         });
       }

@@ -70,7 +70,7 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
     iframeOptions?: {
       // for integrating using WalletType.COSMIFRAME
       allowedIframeParentOrigins: string[]
-      autoConnect?: string | string[] | null
+      autoConnect?: boolean
     }
   }
 ```

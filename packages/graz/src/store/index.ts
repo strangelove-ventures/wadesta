@@ -9,7 +9,6 @@ import { persist, subscribeWithSelector } from "zustand/middleware";
 
 import type { Dictionary } from "../types/core";
 import { WalletType } from "../types/wallet";
-import type { ChainId } from "../utils/multi-chain";
 
 export interface ChainConfig {
   path?: string;
@@ -41,11 +40,12 @@ export interface IframeOptions {
    */
   allowedIframeParentOrigins: string[];
   /**
-   * The chain or chains to auto connect to when it detects that we're in an
-   * iframe running Cosmiframe. Set to null to disable autoconnect. By default
-   * it will use the first chain in the provided chains list.
+   * Whether or not to auto connect when in an iframe running Cosmiframe. This
+   * will attempt to connect to all chains provided to GrazProvider.
+   *
+   * Defaults to true.
    */
-  autoConnect?: ChainId | null;
+  autoConnect?: boolean;
 }
 
 export interface GrazInternalStore {
