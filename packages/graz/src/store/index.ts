@@ -32,19 +32,29 @@ export interface CapsuleState {
   showModal: boolean;
   chainId?: string[];
 }
-export interface GrazInternalStore {
+
+export interface IframeOptions {
   /**
-   * Origins to allow wrapping this app in an iframe and connecting to this
-   * Graz instance.
-   *
-   * Defaults to none, which disables the iframe wallet.
+   * Origins to allow wrapping this app in an iframe and connecting to this Graz
+   * instance.
    */
-  allowedIframeParentOrigins: string[] | null;
+  allowedIframeParentOrigins: string[];
+  /**
+   * Whether or not to auto connect when in an iframe running Cosmiframe. This
+   * will attempt to connect to all chains provided to GrazProvider.
+   *
+   * Defaults to true.
+   */
+  autoConnect?: boolean;
+}
+
+export interface GrazInternalStore {
   recentChainIds: string[] | null;
   capsuleConfig: CapsuleConfig | null;
   capsuleState: CapsuleState | null;
   chains: ChainInfo[] | null;
   chainsConfig: Record<string, ChainConfig> | null;
+  iframeOptions: IframeOptions | null;
   /**
    * Graz will use this number to determine how many concurrent requests to make when using `multiChain` args in hooks.
    * Defaults to 3.
@@ -75,7 +85,7 @@ export type GrazInternalPersistedStore = Pick<
 >;
 
 export const grazInternalDefaultValues: GrazInternalStore = {
-  allowedIframeParentOrigins: null,
+  iframeOptions: null,
   recentChainIds: null,
   chains: null,
   chainsConfig: null,

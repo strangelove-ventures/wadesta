@@ -14,7 +14,9 @@ Cosmiframe enforces security by requiring you to specify allowed origins in the 
 <GrazProvider
   grazOptions={{
     chains,
-    allowedIframeParentOrigins: ["https://daodao.zone", "https://dao.daodao.zone"],
+    iframeOptions: {
+      allowedIframeParentOrigins: ["https://daodao.zone", "https://dao.daodao.zone"],
+    },
   }}
 >
   <Component {...pageProps} />

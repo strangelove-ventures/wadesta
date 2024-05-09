@@ -20,17 +20,22 @@ import type { Wallet } from "../../types/wallet";
 export const getCosmiframe = (): Wallet => {
   const state = useGrazInternalStore.getState();
 
+  if (!state.iframeOptions) {
+    state._notFoundFn();
+    throw new Error("no iframe options set");
+  }
+
   if (!isInIframe()) {
     state._notFoundFn();
     throw new Error("not in iframe");
   }
 
-  if (!state.allowedIframeParentOrigins?.length) {
+  if (!state.iframeOptions.allowedIframeParentOrigins.length) {
     state._notFoundFn();
     throw new Error("no iframe allowed origins");
   }
 
-  const keplr = new Cosmiframe(state.allowedIframeParentOrigins).getKeplrClient();
+  const keplr = new Cosmiframe(state.iframeOptions.allowedIframeParentOrigins).getKeplrClient();
 
   return {
     enable: keplr.enable.bind(keplr),

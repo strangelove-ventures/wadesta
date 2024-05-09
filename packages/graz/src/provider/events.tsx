@@ -1,7 +1,8 @@
+import { Cosmiframe } from "@dao-dao/cosmiframe";
 import type { FC } from "react";
 import { useEffect } from "react";
 
-import { reconnect } from "../actions/account";
+import { connect, reconnect } from "../actions/account";
 import { checkWallet } from "../actions/wallet";
 import { getCosmiframe } from "../actions/wallet/cosmiframe";
 import { getCosmostation } from "../actions/wallet/cosmostation";
@@ -23,9 +24,33 @@ import { WalletType } from "../types/wallet";
 export const useGrazEvents = () => {
   const isSessionActive =
     typeof window !== "undefined" && window.sessionStorage.getItem(RECONNECT_SESSION_KEY) === "Active";
-  const { _reconnect, _onReconnectFailed, _reconnectConnector } = useGrazInternalStore();
+  const { _reconnect, _onReconnectFailed, _reconnectConnector, iframeOptions, chains } = useGrazInternalStore();
   const { activeChainIds: activeChains, wcSignClients } = useGrazSessionStore();
   const isReconnectConnectorReady = checkWallet(_reconnectConnector || undefined);
+
+  // Auto connect to iframe if possible.
+  useEffect(() => {
+    if (
+      !iframeOptions ||
+      iframeOptions.autoConnect === false ||
+      !iframeOptions.allowedIframeParentOrigins.length ||
+      !chains
+    ) {
+      return;
+    }
+
+    const cosmiframe = new Cosmiframe(iframeOptions.allowedIframeParentOrigins);
+    void cosmiframe.isReady().then((ready) => {
+      if (ready) {
+        return connect({
+          chainId: chains.map((c) => c.chainId),
+          walletType: WalletType.COSMIFRAME,
+        });
+      }
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [iframeOptions]);
 
   useEffect(() => {
     // will reconnect on refresh
