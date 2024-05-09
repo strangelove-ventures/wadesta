@@ -67,6 +67,7 @@ export default function CustomApp({ Component, pageProps }: AppProps) {
     onReconnectFailed?: () => void;
     walletConnect?: WalletConnectStore | null;
     multiChainFetchConcurrency?: number // when using multi chain hooks it fetch 3 function simultaneously. defaults to 3.
+    allowedIframeParentOrigins?: string[] // for integrating using WalletType.COSMIFRAME
   }
 ```
 
