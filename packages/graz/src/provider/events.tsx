@@ -39,11 +39,22 @@ export const useGrazEvents = () => {
       return;
     }
 
+    const autoConnectChains = [iframeOptions.autoConnect || []].flat();
+    // Select auto-connect chains from provided chains.
+    const chainIds = autoConnectChains.length
+      ? chains.flatMap((c) => (autoConnectChains.includes(c.chainId) ? c.chainId : []))
+      : // If no auto-connect chains, attempt connection to all provided.
+        chains.map((c) => c.chainId);
+
+    if (!chainIds.length) {
+      return;
+    }
+
     const cosmiframe = new Cosmiframe(iframeOptions.allowedIframeParentOrigins);
     void cosmiframe.isReady().then((ready) => {
       if (ready) {
         return connect({
-          chainId: iframeOptions.autoConnect || chains[0]?.chainId || [],
+          chainId: chainIds,
           walletType: WalletType.COSMIFRAME,
         });
       }
