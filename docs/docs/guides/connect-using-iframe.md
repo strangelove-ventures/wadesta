@@ -1,8 +1,6 @@
 # Connect wallet through iframe
 
-You can connect to a specific wallet by using the `useConnect` hook. You can connect to a specific wallet by passing the `walletType` parameter to the `connect` function.
-
-Read more about [wallet types](../types/walletType.md).
+First you have to set the allowed origins for the iframe wallet, then you can connect.
 
 ### Pass allowed iframe parent origins to `grazOptions` in `GrazProvider`
 
@@ -46,8 +44,8 @@ const isIframeAvailable = checkWallet(WalletType.COSMIFRAME);
 
 return (
   <>
-    {isKeplrSupported && (
-      <button onClick={() => connect({ chainId: "cosmoshub-4", walletType: WalletType.KEPLR })}>Connect</button>
+    {isIframeAvailable && (
+      <button onClick={() => connect({ chainId: "cosmoshub-4", walletType: WalletType.COSMIFRAME })}>Connect</button>
     )}
   </>
 );
