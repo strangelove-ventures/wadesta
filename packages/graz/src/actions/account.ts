@@ -1,4 +1,3 @@
-import { fromBech32, toBech32 } from "@cosmjs/encoding";
 import type { OfflineDirectSigner } from "@cosmjs/proto-signing";
 import type { ChainInfo, Key, OfflineAminoSigner } from "@keplr-wallet/types";
 
@@ -67,17 +66,11 @@ export const connect = async (args?: ConnectArgs): Promise<ConnectResult> => {
       const _resAcc = useGrazSessionStore.getState().accounts;
       useGrazSessionStore.setState({ status: "connecting" });
 
-      const key = await wallet.getKey(chainIds[0]!);
-      const resultAcccounts: Record<string, Key> = {};
-      chainIds.forEach((chainId) => {
-        resultAcccounts[chainId] = {
-          ...key,
-          bech32Address: toBech32(
-            chains!.find((x) => x.chainId === chainId)!.bech32Config.bech32PrefixAccAddr,
-            fromBech32(key.bech32Address).data,
-          ),
-        };
-      });
+      const resultAcccounts = Object.fromEntries(
+        await Promise.all(
+          chainIds.map(async (chainId): Promise<[string, Key]> => [chainId, await wallet.getKey(chainId)]),
+        ),
+      );
       useGrazSessionStore.setState((prev) => ({
         accounts: { ...(prev.accounts || {}), ...resultAcccounts },
       }));
@@ -105,17 +98,11 @@ export const connect = async (args?: ConnectArgs): Promise<ConnectResult> => {
       return { accounts: _resAcc!, walletType: currentWalletType, chains: connectedChains };
     }
     if (!isWalletConnect(currentWalletType)) {
-      const key = await wallet.getKey(chainIds[0]!);
-      const resultAcccounts: Record<string, Key> = {};
-      chainIds.forEach((chainId) => {
-        resultAcccounts[chainId] = {
-          ...key,
-          bech32Address: toBech32(
-            chains!.find((x) => x.chainId === chainId)!.bech32Config.bech32PrefixAccAddr,
-            fromBech32(key.bech32Address).data,
-          ),
-        };
-      });
+      const resultAcccounts = Object.fromEntries(
+        await Promise.all(
+          chainIds.map(async (chainId): Promise<[string, Key]> => [chainId, await wallet.getKey(chainId)]),
+        ),
+      );
       useGrazSessionStore.setState((prev) => ({
         accounts: { ...(prev.accounts || {}), ...resultAcccounts },
       }));

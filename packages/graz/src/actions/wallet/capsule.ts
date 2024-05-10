@@ -1,5 +1,5 @@
 import type { AminoSignResponse } from "@cosmjs/amino";
-import { fromBech32, toBech32 } from "@cosmjs/encoding";
+import { fromBech32 } from "@cosmjs/encoding";
 import type { DirectSignResponse } from "@cosmjs/proto-signing";
 import type { Keplr, Key } from "@keplr-wallet/types";
 
@@ -40,22 +40,25 @@ export const getCapsule = (): Wallet => {
     await client.enable();
     const chainIds = useGrazInternalStore.getState().capsuleState?.chainId;
     if (!chainIds) throw new Error("Chain ids are not set");
-    const key = await client.getAccount(chainIds[0]!);
-    const resultAcccounts: Record<string, Key> = {};
-    chainIds.forEach((chainId) => {
-      resultAcccounts[chainId] = {
-        address: fromBech32(key.address).data,
-        bech32Address: toBech32(
-          chains.find((x) => x.chainId === chainId)!.bech32Config.bech32PrefixAccAddr,
-          fromBech32(key.address).data,
-        ),
-        algo: key.algo,
-        name: key.username || "",
-        pubKey: key.pubkey,
-        isKeystone: false,
-        isNanoLedger: false,
-      };
-    });
+    const resultAcccounts = Object.fromEntries(
+      await Promise.all(
+        chainIds.map(async (chainId): Promise<[string, Key]> => {
+          const account = await client.getAccount(chainId);
+          return [
+            chainId,
+            {
+              address: fromBech32(account.address).data,
+              bech32Address: account.address,
+              algo: account.algo,
+              name: account.username || "",
+              pubKey: account.pubkey,
+              isKeystone: false,
+              isNanoLedger: false,
+            },
+          ];
+        }),
+      ),
+    );
     useGrazSessionStore.setState((prev) => ({
       accounts: { ...(prev.accounts || {}), ...resultAcccounts },
     }));

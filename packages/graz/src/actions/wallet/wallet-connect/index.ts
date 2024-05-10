@@ -297,17 +297,9 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     try {
       await promiseWithTimeout(
         (async () => {
-          const wcAccount = await getKey(chainId[0]!);
-          const resultAcccounts: Record<string, Key> = {};
-          chainId.forEach((x) => {
-            resultAcccounts[x] = {
-              ...wcAccount,
-              bech32Address: toBech32(
-                chains!.find((y) => y.chainId === x)!.bech32Config.bech32PrefixAccAddr,
-                fromBech32(wcAccount.bech32Address).data,
-              ),
-            };
-          });
+          const resultAcccounts = Object.fromEntries(
+            await Promise.all(chainId.map(async (c): Promise<[string, Key]> => [c, await getKey(c)])),
+          );
           useGrazSessionStore.setState({
             accounts: resultAcccounts,
           });
