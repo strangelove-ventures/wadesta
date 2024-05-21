@@ -160,9 +160,6 @@ export const getCapsule = (): Wallet => {
     signDirect,
     signAmino,
     experimentalSuggestChain,
-    setDefaultOptions: () => {
-      console.log("setDefaultOptions not supported by capsule");
-    },
     // @ts-expect-error - CapsuleAminoSigner | OfflineDirectSigner
     getOfflineSigner,
     getOfflineSignerAmino,

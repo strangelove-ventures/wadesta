@@ -31,9 +31,6 @@ export const getXDefi = (): Wallet => {
     };
     const res = Object.assign(xdefi, {
       subscription,
-      setDefaultOptions: () => {
-        console.log("setDefaultOptions not supported by Vectis");
-      },
     });
 
     return res;

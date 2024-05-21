@@ -489,8 +489,5 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     signDirect,
     subscription,
     init,
-    setDefaultOptions: () => {
-      console.log("setDefaultOptions not supported by WalletConnect");
-    },
   };
 };

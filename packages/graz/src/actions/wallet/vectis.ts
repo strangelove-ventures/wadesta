@@ -89,9 +89,6 @@ export const getVectis = (): Wallet => {
       experimentalSuggestChain,
       signDirect,
       signAmino,
-      setDefaultOptions: () => {
-        console.log("setDefaultOptions not supported by Vectis");
-      },
     };
   }
 
