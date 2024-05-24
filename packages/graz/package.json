@@ -48,7 +48,7 @@
     "@cosmjs/proto-signing": "*",
     "@cosmjs/stargate": "*",
     "@cosmjs/tendermint-rpc": "*",
-    "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.30",
+    "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.33",
     "react": ">=17"
   },
   "dependencies": {

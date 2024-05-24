@@ -1,4 +1,5 @@
 import { Center, HStack, Spacer, Stack, Text, useColorMode } from "@chakra-ui/react";
+import { OAuthMethod } from "@usecapsule/web-sdk";
 import { useAccount, useCapsule } from "graz";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -46,6 +47,13 @@ const HomePage: NextPage = () => {
       </Stack>
       <LeapSocialLogin
         capsule={client?.getClient() || undefined}
+        oAuthMethods={[
+          OAuthMethod.GOOGLE,
+          OAuthMethod.FACEBOOK,
+          OAuthMethod.TWITTER,
+          OAuthMethod.DISCORD,
+          OAuthMethod.APPLE,
+        ]}
         onAfterLoginSuccessful={() => {
           void onAfterLoginSuccessful?.();
         }}

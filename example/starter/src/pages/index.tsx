@@ -1,4 +1,5 @@
 import { Stack, useColorMode } from "@chakra-ui/react";
+import { OAuthMethod } from "@usecapsule/web-sdk";
 import { useCapsule } from "graz";
 import dynamic from "next/dynamic";
 import { Card } from "src/ui/card/chain";
@@ -22,6 +23,13 @@ const HomePage = () => {
       </Stack>
       <LeapSocialLogin
         capsule={client?.getClient() || undefined}
+        oAuthMethods={[
+          OAuthMethod.GOOGLE,
+          OAuthMethod.FACEBOOK,
+          OAuthMethod.TWITTER,
+          OAuthMethod.DISCORD,
+          OAuthMethod.APPLE,
+        ]}
         onAfterLoginSuccessful={() => {
           void onAfterLoginSuccessful?.();
         }}
