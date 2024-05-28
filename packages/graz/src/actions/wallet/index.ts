@@ -15,6 +15,7 @@ import { getWalletConnect } from "./wallet-connect";
 import { getWCCosmostation } from "./wallet-connect/cosmostation";
 import { getWCKeplr } from "./wallet-connect/keplr";
 import { getWCLeap } from "./wallet-connect/leap";
+import { getWCClot } from "./wallet-connect/clot";
 import { getXDefi } from "./xdefi";
 
 /**
@@ -78,6 +79,9 @@ export const getWallet = (type: WalletType = useGrazInternalStore.getState().wal
       }
       case WalletType.WC_COSMOSTATION_MOBILE: {
         return getWCCosmostation();
+      }
+      case WalletType.WC_CLOT_MOBILE: {
+        return getWCClot();
       }
       case WalletType.METAMASK_SNAP_LEAP: {
         return getMetamaskSnapLeap();
