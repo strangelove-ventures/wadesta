@@ -13,6 +13,8 @@ export enum WalletType {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   WC_COSMOSTATION_MOBILE = "wc_cosmostation_mobile",
   // eslint-disable-next-line @typescript-eslint/naming-convention
+  WC_CLOT_MOBILE = "wc_clot_mobile",
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   METAMASK_SNAP_LEAP = "metamask_snap_leap",
   // eslint-disable-next-line @typescript-eslint/naming-convention
   METAMASK_SNAP_COSMOS = "metamask_snap_cosmos",
@@ -31,6 +33,7 @@ export const WALLET_TYPES = [
   WalletType.WC_KEPLR_MOBILE,
   WalletType.WC_LEAP_MOBILE,
   WalletType.WC_COSMOSTATION_MOBILE,
+  WalletType.WC_CLOT_MOBILE,
   WalletType.METAMASK_SNAP_LEAP,
   WalletType.STATION,
   WalletType.XDEFI,
