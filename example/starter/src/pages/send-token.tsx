@@ -37,6 +37,7 @@ const SendToken = () => {
 
     const sendToken = async () => {
       try {
+        if (!signingClient) throw new Error("signingClient is not ready");
         const result = await sendTokensAsync({
           signingClient,
           recipientAddress: formData.recipientAddress,
@@ -56,6 +57,10 @@ const SendToken = () => {
           description: (
             <Box
               as="button"
+              bg="green.700"
+              borderRadius={4}
+              color="white"
+              noOfLines={1}
               onClick={() => {
                 void navigator.clipboard.writeText(result.transactionHash);
                 toast({
@@ -63,13 +68,9 @@ const SendToken = () => {
                   title: "coppied transactionHash to clipboard",
                 });
               }}
-              bg="green.700"
-              py={1}
               px={2}
+              py={1}
               textAlign="left"
-              color="white"
-              borderRadius={4}
-              noOfLines={1}
               wordBreak="break-all"
             >
               Copy transactionHash: {result.transactionHash}
@@ -85,24 +86,24 @@ const SendToken = () => {
   };
 
   return (
-    <Stack w="full" spacing={6}>
+    <Stack spacing={6} w="full">
       <Heading>Send Token</Heading>
       {isConnected ? (
-        <Stack spacing={4} as="form" onSubmit={handleSubmit}>
+        <Stack as="form" onSubmit={handleSubmit} spacing={4}>
           <FormControl isRequired>
             <FormLabel>Coin</FormLabel>
             <Select
-              placeholder="Select option"
               onChange={(event) =>
                 setFormData({
                   ...formData,
                   coin: event.currentTarget.value,
                 })
               }
+              placeholder="Select option"
               value={formData.coin}
             >
               {activeChains?.[0]?.currencies.map((currency) => (
-                <option value={currency.coinMinimalDenom} key={currency.coinMinimalDenom}>
+                <option key={currency.coinMinimalDenom} value={currency.coinMinimalDenom}>
                   {currency.coinMinimalDenom}
                 </option>
               ))}
@@ -110,45 +111,45 @@ const SendToken = () => {
           </FormControl>
           <FormControl>
             <FormLabel>Sender address</FormLabel>
-            <Input type="text" value={accountData?.bech32Address ?? ""} isDisabled />
+            <Input isDisabled type="text" value={accountData?.bech32Address ?? ""} />
           </FormControl>
           <FormControl isRequired>
             <FormLabel>Recipient address</FormLabel>
             <Input
-              type="text"
               onChange={(event) =>
                 setFormData({
                   ...formData,
                   recipientAddress: event.currentTarget.value,
                 })
               }
+              type="text"
             />
           </FormControl>
           <FormControl isRequired>
             <FormLabel>Amount</FormLabel>
             <Input
-              type="text"
               onChange={(event) =>
                 setFormData({
                   ...formData,
                   amount: event.currentTarget.value,
                 })
               }
+              type="text"
             />
           </FormControl>
           <FormControl>
             <FormLabel>Memo</FormLabel>
             <Input
-              type="text"
               onChange={(event) =>
                 setFormData({
                   ...formData,
                   memo: event.currentTarget.value,
                 })
               }
+              type="text"
             />
           </FormControl>
-          <Button width="full" mt={4} type="submit" isLoading={isLoading}>
+          <Button isLoading={isLoading} mt={4} type="submit" width="full">
             Send
           </Button>
         </Stack>
