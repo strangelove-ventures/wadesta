@@ -12,10 +12,10 @@ import { getMetamaskSnapLeap } from "./leap-metamask-snap/leap";
 import { getStation } from "./station";
 import { getVectis } from "./vectis";
 import { getWalletConnect } from "./wallet-connect";
+import { getWCClot } from "./wallet-connect/clot";
 import { getWCCosmostation } from "./wallet-connect/cosmostation";
 import { getWCKeplr } from "./wallet-connect/keplr";
 import { getWCLeap } from "./wallet-connect/leap";
-import { getWCClot } from "./wallet-connect/clot";
 import { getXDefi } from "./xdefi";
 
 /**

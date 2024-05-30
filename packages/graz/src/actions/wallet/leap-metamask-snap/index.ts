@@ -233,6 +233,7 @@ export const getMetamaskSnap = (params?: GetMetamaskSnap): Wallet => {
       };
     };
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     const getOfflineSignerAuto = async (chainId: string) => {
       return getOfflineSignerOnlyAmino(chainId);
     };
