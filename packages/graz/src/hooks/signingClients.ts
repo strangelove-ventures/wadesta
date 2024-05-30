@@ -32,10 +32,10 @@ interface BaseSigningClientArgs extends QueryConfig {
 }
 export function useStargateSigningClient(
   args?: BaseSigningClientArgs & SiginingClientSinglechainArgs<SigningStargateClientOptions>,
-): UseQueryResult<SigningStargateClient | undefined>;
+): UseQueryResult<SigningStargateClient | null>;
 export function useStargateSigningClient(
   args?: BaseSigningClientArgs & SiginingClientMultichainArgs<SigningStargateClientOptions>,
-): UseQueryResult<Record<string, SigningStargateClient | undefined>>;
+): UseQueryResult<Record<string, SigningStargateClient | null>>;
 /**
  * graz query hook to retrieve a SigningStargateClient.
  *
@@ -56,7 +56,7 @@ export function useStargateSigningClient(
 // eslint-disable-next-line prefer-arrow-functions/prefer-arrow-functions
 export function useStargateSigningClient(
   args?: BaseSigningClientArgs & Args<SigningStargateClientOptions>,
-): UseQueryResult<SigningStargateClient | undefined | Record<string, SigningStargateClient | undefined>> {
+): UseQueryResult<SigningStargateClient | null | Record<string, SigningStargateClient | null>> {
   const chains = useChainsFromArgs({ chainId: args?.chainId, multiChain: args?.multiChain });
   const wallet = useGrazInternalStore((x) => x.walletType);
   const activeChainIds = useGrazSessionStore((x) => x.activeChainIds);
@@ -70,7 +70,7 @@ export function useStargateSigningClient(
       if (_chains.length < 1) throw new Error("No chains found");
       const res = await createMultiChainAsyncFunction(Boolean(args?.multiChain), _chains, async (_chain) => {
         // Chain is not connected return undefined
-        if (!activeChainIds?.includes(_chain.chainId)) return undefined;
+        if (!activeChainIds?.includes(_chain.chainId)) return null;
         const isWalletAvailable = checkWallet(_wallet);
         if (!isWalletAvailable) {
           throw new Error(`${_wallet} is not available`);
@@ -112,10 +112,10 @@ export function useStargateSigningClient(
 
 export function useCosmWasmSigningClient(
   args?: BaseSigningClientArgs & SiginingClientSinglechainArgs<SigningCosmWasmClientOptions>,
-): UseQueryResult<SigningCosmWasmClient | undefined>;
+): UseQueryResult<SigningCosmWasmClient | null>;
 export function useCosmWasmSigningClient(
   args?: BaseSigningClientArgs & SiginingClientMultichainArgs<SigningCosmWasmClientOptions>,
-): UseQueryResult<Record<string, SigningCosmWasmClient | undefined>>;
+): UseQueryResult<Record<string, SigningCosmWasmClient | null>>;
 /**
  * graz query hook to retrieve a SigningCosmWasmClient.
  *
@@ -134,7 +134,7 @@ export function useCosmWasmSigningClient(
 // eslint-disable-next-line prefer-arrow-functions/prefer-arrow-functions
 export function useCosmWasmSigningClient(
   args?: BaseSigningClientArgs & Args<SigningStargateClientOptions>,
-): UseQueryResult<SigningCosmWasmClient | undefined | Record<string, SigningCosmWasmClient | undefined>> {
+): UseQueryResult<SigningCosmWasmClient | null | Record<string, SigningCosmWasmClient | null>> {
   const chains = useChainsFromArgs({ chainId: args?.chainId, multiChain: args?.multiChain });
   const wallet = useGrazInternalStore((x) => x.walletType);
   const activeChainIds = useGrazSessionStore((x) => x.activeChainIds);
@@ -149,7 +149,7 @@ export function useCosmWasmSigningClient(
       if (_chains.length < 1) throw new Error("No chains found");
       const res = await createMultiChainAsyncFunction(Boolean(args?.multiChain), _chains, async (_chain) => {
         // Chain is not connected return undefined
-        if (!activeChainIds?.includes(_chain.chainId)) return undefined;
+        if (!activeChainIds?.includes(_chain.chainId)) return null;
         const isWalletAvailable = checkWallet(_wallet);
         if (!isWalletAvailable) {
           throw new Error(`${_wallet} is not available`);
@@ -193,13 +193,13 @@ export function useStargateTmSigningClient(
     type: "tm34" | "tm37";
   } & BaseSigningClientArgs &
     SiginingClientSinglechainArgs<SigningStargateClientOptions>,
-): UseQueryResult<SigningStargateClient | undefined>;
+): UseQueryResult<SigningStargateClient | null>;
 export function useStargateTmSigningClient(
   args: {
     type: "tm34" | "tm37";
   } & BaseSigningClientArgs &
     SiginingClientMultichainArgs<SigningStargateClientOptions>,
-): UseQueryResult<Record<string, SigningStargateClient | undefined>>;
+): UseQueryResult<Record<string, SigningStargateClient | null>>;
 /**
  * graz query hook to retrieve a SigningStargateClient with tendermint client.
  *
@@ -223,7 +223,7 @@ export function useStargateTmSigningClient(
     type: "tm34" | "tm37";
   } & BaseSigningClientArgs &
     Args<SigningStargateClientOptions>,
-): UseQueryResult<SigningStargateClient | undefined | Record<string, SigningStargateClient | undefined>> {
+): UseQueryResult<SigningStargateClient | null | Record<string, SigningStargateClient | null>> {
   const chains = useChainsFromArgs({ chainId: args.chainId, multiChain: args.multiChain });
   const wallet = useGrazInternalStore((x) => x.walletType);
   const activeChainIds = useGrazSessionStore((x) => x.activeChainIds);
@@ -244,7 +244,7 @@ export function useStargateTmSigningClient(
       if (_chains.length < 1) throw new Error("No chains found");
       const res = await createMultiChainAsyncFunction(Boolean(args.multiChain), _chains, async (_chain) => {
         // Chain is not connected return undefined
-        if (!activeChainIds?.includes(_chain.chainId)) return undefined;
+        if (!activeChainIds?.includes(_chain.chainId)) return null;
         const isWalletAvailable = checkWallet(_wallet);
         if (!isWalletAvailable) {
           throw new Error(`${_wallet} is not available`);
@@ -289,13 +289,13 @@ export function useCosmWasmTmSigningClient(
     type: "tm34" | "tm37";
   } & BaseSigningClientArgs &
     SiginingClientSinglechainArgs<SigningCosmWasmClientOptions>,
-): UseQueryResult<SigningCosmWasmClient | undefined>;
+): UseQueryResult<SigningCosmWasmClient | null>;
 export function useCosmWasmTmSigningClient(
   args: {
     type: "tm34" | "tm37";
   } & BaseSigningClientArgs &
     SiginingClientMultichainArgs<SigningCosmWasmClientOptions>,
-): UseQueryResult<Record<string, SigningCosmWasmClient | undefined>>;
+): UseQueryResult<Record<string, SigningCosmWasmClient | null>>;
 /**
  * graz query hook to retrieve a SigningCosmWasmClient with tendermint client.
  *
@@ -319,7 +319,7 @@ export function useCosmWasmTmSigningClient(
     type: "tm34" | "tm37";
   } & BaseSigningClientArgs &
     Args<SigningCosmWasmClientOptions>,
-): UseQueryResult<SigningCosmWasmClient | undefined | Record<string, SigningCosmWasmClient | undefined>> {
+): UseQueryResult<SigningCosmWasmClient | null | Record<string, SigningCosmWasmClient | null>> {
   const chains = useChainsFromArgs({ chainId: args.chainId, multiChain: args.multiChain });
   const wallet = useGrazInternalStore((x) => x.walletType);
   const activeChainIds = useGrazSessionStore((x) => x.activeChainIds);
@@ -348,7 +348,7 @@ export function useCosmWasmTmSigningClient(
       if (_chains.length < 1) throw new Error("No chains found");
       const res = await createMultiChainAsyncFunction(Boolean(args.multiChain), _chains, async (_chain) => {
         // Chain is not connected return undefined
-        if (!activeChainIds?.includes(_chain.chainId)) return undefined;
+        if (!activeChainIds?.includes(_chain.chainId)) return null;
         const isWalletAvailable = checkWallet(_wallet);
         if (!isWalletAvailable) {
           throw new Error(`${_wallet} is not available`);

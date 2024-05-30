@@ -70,4 +70,4 @@ export const AvailableWallets = () => {
   `WalletType.WC_COSMOSTATION_MOBILE`
 - `WalletType.WC_KEPLR_MOBILE` |
   `WalletType.WC_LEAP_MOBILE`|
-  `WalletType.WC_COSMOSTATION_MOBILE` only returns true on mobile, `WalletType.WALLETCONNECT` will shows on anywhere
+  `WalletType.WC_COSMOSTATION_MOBILE` | `WalletType.WC_CLOT_MOBILE` only returns true on mobile, `WalletType.WALLETCONNECT` will shows on anywhere

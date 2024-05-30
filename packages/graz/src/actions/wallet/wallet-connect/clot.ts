@@ -16,6 +16,7 @@ export const getWCClot = (): Wallet => {
     encoding: "base64",
     appUrl: {
       mobile: {
+        android: "clot://",
         ios: "clot://",
       },
     },

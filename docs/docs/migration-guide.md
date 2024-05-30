@@ -4,6 +4,12 @@ sidebar_position: 3
 
 # Migration Guide
 
+## 0.1.18 Breaking Changes
+
+### Signing client hooks
+
+Now siging client hooks not returning `undefined` when the signing client is not available, it will return `null` instead.
+
 ## 0.1.0 Breaking Changes
 
 ### `<GrazProvider/>`
