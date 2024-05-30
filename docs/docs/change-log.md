@@ -4,6 +4,27 @@ sidebar_position: 8
 
 # Changelog
 
+## Version 0.1.18
+
+- Added Wallet connect mobile clot integration
+- Fix signing client hooks client side error
+
+## Version 0.1.16
+
+- Bump capsule deps
+
+## Version 0.1.15
+
+- Fetch all keys from wallet instead of transforming bech32
+
+## Version 0.1.14
+
+- Support iframe autoconnect
+
+## version 0.1.13
+
+- Support iframe connection
+
 ## Version 0.1.9
 
 - graz cli fix null `gasPriceStep`
