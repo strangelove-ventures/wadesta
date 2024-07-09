@@ -15,6 +15,7 @@ import { getXDefi } from "../actions/wallet/xdefi";
 import { RECONNECT_SESSION_KEY } from "../constant";
 import { useGrazInternalStore, useGrazSessionStore } from "../store";
 import { WalletType } from "../types/wallet";
+import { getCompass } from "../actions/wallet/compass";
 
 /**
  * Graz custom hook to track `keplr_keystorechange`, `leap_keystorechange`, `accountChanged` event and reconnect state
@@ -88,6 +89,11 @@ export const useGrazEvents = () => {
       }
       if (_reconnectConnector === WalletType.LEAP) {
         getLeap().subscription?.(() => {
+          void reconnect({ onError: _onReconnectFailed });
+        });
+      }
+       if (_reconnectConnector === WalletType.COMPASS) {
+        getCompass().subscription?.(() => {
           void reconnect({ onError: _onReconnectFailed });
         });
       }

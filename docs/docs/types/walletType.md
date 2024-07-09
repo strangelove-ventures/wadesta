@@ -51,5 +51,6 @@ enum WalletType {
   XDEFI = "xdefi",
   CAPSULE = "capsule",
   COSMIFRAME = "cosmiframe",
+  COMPASS = "compass",
 }
 ```

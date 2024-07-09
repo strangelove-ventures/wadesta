@@ -4,6 +4,10 @@ sidebar_position: 8
 
 # Changelog
 
+## Version 0.1.19
+
+- Added Compass wallet integration
+
 ## Version 0.1.18
 
 - Added Wallet connect mobile clot integration

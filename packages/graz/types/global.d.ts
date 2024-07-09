@@ -6,6 +6,7 @@ type VectisWindow = import("@vectis/extension-client").VectisWindow;
 declare global {
   interface Window extends KeplrWindow, VectisWindow {
     leap?: KeplrWindow["keplr"];
+    compass?: KeplrWindow["keplr"];
     cosmostation?: {
       cosmos: {
         on: (type: string, listener: EventListenerOrEventListenerObject) => void;

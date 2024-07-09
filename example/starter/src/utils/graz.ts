@@ -69,4 +69,8 @@ export const listedWallets = {
     name: "DAO DAO",
     imgSrc: "/assets/wallet-icon-daodao.png",
   },
+  [WalletType.COMPASS]: {
+    name: "Compass",
+    imgSrc: "/assets/wallet-icon-compass.png",
+  },
 };

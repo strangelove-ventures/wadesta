@@ -89,6 +89,7 @@ export const ConnectButton: FC = () => {
             ) : null}
             {wallets.capsule ? <Button onClick={() => handleConnect(WalletType.CAPSULE)}>Capsule</Button> : null}
             {wallets.cosmiframe ? <Button onClick={() => handleConnect(WalletType.COSMIFRAME)}>DAO DAO</Button> : null}
+            {wallets.compass ? <Button onClick={() => handleConnect(WalletType.COMPASS)}>Compass</Button> : null}
           </Stack>
         </ModalContent>
       </Modal>
