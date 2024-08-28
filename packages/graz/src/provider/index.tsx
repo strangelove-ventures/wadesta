@@ -38,8 +38,8 @@ export const GrazProvider: FC<GrazProviderProps> = ({ children, grazOptions, ...
 
   return (
     <QueryClientProvider key="graz-provider" client={queryClient} {...props}>
+      {children}
       <ClientOnly>
-        {children}
         <GrazEvents />
       </ClientOnly>
     </QueryClientProvider>
