@@ -69,6 +69,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@initia/initia-registry-types": "^0.0.20",
     "@types/node": "^18.17.15",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",

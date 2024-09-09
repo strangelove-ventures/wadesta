@@ -239,7 +239,7 @@ importers:
         version: 0.1.29
       '@dao-dao/cosmiframe':
         specifier: ^0.1.0
-        version: 0.1.0(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0)
+        version: 0.1.0
       '@keplr-wallet/cosmos':
         specifier: ^0.12.20
         version: 0.12.20
@@ -257,7 +257,7 @@ importers:
         version: 4.35.0(react@18.2.0)
       '@terra-money/station-connector':
         specifier: ^1.1.0
-        version: 1.1.0(@cosmjs/amino@0.31.3)(@terra-money/feather.js@3.0.0-beta.2)(axios@0.27.2)
+        version: 1.1.0(@terra-money/feather.js@3.0.0-beta.2)(axios@0.27.2)
       '@vectis/extension-client':
         specifier: ^0.7.2
         version: 0.7.2
@@ -283,6 +283,9 @@ importers:
         specifier: ^4.5.2
         version: 4.5.2(@types/react@18.2.21)(react@18.2.0)
     devDependencies:
+      '@initia/initia-registry-types':
+        specifier: ^0.0.20
+        version: 0.0.20
       '@types/node':
         specifier: ^18.17.15
         version: 18.17.15
@@ -5001,14 +5004,12 @@ packages:
       ses: 0.18.4
     dev: false
 
-  /@dao-dao/cosmiframe@0.1.0(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.0):
+  /@dao-dao/cosmiframe@0.1.0:
     resolution: {integrity: sha512-NW4pGt1ctqDfhn/A6RU2vwnFEu3O4aBNnBMrGnw31n+L35drYNEsA9ZB7KZsHmRRlkNx+jSuJSv2Fv0BFBDDJQ==}
     peerDependencies:
       '@cosmjs/amino': '>= ^0.32'
       '@cosmjs/proto-signing': '>= ^0.32'
     dependencies:
-      '@cosmjs/amino': 0.31.3
-      '@cosmjs/proto-signing': 0.31.0
       uuid: 9.0.1
     dev: false
 
@@ -6616,6 +6617,12 @@ packages:
       google-protobuf: 3.21.2
     dev: false
 
+  /@initia/initia-registry-types@0.0.20:
+    resolution: {integrity: sha512-tzHtJoFaltpFAQv3/c/vd49/RBxa1DS2gHN448U8FY3jZ20np4TXciCHDieNO0xIVW7oWfXk/kyW7l7OMLzK9w==}
+    dependencies:
+      zod: 3.23.8
+    dev: true
+
   /@jest/schemas@29.6.3:
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -7687,7 +7694,7 @@ packages:
       - debug
     dev: false
 
-  /@terra-money/station-connector@1.1.0(@cosmjs/amino@0.31.3)(@terra-money/feather.js@3.0.0-beta.2)(axios@0.27.2):
+  /@terra-money/station-connector@1.1.0(@terra-money/feather.js@3.0.0-beta.2)(axios@0.27.2):
     resolution: {integrity: sha512-InaiuZjLBF92s88aFHxDXJZS751mFr+pa5xbjwyIWWhfWV6RdONXGvuOZ79OPg6H8fUQHJGfosNxeNteGO+Yaw==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -7695,7 +7702,6 @@ packages:
       '@terra-money/feather.js': ^3.0.0-beta.1
       axios: ^0.27.2
     dependencies:
-      '@cosmjs/amino': 0.31.3
       '@terra-money/feather.js': 3.0.0-beta.2
       axios: 0.27.2
       bech32: 2.0.0
@@ -18568,6 +18574,10 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
+
+  /zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+    dev: true
 
   /zustand@4.5.2(@types/react@18.2.21)(react@18.2.0):
     resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}

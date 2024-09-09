@@ -1,5 +1,7 @@
 import type Station from "@terra-money/station-connector";
 
+import { InitiaWallet } from "../src/actions/wallet/initia";
+
 type KeplrWindow = import("@keplr-wallet/types").Window;
 type VectisWindow = import("@vectis/extension-client").VectisWindow;
 
@@ -17,10 +19,13 @@ declare global {
       };
     };
     ethereum?: import("@metamask/providers").MetaMaskInpageProvider;
-    okxwallet?: import("@metamask/providers").BaseProvider;
+    okxwallet?: import("@metamask/providers").BaseProvider & {
+      keplr: KeplrWindow["keplr"];
+    };
     station?: Station;
     xfi?: {
       keplr: KeplrWindow["keplr"];
     };
+    initia?: InitiaWallet;
   }
 }
