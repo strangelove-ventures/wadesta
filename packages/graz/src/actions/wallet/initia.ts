@@ -1,4 +1,12 @@
-import type { OfflineAminoSigner, StdSignature } from "@cosmjs/amino";
+import {
+  encodeEd25519Pubkey,
+  encodeSecp256k1Pubkey,
+  type OfflineAminoSigner,
+  pubkeyType,
+  rawEd25519PubkeyToRawAddress,
+  rawSecp256k1PubkeyToRawAddress,
+  type StdSignature,
+} from "@cosmjs/amino";
 import type { OfflineDirectSigner } from "@cosmjs/proto-signing";
 import type { DeliverTxResponse } from "@cosmjs/stargate";
 import type { Chain } from "@initia/initia-registry-types";
@@ -9,7 +17,6 @@ import type { SignAminoParams, SignDirectParams, Wallet } from "../../types/wall
 import { clearSession } from ".";
 
 export interface InitiaWallet {
-  version: string;
   getVersion: () => Promise<string>;
   getAddress: (chainId?: string) => Promise<string>;
   getOfflineSigner: (chainId: string) => OfflineDirectSigner;
@@ -45,9 +52,33 @@ export const getInitia = (): Wallet => {
       await initia.getAddress();
     };
 
-    const getKey = (chainId: string) => {
-      // TODO: needs update from initia wallet for the method
-      throw new Error("getKey not supported by initia wallet");
+    const getKey = async (chainId: string) => {
+      const offlineSigner = initia.getOfflineSigner(chainId);
+      const [account] = await offlineSigner.getAccounts();
+      if (!account) {
+        throw new Error("Wallet connection failed");
+      }
+
+      const rawAddress = (() => {
+        switch (account.algo) {
+          case "secp256k1":
+            return rawSecp256k1PubkeyToRawAddress(account.pubkey);
+          case "ed25519":
+            return rawEd25519PubkeyToRawAddress(account.pubkey);
+          default:
+            throw new Error("sr25519 public key algorithm is not supported");
+        }
+      })();
+
+      return {
+        name: "Initia",
+        algo: account.algo,
+        pubKey: account.pubkey,
+        bech32Address: account.address,
+        address: rawAddress,
+        isNanoLedger: false,
+        isKeystone: false,
+      };
     };
 
     const getOfflineSigner = (chainId: string) => {
@@ -55,8 +86,9 @@ export const getInitia = (): Wallet => {
       const aminoSigner = initia.getOfflineSignerOnlyAmino(chainId);
 
       return {
-        ...directSigner,
-        ...aminoSigner,
+        getAccounts: directSigner.getAccounts.bind(directSigner),
+        signDirect: directSigner.signDirect.bind(directSigner),
+        signAmino: aminoSigner.signAmino.bind(aminoSigner),
       };
     };
 
@@ -114,10 +146,33 @@ export const getInitia = (): Wallet => {
       return aminoSigner.signAmino(signer, signDoc);
     };
 
-    const signArbitrary = (chainId: string, signer: string, data: string | Uint8Array): Promise<StdSignature> => {
-      throw new Error("signArbitrary not supported by initia wallet");
-      // TODO: needs return type update from initia wallet
-      // return initia.signArbitrary(data);
+    const signArbitrary = async (chainId: string, signer: string, data: string | Uint8Array): Promise<StdSignature> => {
+      const offlineSigner = initia.getOfflineSigner(chainId);
+      const accounts = await offlineSigner.getAccounts();
+      const account = accounts.find((acc) => acc.address === signer);
+      if (!account) {
+        throw new Error(`Wallet not connected to account ${signer}`);
+      }
+      const pubkey = (() => {
+        switch (account.algo) {
+          case "secp256k1":
+            return encodeSecp256k1Pubkey(account.pubkey);
+          case "ed25519":
+            return encodeEd25519Pubkey(account.pubkey);
+          default:
+            throw new Error("sr25519 public key algorithm is not supported");
+        }
+      })();
+
+      const signature = await initia.signArbitrary(data);
+
+      return {
+        signature,
+        pub_key: {
+          type: account.algo === "secp256k1" ? pubkeyType.secp256k1 : pubkeyType.ed25519,
+          value: pubkey.value,
+        },
+      };
     };
 
     const subscription: (reconnect: () => void) => () => void = (reconnect) => {
@@ -131,7 +186,7 @@ export const getInitia = (): Wallet => {
       };
     };
 
-    return Object.assign(initia, {
+    return {
       enable,
       getKey,
       getOfflineSigner,
@@ -142,7 +197,7 @@ export const getInitia = (): Wallet => {
       signAmino,
       signArbitrary,
       subscription,
-    });
+    };
   }
   useGrazInternalStore.getState()._notFoundFn();
   throw new Error("window.initia is not defined");
