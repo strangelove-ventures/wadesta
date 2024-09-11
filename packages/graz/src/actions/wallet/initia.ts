@@ -43,6 +43,10 @@ const getDirectSignDoc = (signDoc: SignDirectParams[2]) => {
   };
 };
 
+const getAddressPreview = (address: string) => {
+  return `${address.slice(0, 6)}...${address.slice(-6)}`;
+};
+
 export const getInitia = (): Wallet => {
   if (typeof window.initia !== "undefined") {
     const initia = window.initia;
@@ -71,7 +75,7 @@ export const getInitia = (): Wallet => {
       })();
 
       return {
-        name: "Initia",
+        name: getAddressPreview(account.address),
         algo: account.algo,
         pubKey: account.pubkey,
         bech32Address: account.address,
