@@ -1,6 +1,6 @@
 import type Station from "@terra-money/station-connector";
 
-import { InitiaWallet } from "../src/actions/wallet/initia";
+import type { InitiaWallet } from "../src/actions/wallet/initia";
 
 type KeplrWindow = import("@keplr-wallet/types").Window;
 type VectisWindow = import("@vectis/extension-client").VectisWindow;

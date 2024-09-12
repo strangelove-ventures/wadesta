@@ -7,6 +7,7 @@ import { getCompass } from "./compass";
 import { getCosmiframe } from "./cosmiframe";
 import { getMetamaskSnapCosmos } from "./cosmos-metamask-snap";
 import { getCosmostation } from "./cosmostation";
+import { getInitia } from "./initia";
 import { getKeplr } from "./keplr";
 import { getLeap } from "./leap";
 import { getMetamaskSnapLeap } from "./leap-metamask-snap/leap";
@@ -104,6 +105,9 @@ export const getWallet = (type: WalletType = useGrazInternalStore.getState().wal
       }
       case WalletType.COMPASS: {
         return getCompass();
+      }
+      case WalletType.INITIA: {
+        return getInitia();
       }
       default: {
         throw new Error("Unknown wallet type");
