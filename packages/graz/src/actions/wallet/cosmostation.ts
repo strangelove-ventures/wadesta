@@ -26,9 +26,9 @@ export const getCosmostation = (): Wallet => {
         clearSession();
         reconnect();
       };
-      window.cosmostation?.cosmos.on("accountChanged", listener);
+      window.addEventListener("cosmostation_keystorechange", listener);
       return () => {
-        window.cosmostation?.cosmos.off("accountChanged", listener);
+        window.removeEventListener("cosmostation_keystorechange", listener);
       };
     };
 
