@@ -7,6 +7,7 @@ import { ChainSwitcher } from "ui/chain-switcher";
 import { ConnectButton } from "ui/connect-button";
 import { ConnectStatus } from "ui/connect-status";
 import { ToggleTheme } from "ui/toggle-theme";
+import "@leapwallet/cosmos-social-login-capsule-provider-ui/styles.css";
 
 const LeapSocialLogin = dynamic(
   () => import("@leapwallet/cosmos-social-login-capsule-provider-ui").then((m) => m.CustomCapsuleModalView),
@@ -44,20 +45,22 @@ const HomePage: NextPage = () => {
           <ConnectButton />
         </HStack>
       </Stack>
-      <LeapSocialLogin
-        capsule={client?.getClient() || undefined}
-        // @ts-expect-error - type error
-        oAuthMethods={["GOOGLE", "FACEBOOK", "TWITTER", "DISCORD", "APPLE"]}
-        onAfterLoginSuccessful={() => {
-          void onAfterLoginSuccessful?.();
-        }}
-        onLoginFailure={() => {
-          onLoginFailure();
-        }}
-        setShowCapsuleModal={setModalState}
-        showCapsuleModal={modalState}
-        theme={colorMode}
-      />
+      <div className='leap-ui'>
+        <LeapSocialLogin
+          capsule={client?.getClient() || undefined}
+          // @ts-expect-error - type error
+          oAuthMethods={["GOOGLE", "FACEBOOK", "TWITTER", "DISCORD", "APPLE"]}
+          onAfterLoginSuccessful={() => {
+            void onAfterLoginSuccessful?.();
+          }}
+          onLoginFailure={() => {
+            onLoginFailure();
+          }}
+          setShowCapsuleModal={setModalState}
+          showCapsuleModal={modalState}
+          theme={colorMode}
+        />
+      </div>
     </Center>
   );
 };
