@@ -1,4 +1,10 @@
-import type { AminoSignResponse } from "@cosmjs/amino";
+import {
+  type AminoSignResponse,
+  encodeEd25519Pubkey,
+  encodeSecp256k1Pubkey,
+  pubkeyType,
+  StdSignature,
+} from "@cosmjs/amino";
 import { fromBech32 } from "@cosmjs/encoding";
 import type { DirectSignResponse } from "@cosmjs/proto-signing";
 import type { Keplr, Key } from "@keplr-wallet/types";
@@ -146,6 +152,35 @@ export const getCapsule = (): Wallet => {
     return client.signAmino(chainId, signer, signDoc, signOptions) as Promise<AminoSignResponse>;
   };
 
+  const signArbitrary = async (chainId: string, signer: string, data: string | Uint8Array): Promise<StdSignature> => {
+    const client = useGrazSessionStore.getState().capsuleClient;
+    if (!client) throw new Error("Capsule client is not initialized");
+    const account = await client.getAccount(chainId);
+    if (!account) {
+      throw new Error(`Wallet not connected to account ${signer}`);
+    }
+    const pubkey = (() => {
+      switch (account.algo) {
+        case "secp256k1":
+          return encodeSecp256k1Pubkey(account.pubkey);
+        case "ed25519":
+          return encodeEd25519Pubkey(account.pubkey);
+        default:
+          throw new Error("sr25519 public key algorithm is not supported");
+      }
+    })();
+
+    const signature = await client.signArbitrary(chainId, signer, data);
+
+    return {
+      signature,
+      pub_key: {
+        type: account.algo === "secp256k1" ? pubkeyType.secp256k1 : pubkeyType.ed25519,
+        value: pubkey.value,
+      },
+    };
+  };
+
   const experimentalSuggestChain = async (..._args: Parameters<Keplr["experimentalSuggestChain"]>) => {
     await Promise.reject(new Error("Capsule does not support experimentalSuggestChain"));
   };
@@ -159,6 +194,7 @@ export const getCapsule = (): Wallet => {
     getOfflineSignerDirect,
     signDirect,
     signAmino,
+    signArbitrary,
     experimentalSuggestChain,
     // @ts-expect-error - CapsuleAminoSigner | OfflineDirectSigner
     getOfflineSigner,
