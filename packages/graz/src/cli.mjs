@@ -2,11 +2,15 @@
 // @ts-check
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { Bech32Address } from "@keplr-wallet/cosmos";
 import arg from "arg";
 import { createClient, createTestnetClient } from "cosmos-directory-client";
 import pmap from "p-map";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const isNumber = (char) => /^\d+$/.test(char);
 
@@ -26,6 +30,7 @@ Options:
 
 Generate options:
   -b, --best            Set REST and RPC endpoint to best available nodes instead or first listed ones
+  -e, --endpoint <url>  Specify the endpoint URL to fetch chain information
   -M, --mainnet         Generate given mainnet chain paths seperated by commas (e.g. "axelar,cosmoshub,juno")
   -T, --testnet         Generate given testnet chain paths seperated by commas (e.g. "atlantic,bitcannadev,cheqdtestnet")
   --authz               Generate only authz compatible chains
@@ -47,6 +52,9 @@ const args = arg({
 
   "--help": Boolean,
   "-h": "--help",
+
+  "--endpoint": String,
+  "-e": "--endpoint",
 });
 
 const cli = async () => {
@@ -64,21 +72,42 @@ const cli = async () => {
 };
 
 const generate = async () => {
-  console.log(`⏳\tGenerating chain list from cosmos.directory...`);
+  console.log("⏳\tGenerating chain list...");
   if (args["--authz"]) {
-    console.log(`✍️\tDetected authz flag, generating only compatible chains...`);
+    console.log("✍️\tDetected authz flag, generating only compatible chains...");
   }
   if (args["--best"]) {
-    console.log(`💁‍♂️\tDetected best flag, setting REST and RPC endpoints to best latency...`);
+    console.log("💁‍♂️\tDetected best flag, setting REST and RPC endpoints to best latency...");
   }
   if (args["--mainnet"] || args["--testnet"]) {
-    console.log(`🐙\tDetected chain filtering flag, generating only given chain paths...`);
+    console.log("🐙\tDetected chain filtering flag, generating only given chain paths...");
   }
 
-  const [mainnetRecord, testnetRecord] = await Promise.all([
-    makeRecord(createClient(), { filter: args["--mainnet"] }),
-    makeRecord(createTestnetClient(), { filter: args["--testnet"] }),
-  ]);
+  /** @type {Record<string, ChainInfo>} */
+  let mainnetRecord;
+  /** @type {Record<string, ChainInfo>} */
+  let testnetRecord;
+
+  if (args["--endpoint"]) {
+    console.log("🌐\tFetching chain information from specified endpoint");
+    try {
+      const response = await fetch(args["--endpoint"]);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      mainnetRecord = filterChains(data.mainnet, args["--mainnet"]);
+      testnetRecord = filterChains(data.testnet, args["--testnet"]);
+    } catch (error) {
+      console.error(`❌\tFailed to fetch chain information: ${error.message}`);
+      process.exit(1);
+    }
+  } else {
+    [mainnetRecord, testnetRecord] = await Promise.all([
+      makeRecord(createClient(), { filter: args["--mainnet"] }),
+      makeRecord(createTestnetClient(), { filter: args["--testnet"] }),
+    ]);
+  }
 
   const [jsStub, mjsStub] = await Promise.all([
     fs.readFile(chainsDir("index.js.stub"), { encoding: "utf-8" }),
@@ -114,6 +143,17 @@ const generate = async () => {
   ]);
 
   console.log('✨\tGenerate complete! You can import `mainnetChains` and `testnetChains` from "graz/chains".\n');
+};
+
+/**
+ * @param {Record<string, ChainInfo>} chains
+ * @param {string | undefined} filter
+ * @returns {Record<string, ChainInfo>}
+ */
+const filterChains = (chains, filter) => {
+  if (!filter) return chains;
+  const filterPaths = new Set(filter.split(","));
+  return Object.fromEntries(Object.entries(chains).filter(([path]) => filterPaths.has(path)));
 };
 
 /** @param {string[]} args */
