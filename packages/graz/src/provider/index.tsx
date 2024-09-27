@@ -36,7 +36,7 @@ export type GrazProviderProps = Partial<QueryClientProviderProps> & {
 export const GrazProvider: FC<GrazProviderProps> = ({ children, grazOptions, ...props }) => {
   useEffect(() => {
     configureGraz(grazOptions);
-  }, []);
+  }, [grazOptions]);
 
   return (
     <QueryClientProvider key="graz-provider" client={queryClient} {...props}>
