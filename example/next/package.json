@@ -14,7 +14,7 @@
     "@emotion/styled": "^11.11.0",
     "@leapwallet/cosmos-social-login-capsule-provider-ui": "^0.0.58",
     "framer-motion": "^10.16.4",
-    "graz": "*",
+    "graz": "workspace:*",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
