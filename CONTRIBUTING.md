@@ -42,7 +42,7 @@ The following steps will get you up and running to contribute to `graz`:
    ```
 
 3. Setup all the dependencies and packages by running `pnpm`. This command will install dependencies and bootstrap the repo.
-   > We are using `pnpm` as the default package manager, we suggest to you to do the same.
+   > We are using `pnpm` as the default package manager, we suggest to you to do the same. pnpm version should be `9` or higher.
 
 ## Directory structure
 
