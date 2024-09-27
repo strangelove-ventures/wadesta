@@ -20,25 +20,50 @@ yarn add @leapwallet/cosmos-social-login-capsule-provider-ui
 />
 ```
 
+## Add the stylesheets from `@leapwallet/cosmos-social-login-capsule-provider-ui` and add `leap-ui` class to parent container of imported Modals.
+
+This will ensure proper styling and you will be able to customize the modals using css-variables.
+
+```javascript
+import "@leapwallet/cosmos-social-login-capsule-provider-ui/styles.css";
+
+<div className="leap-ui">
+  <LeapSocialLogin
+  // params
+  />
+  <TransactionSigningModal
+  // params
+  />
+</div>;
+```
+
 ## Next JS Usage
 
 For Next JS we recommend to load the module dynamically to avoid SSR issues. And use `useCapsule` hook to get the client and other capsule related states.
 
 ```javascript
+import "@leapwallet/cosmos-social-login-capsule-provider-ui/styles.css";
+
 const LeapSocialLogin = dynamic(
   () => import("@leapwallet/cosmos-social-login-capsule-provider-ui").then((m) => m.CustomCapsuleModalView),
+  { ssr: false },
+);
+
+const TransactionSigningModal = dynamic(
+  () => import("@leapwallet/cosmos-social-login-capsule-provider-ui").then((m) => m.TransactionSigningModal),
   { ssr: false },
 );
 
 const HomePage = () => {
   const { client, modalState, onAfterLoginSuccessful, setModalState, onLoginFailure } = useCapsule();
 
-  return (
-    <div>
+  return client ? (
+    <div className="leap-ui">
       <LeapSocialLogin
-        capsule={client?.getClient() || undefined}
+        capsule={client.getClient()}
+        oAuthMethods={["GOOGLE", "FACEBOOK", "TWITTER", "DISCORD", "APPLE"]}
         onAfterLoginSuccessful={() => {
-          onAfterLoginSuccessful?.();
+          void onAfterLoginSuccessful?.();
         }}
         onLoginFailure={() => {
           onLoginFailure();
@@ -46,8 +71,9 @@ const HomePage = () => {
         setShowCapsuleModal={setModalState}
         showCapsuleModal={modalState}
       />
+      <TransactionSigningModal dAppInfo={{ name: "Graz Example" }} />
     </div>
-  );
+  ) : null;
 };
 ```
 
