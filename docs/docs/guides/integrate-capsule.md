@@ -22,7 +22,7 @@ yarn add @leapwallet/cosmos-social-login-capsule-provider-ui
 
 ## Add the stylesheets from `@leapwallet/cosmos-social-login-capsule-provider-ui` and add `leap-ui` class to parent container of imported Modals.
 
-This will ensure proper styling and you will be able to customize the modals using css-variables.
+This will ensure proper styling and you will be able to customize the modals using css-variables as shown in [this doc](https://docs.leapwallet.io/cosmos/elements/theming/using-css-variables#customisation).
 
 ```javascript
 import "@leapwallet/cosmos-social-login-capsule-provider-ui/styles.css";
