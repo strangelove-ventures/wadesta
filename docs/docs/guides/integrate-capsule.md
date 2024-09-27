@@ -71,7 +71,7 @@ const HomePage = () => {
         setShowCapsuleModal={setModalState}
         showCapsuleModal={modalState}
       />
-      <TransactionSigningModal dAppInfo={{ name: "Graz Example" }} />
+      <TransactionSigningModal dAppInfo={{ name: "Your dApp Name" }} />
     </div>
   ) : null;
 };
