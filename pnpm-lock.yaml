@@ -85,8 +85,8 @@ importers:
         specifier: ^10.16.4
         version: 10.16.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       graz:
-        specifier: '*'
-        version: 0.1.20(@cosmjs/amino@0.31.3)(@cosmjs/cosmwasm-stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.31.3)(@cosmjs/stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/tendermint-rpc@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.1.1))(@terra-money/feather.js@3.0.0-beta.2)(@types/react@18.2.21)(axios@1.6.8)(bufferutil@4.0.8)(immer@9.0.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)
+        specifier: workspace:*
+        version: link:../../packages/graz
       next:
         specifier: ^13.4.19
         version: 13.4.19(@babel/core@7.22.15)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -140,8 +140,8 @@ importers:
         specifier: ^10.16.4
         version: 10.16.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       graz:
-        specifier: '*'
-        version: 0.1.20(@cosmjs/amino@0.31.3)(@cosmjs/cosmwasm-stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.31.3)(@cosmjs/stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/tendermint-rpc@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.16.5))(@terra-money/feather.js@3.0.0-beta.2)(@types/react@18.2.21)(axios@1.6.8)(bufferutil@4.0.8)(immer@9.0.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)
+        specifier: workspace:*
+        version: link:../../packages/graz
       next:
         specifier: ^13.4.19
         version: 13.4.19(@babel/core@7.22.15)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -177,8 +177,8 @@ importers:
   example/vite:
     dependencies:
       graz:
-        specifier: '*'
-        version: 0.1.20(@cosmjs/amino@0.31.3)(@cosmjs/cosmwasm-stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.31.3)(@cosmjs/stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/tendermint-rpc@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.16.5))(@terra-money/feather.js@3.0.0-beta.2)(@types/react@18.2.21)(axios@1.6.8)(bufferutil@4.0.8)(immer@9.0.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)
+        specifier: workspace:*
+        version: link:../../packages/graz
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -248,7 +248,7 @@ importers:
         version: 0.12.23
       '@leapwallet/cosmos-social-login-capsule-provider':
         specifier: ^0.0.41
-        version: 0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.0)(fp-ts@2.16.5)
+        version: 0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.0)(fp-ts@2.1.1)
       '@metamask/providers':
         specifier: ^12.0.0
         version: 12.0.0
@@ -5885,9 +5885,6 @@ packages:
   fp-ts@2.1.1:
     resolution: {integrity: sha512-YcWhMdDCFCja0MmaDroTgNu+NWWrrnUEn92nvDgrtVy9Z71YFnhNVIghoHPt8gs82ijoMzFGeWKvArbyICiJgw==}
 
-  fp-ts@2.16.5:
-    resolution: {integrity: sha512-N8T8PwMSeTKKtkm9lkj/zSTAnPC/aJIIrQhnHxxkL0KLsRCNUPANksJOlMXxcKKCo7H1ORP3No9EMD+fP0tsdA==}
-
   fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
 
@@ -6058,19 +6055,6 @@ packages:
   gray-matter@4.0.3:
     resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
     engines: {node: '>=6.0'}
-
-  graz@0.1.20:
-    resolution: {integrity: sha512-kELVAo2r75Y1EJ6XTRXOUfQKOej4+/trBYNo9ux+MPvmO2tZ0KcMl0X/cbVQc8W2u0kR4dLWRbiAKdFihNUSMg==}
-    hasBin: true
-    peerDependencies:
-      '@cosmjs/amino': '*'
-      '@cosmjs/cosmwasm-stargate': '*'
-      '@cosmjs/launchpad': '*'
-      '@cosmjs/proto-signing': '*'
-      '@cosmjs/stargate': '*'
-      '@cosmjs/tendermint-rpc': '*'
-      '@leapwallet/cosmos-social-login-capsule-provider': ^0.0.39
-      react: '>=17'
 
   gzip-size@6.0.0:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
@@ -11309,22 +11293,6 @@ snapshots:
     transitivePeerDependencies:
       - fp-ts
 
-  '@celo/utils@3.2.0(fp-ts@2.16.5)':
-    dependencies:
-      '@celo/base': 3.2.0
-      '@types/bn.js': 5.1.5
-      '@types/elliptic': 6.4.18
-      '@types/ethereumjs-util': 5.2.0
-      '@types/node': 10.12.18
-      bignumber.js: 9.1.2
-      elliptic: 6.5.4
-      ethereumjs-util: 5.2.1
-      io-ts: 2.0.1(fp-ts@2.16.5)
-      web3-eth-abi: 1.3.6
-      web3-utils: 1.3.6
-    transitivePeerDependencies:
-      - fp-ts
-
   '@celo/utils@6.0.1':
     dependencies:
       '@celo/base': 6.1.0
@@ -12152,7 +12120,7 @@ snapshots:
       '@cosmjs/encoding': 0.28.13
       '@cosmjs/math': 0.28.13
       '@cosmjs/utils': 0.28.13
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.5.0
       bn.js: 5.2.1
       elliptic: 6.5.4
       libsodium-wrappers: 0.7.11
@@ -12162,7 +12130,7 @@ snapshots:
       '@cosmjs/encoding': 0.29.5
       '@cosmjs/math': 0.29.5
       '@cosmjs/utils': 0.29.5
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.5.0
       bn.js: 5.2.1
       elliptic: 6.5.4
       libsodium-wrappers: 0.7.11
@@ -12172,7 +12140,7 @@ snapshots:
       '@cosmjs/encoding': 0.30.1
       '@cosmjs/math': 0.30.1
       '@cosmjs/utils': 0.30.1
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.5.0
       bn.js: 5.2.1
       elliptic: 6.5.4
       libsodium-wrappers: 0.7.11
@@ -12567,12 +12535,6 @@ snapshots:
     dependencies:
       '@cosmjs/amino': 0.31.3
       '@cosmjs/proto-signing': 0.31.0
-      uuid: 9.0.1
-
-  '@dao-dao/cosmiframe@0.1.0(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.3)':
-    dependencies:
-      '@cosmjs/amino': 0.31.3
-      '@cosmjs/proto-signing': 0.31.3
       uuid: 9.0.1
 
   '@discoveryjs/json-ext@0.5.7': {}
@@ -13863,38 +13825,12 @@ snapshots:
       - tailwindcss
       - zod
 
-  '@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.0)(fp-ts@2.16.5)':
+  '@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.0)(fp-ts@2.1.1)':
     dependencies:
       '@cosmjs/amino': 0.31.3
       '@leapwallet/cosmos-social-login-core': 0.0.1
       '@usecapsule/cosmjs-v0-integration': 1.24.1(@cosmjs/amino@0.31.3)(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.0)
-      '@usecapsule/web-sdk': 1.23.0(fp-ts@2.16.5)
-      long: 5.2.3
-    transitivePeerDependencies:
-      - '@cosmjs/encoding'
-      - '@cosmjs/proto-signing'
-      - debug
-      - fp-ts
-
-  '@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.1.1)':
-    dependencies:
-      '@cosmjs/amino': 0.31.3
-      '@leapwallet/cosmos-social-login-core': 0.0.1
-      '@usecapsule/cosmjs-v0-integration': 1.24.1(@cosmjs/amino@0.31.3)(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)
       '@usecapsule/web-sdk': 1.23.0(fp-ts@2.1.1)
-      long: 5.2.3
-    transitivePeerDependencies:
-      - '@cosmjs/encoding'
-      - '@cosmjs/proto-signing'
-      - debug
-      - fp-ts
-
-  '@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.16.5)':
-    dependencies:
-      '@cosmjs/amino': 0.31.3
-      '@leapwallet/cosmos-social-login-core': 0.0.1
-      '@usecapsule/cosmjs-v0-integration': 1.24.1(@cosmjs/amino@0.31.3)(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)
-      '@usecapsule/web-sdk': 1.23.0(fp-ts@2.16.5)
       long: 5.2.3
     transitivePeerDependencies:
       - '@cosmjs/encoding'
@@ -15553,19 +15489,6 @@ snapshots:
       - debug
       - fp-ts
 
-  '@usecapsule/core-sdk@1.21.0(fp-ts@2.16.5)':
-    dependencies:
-      '@celo/utils': 3.2.0(fp-ts@2.16.5)
-      '@usecapsule/user-management-client': 1.18.0
-      base64url: 3.0.1
-      buffer: 6.0.3
-      ethereumjs-util: 7.1.5
-      libphonenumber-js: 1.11.2
-      node-forge: 1.3.1
-    transitivePeerDependencies:
-      - debug
-      - fp-ts
-
   '@usecapsule/core-sdk@1.24.1':
     dependencies:
       '@celo/utils': 6.0.1
@@ -15589,15 +15512,6 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@usecapsule/cosmjs-v0-integration@1.24.1(@cosmjs/amino@0.31.3)(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)':
-    dependencies:
-      '@cosmjs/amino': 0.31.3
-      '@cosmjs/encoding': 0.32.4
-      '@cosmjs/proto-signing': 0.31.3
-      '@usecapsule/core-sdk': 1.24.1
-    transitivePeerDependencies:
-      - debug
-
   '@usecapsule/user-management-client@1.18.0':
     dependencies:
       axios: 1.6.8
@@ -15615,19 +15529,6 @@ snapshots:
   '@usecapsule/web-sdk@1.23.0(fp-ts@2.1.1)':
     dependencies:
       '@usecapsule/core-sdk': 1.21.0(fp-ts@2.1.1)
-      '@usecapsule/user-management-client': 1.18.0
-      assert: 2.1.0
-      base64url: 3.0.1
-      buffer: 6.0.3
-      cbor-web: 8.1.0
-      node-forge: 1.3.1
-    transitivePeerDependencies:
-      - debug
-      - fp-ts
-
-  '@usecapsule/web-sdk@1.23.0(fp-ts@2.16.5)':
-    dependencies:
-      '@usecapsule/core-sdk': 1.21.0(fp-ts@2.16.5)
       '@usecapsule/user-management-client': 1.18.0
       assert: 2.1.0
       base64url: 3.0.1
@@ -18114,8 +18015,6 @@ snapshots:
 
   fp-ts@2.1.1: {}
 
-  fp-ts@2.16.5: {}
-
   fraction.js@4.2.0: {}
 
   framer-motion@10.16.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
@@ -18320,82 +18219,6 @@ snapshots:
       kind-of: 6.0.3
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
-
-  graz@0.1.20(@cosmjs/amino@0.31.3)(@cosmjs/cosmwasm-stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.31.3)(@cosmjs/stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/tendermint-rpc@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.1.1))(@terra-money/feather.js@3.0.0-beta.2)(@types/react@18.2.21)(axios@1.6.8)(bufferutil@4.0.8)(immer@9.0.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10):
-    dependencies:
-      '@cosmjs/amino': 0.31.3
-      '@cosmjs/cosmwasm-stargate': 0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@cosmjs/launchpad': 0.27.1
-      '@cosmjs/proto-signing': 0.31.3
-      '@cosmjs/stargate': 0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@cosmjs/tendermint-rpc': 0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@cosmsnap/snapper': 0.1.29
-      '@dao-dao/cosmiframe': 0.1.0(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.3)
-      '@keplr-wallet/cosmos': 0.12.20
-      '@keplr-wallet/types': 0.12.23
-      '@leapwallet/cosmos-social-login-capsule-provider': 0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.1.1)
-      '@metamask/providers': 12.0.0
-      '@tanstack/react-query': 4.35.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@terra-money/station-connector': 1.1.0(@cosmjs/amino@0.31.3)(@terra-money/feather.js@3.0.0-beta.2)(axios@1.6.8)
-      '@vectis/extension-client': 0.7.2
-      '@walletconnect/sign-client': 2.10.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@walletconnect/types': 2.10.0
-      '@walletconnect/utils': 2.10.0
-      '@web3modal/standalone': 2.4.3(react@18.2.0)
-      cosmos-directory-client: 0.0.6
-      long: 4.0.0
-      react: 18.2.0
-      zustand: 4.5.2(@types/react@18.2.21)(immer@9.0.21)(react@18.2.0)
-    transitivePeerDependencies:
-      - '@react-native-async-storage/async-storage'
-      - '@terra-money/feather.js'
-      - '@types/react'
-      - axios
-      - bufferutil
-      - immer
-      - lokijs
-      - react-dom
-      - react-native
-      - supports-color
-      - utf-8-validate
-
-  graz@0.1.20(@cosmjs/amino@0.31.3)(@cosmjs/cosmwasm-stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.31.3)(@cosmjs/stargate@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@cosmjs/tendermint-rpc@0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@leapwallet/cosmos-social-login-capsule-provider@0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.16.5))(@terra-money/feather.js@3.0.0-beta.2)(@types/react@18.2.21)(axios@1.6.8)(bufferutil@4.0.8)(immer@9.0.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10):
-    dependencies:
-      '@cosmjs/amino': 0.31.3
-      '@cosmjs/cosmwasm-stargate': 0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@cosmjs/launchpad': 0.27.1
-      '@cosmjs/proto-signing': 0.31.3
-      '@cosmjs/stargate': 0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@cosmjs/tendermint-rpc': 0.31.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@cosmsnap/snapper': 0.1.29
-      '@dao-dao/cosmiframe': 0.1.0(@cosmjs/amino@0.31.3)(@cosmjs/proto-signing@0.31.3)
-      '@keplr-wallet/cosmos': 0.12.20
-      '@keplr-wallet/types': 0.12.23
-      '@leapwallet/cosmos-social-login-capsule-provider': 0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.16.5)
-      '@metamask/providers': 12.0.0
-      '@tanstack/react-query': 4.35.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@terra-money/station-connector': 1.1.0(@cosmjs/amino@0.31.3)(@terra-money/feather.js@3.0.0-beta.2)(axios@1.6.8)
-      '@vectis/extension-client': 0.7.2
-      '@walletconnect/sign-client': 2.10.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@walletconnect/types': 2.10.0
-      '@walletconnect/utils': 2.10.0
-      '@web3modal/standalone': 2.4.3(react@18.2.0)
-      cosmos-directory-client: 0.0.6
-      long: 4.0.0
-      react: 18.2.0
-      zustand: 4.5.2(@types/react@18.2.21)(immer@9.0.21)(react@18.2.0)
-    transitivePeerDependencies:
-      - '@react-native-async-storage/async-storage'
-      - '@terra-money/feather.js'
-      - '@types/react'
-      - axios
-      - bufferutil
-      - immer
-      - lokijs
-      - react-dom
-      - react-native
-      - supports-color
-      - utf-8-validate
 
   gzip-size@6.0.0:
     dependencies:
@@ -18673,10 +18496,6 @@ snapshots:
   io-ts@2.0.1(fp-ts@2.1.1):
     dependencies:
       fp-ts: 2.1.1
-
-  io-ts@2.0.1(fp-ts@2.16.5):
-    dependencies:
-      fp-ts: 2.16.5
 
   ipaddr.js@1.9.1: {}
 
