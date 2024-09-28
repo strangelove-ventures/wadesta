@@ -52,5 +52,6 @@ enum WalletType {
   CAPSULE = "capsule",
   COSMIFRAME = "cosmiframe",
   COMPASS = "compass",
+  OKX = "okx",
 }
 ```

@@ -1,12 +1,12 @@
 # Integrate Capsule
 
-## Install Leap Login Capsule UI
+### Install Leap Login Capsule UI
 
 ```bash
 yarn add @leapwallet/cosmos-social-login-capsule-provider-ui
 ```
 
-## Fill your Capsule Config in `GrazProvider`
+### Fill your Capsule Config in `GrazProvider`
 
 ```javascript
 <GrazProvider
@@ -20,7 +20,7 @@ yarn add @leapwallet/cosmos-social-login-capsule-provider-ui
 />
 ```
 
-## Add the stylesheets from `@leapwallet/cosmos-social-login-capsule-provider-ui` and add `leap-ui` class to parent container of imported Modals.
+### Add the stylesheets from `@leapwallet/cosmos-social-login-capsule-provider-ui` and add `leap-ui` class to parent container of imported Modals.
 
 This will ensure proper styling and you will be able to customize the modals using css-variables as shown in [this doc](https://docs.leapwallet.io/cosmos/elements/theming/using-css-variables#customisation).
 
