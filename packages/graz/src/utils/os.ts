@@ -1,9 +1,17 @@
 export const isMobile = () => {
   if (typeof window !== "undefined") {
-    return Boolean(
-      window.matchMedia("(pointer:coarse)").matches ||
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/u.test(navigator.userAgent),
-    );
+    const userAgent = navigator.userAgent;
+
+    // Check for common mobile devices by examining user agent strings
+    if (/android/i.test(userAgent)) {
+      return true;
+    }
+
+    if (/iPad|iPhone|iPod/.test(userAgent)) {
+      return true;
+    }
+
+    return false;
   }
 
   return false;
