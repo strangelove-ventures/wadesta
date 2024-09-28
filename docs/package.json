@@ -16,7 +16,7 @@
     "write-translations": "docusaurus write-translations"
   },
   "dependencies": {
-    "@cmfcmf/docusaurus-search-local": "^1.1.0",
+    "@cmfcmf/docusaurus-search-local": "^1.2.0",
     "@docusaurus/core": "^2.4.3",
     "@docusaurus/preset-classic": "^2.4.3",
     "@mdx-js/react": "^1.6.22",

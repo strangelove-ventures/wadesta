@@ -33,8 +33,8 @@ importers:
   docs:
     dependencies:
       '@cmfcmf/docusaurus-search-local':
-        specifier: ^1.1.0
-        version: 1.1.0(@docusaurus/core@2.4.3(@docusaurus/types@2.4.3(esbuild@0.18.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2))(bufferutil@4.0.8)(esbuild@0.18.4)(eslint@8.49.0)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(typescript@5.2.2)(utf-8-validate@5.0.10))(search-insights@2.8.2)
+        specifier: ^1.2.0
+        version: 1.2.0(@docusaurus/core@2.4.3(@docusaurus/types@2.4.3(esbuild@0.18.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2))(bufferutil@4.0.8)(esbuild@0.18.4)(eslint@8.49.0)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(typescript@5.2.2)(utf-8-validate@5.0.10))(search-insights@2.8.2)
       '@docusaurus/core':
         specifier: ^2.4.3
         version: 2.4.3(@docusaurus/types@2.4.3(esbuild@0.18.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2))(bufferutil@4.0.8)(esbuild@0.18.4)(eslint@8.49.0)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(typescript@5.2.2)(utf-8-validate@5.0.10)
@@ -1611,8 +1611,8 @@ packages:
       '@chakra-ui/system': '>=2.0.0'
       react: '>=18'
 
-  '@cmfcmf/docusaurus-search-local@1.1.0':
-    resolution: {integrity: sha512-0IVb/aA0IK8ZlktuxmgXmluXfcSpo6Vdd2nG21y1aOH9nVYnPP231Dn0H8Ng9Qf9ronQQCDWHnuWpYOr9rUrEQ==}
+  '@cmfcmf/docusaurus-search-local@1.2.0':
+    resolution: {integrity: sha512-Tc0GhRBsfZAiB+f6BoPB8YCQap6JzzcDyJ0dLSCSzWQ6wdWvDlTBrHc1YqR8q8AZ+STRszL5eZpZFi5dbTCdYg==}
     peerDependencies:
       '@docusaurus/core': ^2.0.0
       nodejieba: ^2.5.0
@@ -8648,6 +8648,9 @@ packages:
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
+  tslib@2.7.0:
+    resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
+
   tsup@7.2.0:
     resolution: {integrity: sha512-vDHlczXbgUvY3rWvqFEbSqmC1L7woozbzngMqTtL2PGBODTtWlRwGDDawhvWzr5c1QjKe4OAKqJGfE1xeXUvtQ==}
     engines: {node: '>=16.14'}
@@ -11076,7 +11079,7 @@ snapshots:
       '@chakra-ui/system': 2.6.1(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(react@18.2.0)
       react: 18.2.0
 
-  '@cmfcmf/docusaurus-search-local@1.1.0(@docusaurus/core@2.4.3(@docusaurus/types@2.4.3(esbuild@0.18.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2))(bufferutil@4.0.8)(esbuild@0.18.4)(eslint@8.49.0)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(typescript@5.2.2)(utf-8-validate@5.0.10))(search-insights@2.8.2)':
+  '@cmfcmf/docusaurus-search-local@1.2.0(@docusaurus/core@2.4.3(@docusaurus/types@2.4.3(esbuild@0.18.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2))(bufferutil@4.0.8)(esbuild@0.18.4)(eslint@8.49.0)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(typescript@5.2.2)(utf-8-validate@5.0.10))(search-insights@2.8.2)':
     dependencies:
       '@algolia/autocomplete-js': 1.9.2(@algolia/client-search@4.17.1)(algoliasearch@4.17.0)(search-insights@2.8.2)
       '@algolia/autocomplete-theme-classic': 1.9.2
@@ -11087,6 +11090,7 @@ snapshots:
       clsx: 1.2.1
       lunr-languages: 1.12.0
       mark.js: 8.11.1
+      tslib: 2.7.0
     transitivePeerDependencies:
       - search-insights
 
@@ -20036,6 +20040,8 @@ snapshots:
   tslib@2.4.0: {}
 
   tslib@2.6.2: {}
+
+  tslib@2.7.0: {}
 
   tsup@7.2.0(postcss@8.4.38)(typescript@5.2.2):
     dependencies:
