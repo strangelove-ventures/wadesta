@@ -11,6 +11,7 @@ import { getInitia } from "./initia";
 import { getKeplr } from "./keplr";
 import { getLeap } from "./leap";
 import { getMetamaskSnapLeap } from "./leap-metamask-snap/leap";
+import { getOkx } from "./okx";
 import { getStation } from "./station";
 import { getVectis } from "./vectis";
 import { getWalletConnect } from "./wallet-connect";
@@ -109,6 +110,10 @@ export const getWallet = (type: WalletType = useGrazInternalStore.getState().wal
       case WalletType.INITIA: {
         return getInitia();
       }
+      case WalletType.OKX: {
+        return getOkx();
+      }
+
       default: {
         throw new Error("Unknown wallet type");
       }

@@ -4,10 +4,12 @@ import { useEffect } from "react";
 
 import { connect, reconnect } from "../actions/account";
 import { checkWallet } from "../actions/wallet";
+import { getCompass } from "../actions/wallet/compass";
 import { getCosmiframe } from "../actions/wallet/cosmiframe";
 import { getCosmostation } from "../actions/wallet/cosmostation";
 import { getKeplr } from "../actions/wallet/keplr";
 import { getLeap } from "../actions/wallet/leap";
+import { getOkx } from "../actions/wallet/okx";
 import { getStation } from "../actions/wallet/station";
 import { getVectis } from "../actions/wallet/vectis";
 import { getWalletConnect } from "../actions/wallet/wallet-connect";
@@ -15,7 +17,6 @@ import { getXDefi } from "../actions/wallet/xdefi";
 import { RECONNECT_SESSION_KEY } from "../constant";
 import { useGrazInternalStore, useGrazSessionStore } from "../store";
 import { WalletType } from "../types/wallet";
-import { getCompass } from "../actions/wallet/compass";
 
 /**
  * Graz custom hook to track `keplr_keystorechange`, `leap_keystorechange`, `accountChanged` event and reconnect state
@@ -92,7 +93,7 @@ export const useGrazEvents = () => {
           void reconnect({ onError: _onReconnectFailed });
         });
       }
-       if (_reconnectConnector === WalletType.COMPASS) {
+      if (_reconnectConnector === WalletType.COMPASS) {
         getCompass().subscription?.(() => {
           void reconnect({ onError: _onReconnectFailed });
         });
@@ -121,6 +122,11 @@ export const useGrazEvents = () => {
       }
       if (_reconnectConnector === WalletType.COSMIFRAME) {
         getCosmiframe().subscription?.(() => {
+          void reconnect({ onError: _onReconnectFailed });
+        });
+      }
+      if (_reconnectConnector === WalletType.OKX) {
+        getOkx().subscription?.(() => {
           void reconnect({ onError: _onReconnectFailed });
         });
       }
