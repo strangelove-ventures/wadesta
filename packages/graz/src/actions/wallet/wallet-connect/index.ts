@@ -1,5 +1,4 @@
 import type { AminoSignResponse } from "@cosmjs/amino";
-import { fromBech32, toBech32 } from "@cosmjs/encoding";
 import type { AccountData, Algo, DirectSignResponse } from "@cosmjs/proto-signing";
 import type { Keplr, Key } from "@keplr-wallet/types";
 import { SignClient } from "@walletconnect/sign-client";
@@ -250,13 +249,15 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
               const acc = _acc[0];
               if (!acc) return reject(new Error("No accounts"));
               const resAcc: Record<string, Key> = {};
-              chainId.forEach((x) => {
-                resAcc[x] = {
-                  ...acc,
-                  bech32Address: toBech32(
-                    chains!.find((y) => y.chainId === x)!.bech32Config.bech32PrefixAccAddr,
-                    fromBech32(_acc[0]!.bech32Address).data,
-                  ),
+              _acc.forEach((x) => {
+                resAcc[x.chainId!] = {
+                  address: x.address,
+                  algo: x.algo as Algo,
+                  bech32Address: x.bech32Address,
+                  isNanoLedger: x.isNanoLedger,
+                  isKeystone: x.isKeystone,
+                  name: x.name,
+                  pubKey: x.pubKey,
                 };
               });
 
