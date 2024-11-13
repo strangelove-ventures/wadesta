@@ -33,6 +33,7 @@ export const getWCKeplr = (): Wallet => {
           return `${plainAppUrl}://wc?uri=${encoded}`;
       }
     },
+    experimentalSuggestChainMethodKey: "keplr_experimentalSuggestChain",
   };
 
   return getWalletConnect(params);

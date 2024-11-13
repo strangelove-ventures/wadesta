@@ -37,6 +37,7 @@ export const suggestChain = async ({ chainInfo, walletType }: SuggestChainArgs):
   if (walletType === WalletType.CAPSULE) {
     await connect({ chainId: chainInfo.chainId, walletType });
   } else {
+    await wallet.init?.();
     await wallet.experimentalSuggestChain(chainInfo);
   }
   return chainInfo;

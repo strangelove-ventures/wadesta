@@ -458,7 +458,41 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
   };
 
   const experimentalSuggestChain = async (..._args: Parameters<Keplr["experimentalSuggestChain"]>) => {
-    await Promise.reject(new Error("WalletConnect does not support experimentalSuggestChain"));
+    if (params?.experimentalSuggestChainMethodKey) {
+      const { wcSignClients } = useGrazSessionStore.getState();
+      const wcSignClient = wcSignClients.get(walletType);
+      if (!wcSignClient) throw new Error("walletConnect.signClient is not defined");
+      const [chainInfo] = _args;
+
+      const connect = await wcSignClient.connect({
+        requiredNamespaces: {
+          cosmos: {
+            methods: ["cosmos_getAccounts", "cosmos_signAmino", "cosmos_signDirect"],
+            chains: ["cosmos:cosmoshub-4"],
+            events: ["chainChanged", "accountsChanged"],
+          },
+        },
+      });
+
+      redirectToApp(connect.uri);
+      const session = await connect.approval();
+
+      if (!session) throw new Error("No wallet connect session");
+      const req = {
+        topic: session.topic,
+        chainId: `cosmos:${chainInfo.chainId}`,
+        request: {
+          method: params.experimentalSuggestChainMethodKey,
+          params: {
+            chainInfo,
+          },
+        },
+      };
+      redirectToApp();
+      await wcSignClient.request(req);
+    } else {
+      await Promise.reject(new Error("WalletConnect does not support experimentalSuggestChain"));
+    }
   };
 
   return {

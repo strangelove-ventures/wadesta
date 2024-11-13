@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Stack, Text } from "@chakra-ui/react";
-import { useAccount, useSuggestChainAndConnect } from "graz";
-import { osmosistestnet } from "graz/chains";
+import { useAccount, useConnect, useSuggestChain, useSuggestChainAndConnect, WalletType } from "graz";
+import { coreumtestnet } from "graz/chains";
 import type { FC } from "react";
 
 export const ChainSwitcher: FC = () => {
@@ -9,25 +9,27 @@ export const ChainSwitcher: FC = () => {
     isReconnecting,
     data: account,
   } = useAccount({
-    chainId: osmosistestnet.chainId,
+    chainId: coreumtestnet.chainId,
   });
 
-  const { suggestAndConnect } = useSuggestChainAndConnect();
-
+  // const { connect, error } = useConnect();
+  const { suggestAndConnect, error } = useSuggestChainAndConnect();
   return (
     <Stack spacing={4}>
-      <Text>Suggest and connect chain</Text>
+      <Text>Suggest and connect chain </Text>
+      <Text>{ error?.message }</Text>
       {account ? <Text>Address: {account.bech32Address}</Text> : null}
       <ButtonGroup isDisabled={isConnecting || isReconnecting} size="sm">
         <Button
           colorScheme={account ? "green" : "gray"}
           onClick={() =>
             suggestAndConnect({
-              chainInfo: osmosistestnet,
+              chainInfo: coreumtestnet,
+              walletType: WalletType.WC_KEPLR_MOBILE,
             })
           }
         >
-          {osmosistestnet.chainId}
+          {coreumtestnet.chainId}
         </Button>
       </ButtonGroup>
     </Stack>

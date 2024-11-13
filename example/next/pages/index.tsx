@@ -31,7 +31,6 @@ const HomePage: NextPage = () => {
             </Text>
 
             <BalanceList />
-            <ChainSwitcher />
           </>
         ) : null}
         <HStack align="end" pt={4}>
@@ -39,6 +38,7 @@ const HomePage: NextPage = () => {
           <Spacer />
           <ConnectButton />
         </HStack>
+        <ChainSwitcher />
       </Stack>
       <CapsuleModals />
     </Center>
