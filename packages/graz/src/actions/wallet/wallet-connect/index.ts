@@ -195,31 +195,14 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
 
     const { Web3Modal } = await import("@web3modal/standalone");
 
-    const web3Modal = new Web3Modal({
-      projectId: walletConnect.options.projectId,
-      walletConnectVersion: 2,
-      enableExplorer: false,
-      explorerRecommendedWalletIds: "NONE",
+    let tempWebModal;
 
-      ...walletConnect.web3Modal,
-      // explorerRecommendedWalletIds: [
-      // https://walletconnect.com/explorer?type=wallet&version=2&chains=cosmos%3Acosmoshub-4
-      // keplr doesn't have complete app object better hide it for now and use getKeplr
-      //  "6adb6082c909901b9e7189af3a4a0223102cd6f8d5c39e39f3d49acb92b578bb",
-      //   "3ed8cc046c6211a798dc5ec70f1302b43e07db9639fd287de44a9aa115a21ed6",
-      //   "feb6ff1fb426db18110f5a80c7adbde846d0a7e96b2bc53af4b73aaf32552bea",
-      //   "afbd95522f4041c71dd4f1a065f971fd32372865b416f95a0b1db759ae33f2a7",
-      //   "85db431492aa2e8672e93f4ea7acf10c88b97b867b0d373107af63dc4880f041",
-      //   "7674bb4e353bf52886768a3ddc2a4562ce2f4191c80831291218ebd90f5f5e26",
-      //   "0b415a746fb9ee99cce155c2ceca0c6f6061b1dbca2d722b3ba16381d0562150",
-      //   "022e8ff84519e427bff394b3a58308bc9838196a8efb45158da0ab7c3228abfb",
-      //   "f896cbca30cd6dc414712d3d6fcc2f8f7d35d5bd30e3b1fc5d60cf6c8926f98f",
-      // ],
-    });
     const lastSession = checkSession(chainId);
     if (!lastSession) {
+      const pairing = signClient.core.pairing.getPairings();
       const { uri, approval } = await promiseWithTimeout(
         signClient.connect({
+          pairingTopic: pairing?.[0]?.topic,
           requiredNamespaces: {
             cosmos: {
               methods: ["cosmos_getAccounts", "cosmos_signAmino", "cosmos_signDirect"],
@@ -233,6 +216,28 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       );
       if (!uri) throw new Error("No wallet connect uri");
       if (!params) {
+        const web3Modal = new Web3Modal({
+          projectId: walletConnect.options.projectId,
+          walletConnectVersion: 2,
+          enableExplorer: false,
+          explorerRecommendedWalletIds: "NONE",
+
+          ...walletConnect.web3Modal,
+          // explorerRecommendedWalletIds: [
+          // https://walletconnect.com/explorer?type=wallet&version=2&chains=cosmos%3Acosmoshub-4
+          // keplr doesn't have complete app object better hide it for now and use getKeplr
+          //  "6adb6082c909901b9e7189af3a4a0223102cd6f8d5c39e39f3d49acb92b578bb",
+          //   "3ed8cc046c6211a798dc5ec70f1302b43e07db9639fd287de44a9aa115a21ed6",
+          //   "feb6ff1fb426db18110f5a80c7adbde846d0a7e96b2bc53af4b73aaf32552bea",
+          //   "afbd95522f4041c71dd4f1a065f971fd32372865b416f95a0b1db759ae33f2a7",
+          //   "85db431492aa2e8672e93f4ea7acf10c88b97b867b0d373107af63dc4880f041",
+          //   "7674bb4e353bf52886768a3ddc2a4562ce2f4191c80831291218ebd90f5f5e26",
+          //   "0b415a746fb9ee99cce155c2ceca0c6f6061b1dbca2d722b3ba16381d0562150",
+          //   "022e8ff84519e427bff394b3a58308bc9838196a8efb45158da0ab7c3228abfb",
+          //   "f896cbca30cd6dc414712d3d6fcc2f8f7d35d5bd30e3b1fc5d60cf6c8926f98f",
+          // ],
+        });
+        tempWebModal = web3Modal;
         await web3Modal.openModal({ uri });
       } else {
         redirectToApp(uri);
@@ -280,18 +285,18 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       try {
         const controller = new AbortController();
         const signal = controller.signal;
-        web3Modal.subscribeModal((state) => {
+        tempWebModal?.subscribeModal((state) => {
           if (!state.open) {
             controller.abort();
           }
         });
         await approving(signal);
       } catch (error) {
-        web3Modal.closeModal();
+        tempWebModal?.closeModal();
         if (!(error as Error).message.toLowerCase().includes("no matching key")) return Promise.reject(error);
       }
       if (!params) {
-        web3Modal.closeModal();
+        tempWebModal?.closeModal();
       }
       return Promise.resolve();
     }

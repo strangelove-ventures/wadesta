@@ -52,7 +52,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
     0 0 40px #b7fcc2, 0 0 50px #b7fcc2`,
             animation: `${glowAnimation} 3s infinite linear alternate`,
           }}
-          w="container.md"
+          w={['full', "container.md"]}
         >
           <HStack justifyContent="space-between">
             {isConnected ? (
