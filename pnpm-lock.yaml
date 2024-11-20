@@ -67,13 +67,13 @@ importers:
   example/next:
     dependencies:
       '@chakra-ui/react':
-        specifier: ^2.8.1
+        specifier: 2.8.1
         version: 2.8.1(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(framer-motion@10.16.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@emotion/react':
-        specifier: ^11.11.1
+        specifier: 11.11.1
         version: 11.11.1(@types/react@18.2.21)(react@18.2.0)
       '@emotion/styled':
-        specifier: ^11.11.0
+        specifier: 11.11.0
         version: 11.11.0(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0)
       '@leapwallet/cosmos-social-login-capsule-provider-ui':
         specifier: ^0.0.58
@@ -88,10 +88,10 @@ importers:
         specifier: ^13.4.19
         version: 13.4.19(@babel/core@7.22.15)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react:
-        specifier: ^18.2.0
+        specifier: 18.2.0
         version: 18.2.0
       react-dom:
-        specifier: ^18.2.0
+        specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
         specifier: ^5.2.2
@@ -113,16 +113,16 @@ importers:
   example/starter:
     dependencies:
       '@chakra-ui/icons':
-        specifier: ^2.1.1
+        specifier: 2.1.1
         version: 2.1.1(@chakra-ui/system@2.6.1(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@chakra-ui/react':
-        specifier: ^2.8.1
+        specifier: 2.8.1
         version: 2.8.1(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(framer-motion@10.16.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@emotion/react':
-        specifier: ^11.11.1
+        specifier: 11.11.1
         version: 11.11.1(@types/react@18.2.21)(react@18.2.0)
       '@emotion/styled':
-        specifier: ^11.11.0
+        specifier: 11.11.0
         version: 11.11.0(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0)
       '@graz-sh/types':
         specifier: ^0.0.4
@@ -143,10 +143,10 @@ importers:
         specifier: ^13.4.19
         version: 13.4.19(@babel/core@7.22.15)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react:
-        specifier: ^18.2.0
+        specifier: 18.2.0
         version: 18.2.0
       react-dom:
-        specifier: ^18.2.0
+        specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@graz-sh/style-guide':
@@ -463,10 +463,6 @@ packages:
     resolution: {integrity: sha512-nIcGfgwpH2u4n9GG1HpStW5Ogx7x7ekiFHbjjFRKXbn5zUvqO9ZgotCO4x1aNbKn/x/xOUaXEhyNHCwtFCpxWg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-module-imports@7.21.4':
-    resolution: {integrity: sha512-orajc5T2PsRYUN3ZryCEFeMDYwyw09c/pZeaQEZPH0MpKzSvn3e0uXsDBu3k03VI+9DBiRo+l22BfKTpKwa/Wg==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/helper-module-imports@7.22.15':
     resolution: {integrity: sha512-0pYVBnDKZO2fnSPCrgM/6WMc7eS20Fbok+0r88fp+YtWVLZrp4CkafFGIp+W0VKw4a22sgebPT99y+FDNMdP4w==}
     engines: {node: '>=6.9.0'}
@@ -510,16 +506,8 @@ packages:
     resolution: {integrity: sha512-AsUnxuLhRYsisFiaJwvp1QF+I3KjD5FOxut14q/GzovUe6orHLesW2C7d754kRm53h5gqrz6sFl6sxc4BVtE/g==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-string-parser@7.21.5':
-    resolution: {integrity: sha512-5pTUx3hAJaZIdW99sJ6ZUUgWq/Y+Hja7TowEnLNMm1VivRgZQL3vpBY3qUACVsvw+yQU6+YgfBVmcbLaZtrA1w==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/helper-string-parser@7.22.5':
     resolution: {integrity: sha512-mM4COjgZox8U+JcXQwPijIZLElkgEpO5rsERVDJTc2qfCDfERyob6k5WegS14SX18IIjv+XD+GrqNumY5JRCDw==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-validator-identifier@7.19.1':
-    resolution: {integrity: sha512-awrNfaMtnHUr653GgGEs++LlAvW6w+DcPrOliSMXWCKo597CwL5Acf/wWdNkf/tfEQE3mjkeD1YOVZOUV/od1w==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-identifier@7.22.15':
@@ -1051,10 +1039,6 @@ packages:
     resolution: {integrity: sha512-FRqFlFKNazWYykft5zvzuEl1YyTDGsIRrjV9rvxvYkUC7W/ueBng1X68Xd6uRMzAaJ0xMKn08/wem5YS1lpX8w==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/runtime@7.22.5':
-    resolution: {integrity: sha512-ecjvYlnAaZ/KVneE/OdKYBYfgXV3Ptu6zQWmgEF7vwKhQnvVS6bjMD2XYgj+SNvQ1GfK/pjgokfPkC/2CO8CuA==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/runtime@7.24.1':
     resolution: {integrity: sha512-+BIznRzyqBf+2wCTxcKE3wDjfGeCoVE61KSHGpkzqrLi8qxqFwBeUFyId2cxkTmm55fzDGnm0+yCxaxygrLUnQ==}
     engines: {node: '>=6.9.0'}
@@ -1065,10 +1049,6 @@ packages:
 
   '@babel/traverse@7.22.15':
     resolution: {integrity: sha512-DdHPwvJY0sEeN4xJU5uRLmZjgMMDIvMPniLuYzUVXj/GGzysPl0/fwt44JBkyUIzGJPV8QgHMcQdQ34XFuKTYQ==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/types@7.21.5':
-    resolution: {integrity: sha512-m4AfNvVF2mVC/F7fDEdH2El3HzUg9It/XsCxZiOTTA3m3qYfcSVSbTfM6Q9xG+hYDniZssYhlXKKUMD5m8tF4Q==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.22.15':
@@ -7914,16 +7894,6 @@ packages:
       '@types/react':
         optional: true
 
-  react-remove-scroll@2.5.6:
-    resolution: {integrity: sha512-bO856ad1uDYLefgArk559IzUNeQ6SWH4QnrevIUjH+GczV56giDfl3h0Idptf2oIKxQmd1p9BN25jleKodTALg==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
   react-remove-scroll@2.5.7:
     resolution: {integrity: sha512-FnrTWO4L7/Bhhf3CYBNArEG/yROV0tKmTv7/3h9QCFvH6sndeFf1wPqOcbFVu5VAulS5dV1wGT3GZZ/1GawqiA==}
     engines: {node: '>=10'}
@@ -9724,10 +9694,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.22.15
 
-  '@babel/helper-module-imports@7.21.4':
-    dependencies:
-      '@babel/types': 7.21.5
-
   '@babel/helper-module-imports@7.22.15':
     dependencies:
       '@babel/types': 7.22.15
@@ -9791,11 +9757,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.22.15
 
-  '@babel/helper-string-parser@7.21.5': {}
-
   '@babel/helper-string-parser@7.22.5': {}
-
-  '@babel/helper-validator-identifier@7.19.1': {}
 
   '@babel/helper-validator-identifier@7.22.15': {}
 
@@ -10437,10 +10399,6 @@ snapshots:
       core-js-pure: 3.30.2
       regenerator-runtime: 0.13.11
 
-  '@babel/runtime@7.22.5':
-    dependencies:
-      regenerator-runtime: 0.13.11
-
   '@babel/runtime@7.24.1':
     dependencies:
       regenerator-runtime: 0.14.0
@@ -10465,12 +10423,6 @@ snapshots:
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/types@7.21.5':
-    dependencies:
-      '@babel/helper-string-parser': 7.21.5
-      '@babel/helper-validator-identifier': 7.19.1
-      to-fast-properties: 2.0.0
 
   '@babel/types@7.22.15':
     dependencies:
@@ -10781,7 +10733,7 @@ snapshots:
       framer-motion: 10.16.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-remove-scroll: 2.5.6(@types/react@18.2.21)(react@18.2.0)
+      react-remove-scroll: 2.5.7(@types/react@18.2.21)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
 
@@ -12348,7 +12300,7 @@ snapshots:
 
   '@emotion/babel-plugin@11.11.0':
     dependencies:
-      '@babel/helper-module-imports': 7.21.4
+      '@babel/helper-module-imports': 7.22.15
       '@babel/runtime': 7.24.1
       '@emotion/hash': 0.9.1
       '@emotion/memoize': 0.8.1
@@ -12386,7 +12338,7 @@ snapshots:
 
   '@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0)':
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.24.1
       '@emotion/babel-plugin': 11.11.0
       '@emotion/cache': 11.11.0
       '@emotion/serialize': 1.1.2
@@ -12410,7 +12362,7 @@ snapshots:
 
   '@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0)':
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.24.1
       '@emotion/babel-plugin': 11.11.0
       '@emotion/is-prop-valid': 1.2.1
       '@emotion/react': 11.11.1(@types/react@18.2.21)(react@18.2.0)
@@ -15415,7 +15367,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.1
       cosmiconfig: 7.1.0
-      resolve: 1.22.2
+      resolve: 1.22.4
 
   babel-plugin-polyfill-corejs2@0.3.3(@babel/core@7.22.15):
     dependencies:
@@ -19415,17 +19367,6 @@ snapshots:
       '@types/react': 18.2.21
 
   react-remove-scroll@2.5.5(@types/react@18.2.21)(react@18.2.0):
-    dependencies:
-      react: 18.2.0
-      react-remove-scroll-bar: 2.3.4(@types/react@18.2.21)(react@18.2.0)
-      react-style-singleton: 2.2.1(@types/react@18.2.21)(react@18.2.0)
-      tslib: 2.6.2
-      use-callback-ref: 1.3.0(@types/react@18.2.21)(react@18.2.0)
-      use-sidecar: 1.1.2(@types/react@18.2.21)(react@18.2.0)
-    optionalDependencies:
-      '@types/react': 18.2.21
-
-  react-remove-scroll@2.5.6(@types/react@18.2.21)(react@18.2.0):
     dependencies:
       react: 18.2.0
       react-remove-scroll-bar: 2.3.4(@types/react@18.2.21)(react@18.2.0)

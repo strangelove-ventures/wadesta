@@ -10,18 +10,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/react": "^2.8.1",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
+    "@chakra-ui/icons": "2.1.1",
+    "@chakra-ui/react": "2.8.1",
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
     "@graz-sh/types": "^0.0.4",
     "@leapwallet/cosmos-social-login-capsule-provider-ui": "^0.0.58",
     "bignumber.js": "^9.1.2",
     "framer-motion": "^10.16.4",
     "graz": "workspace:*",
     "next": "^13.4.19",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@graz-sh/style-guide": "^4.0.1",
