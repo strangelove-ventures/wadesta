@@ -38,7 +38,7 @@ export const AvailableWallets = () => {
 #### Note:
 
 - if `walletConnect.options.projectId` not provided `WalletType.WALLETCONNECT` | `WalletType.WC_KEPLR_MOBILE` | `WalletType.WC_LEAP_MOBILE`| `WalletType.WC_COSMOSTATION_MOBILE` will return false
-- `wallet.WalletType.WALLETCONNECT` is using `web3modal` for the modal, it will only shows the qr code. To connect and have deep linking to wallet mobile apps, use `WalletType.WC_KEPLR_MOBILE` |
+- `wallet.WalletType.WALLETCONNECT` is using `@walletconnect/modal` for the modal, it will only shows the qr code. To connect and have deep linking to wallet mobile apps, use `WalletType.WC_KEPLR_MOBILE` |
   `WalletType.WC_LEAP_MOBILE`|
   `WalletType.WC_COSMOSTATION_MOBILE`
 - `WalletType.WC_KEPLR_MOBILE` |

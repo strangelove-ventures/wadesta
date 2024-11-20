@@ -194,7 +194,7 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     const { walletConnect, chains } = useGrazInternalStore.getState();
     if (!walletConnect?.options?.projectId) throw new Error("walletConnect.options.projectId is not defined");
 
-    const web3Modal = new WalletConnectModal({
+    const walletConnectModal = new WalletConnectModal({
       projectId: walletConnect.options.projectId,
       enableExplorer: false,
       explorerRecommendedWalletIds: "NONE",
@@ -230,7 +230,7 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       );
       if (!uri) throw new Error("No wallet connect uri");
       if (!params) {
-        await web3Modal.openModal({ uri });
+        await walletConnectModal.openModal({ uri });
       } else {
         redirectToApp(uri);
       }
@@ -277,18 +277,18 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       try {
         const controller = new AbortController();
         const signal = controller.signal;
-        web3Modal.subscribeModal((state) => {
+        walletConnectModal.subscribeModal((state) => {
           if (!state.open) {
             controller.abort();
           }
         });
         await approving(signal);
       } catch (error) {
-        web3Modal.closeModal();
+        walletConnectModal.closeModal();
         if (!(error as Error).message.toLowerCase().includes("no matching key")) return Promise.reject(error);
       }
       if (!params) {
-        web3Modal.closeModal();
+        walletConnectModal.closeModal();
       }
       return Promise.resolve();
     }
