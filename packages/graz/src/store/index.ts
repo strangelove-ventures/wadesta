@@ -1,7 +1,7 @@
 import type { ChainInfo, Keplr, Key } from "@keplr-wallet/types";
 import type { CapsuleProvider } from "@leapwallet/cosmos-social-login-capsule-provider";
 import type { ISignClient, SignClientTypes } from "@walletconnect/types";
-import type { Web3ModalConfig } from "@web3modal/standalone";
+import type { WalletConnectModalConfig } from "@walletconnect/modal";
 import { create } from "zustand";
 import type { PersistOptions } from "zustand/middleware";
 import { createJSONStorage } from "zustand/middleware";
@@ -20,7 +20,10 @@ export interface ChainConfig {
 }
 export interface WalletConnectStore {
   options: SignClientTypes.Options | null;
-  web3Modal?: Pick<Web3ModalConfig, "themeVariables" | "themeMode" | "privacyPolicyUrl" | "termsOfServiceUrl"> | null;
+  walletConnectModal?: Pick<
+    WalletConnectModalConfig,
+    "themeVariables" | "themeMode" | "privacyPolicyUrl" | "termsOfServiceUrl"
+  > | null;
 }
 
 export interface CapsuleConfig {
@@ -95,7 +98,7 @@ export const grazInternalDefaultValues: GrazInternalStore = {
   walletType: WalletType.KEPLR,
   walletConnect: {
     options: null,
-    web3Modal: null,
+    walletConnectModal: null,
   },
   walletDefaultOptions: null,
   _notFoundFn: () => null,

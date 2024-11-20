@@ -11,6 +11,7 @@ import { type SignAminoParams, type SignDirectParams, type Wallet, WalletType } 
 import { isAndroid, isIos, isMobile } from "../../../utils/os";
 import { promiseWithTimeout } from "../../../utils/timeout";
 import type { GetWalletConnectParams, WalletConnectSignDirectResponse } from "./types";
+import { WalletConnectModal } from "@walletconnect/modal";
 
 export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
   if (!useGrazInternalStore.getState().walletConnect?.options?.projectId?.trim()) {
@@ -193,15 +194,11 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     const { walletConnect, chains } = useGrazInternalStore.getState();
     if (!walletConnect?.options?.projectId) throw new Error("walletConnect.options.projectId is not defined");
 
-    const { Web3Modal } = await import("@web3modal/standalone");
-
-    const web3Modal = new Web3Modal({
+    const web3Modal = new WalletConnectModal({
       projectId: walletConnect.options.projectId,
-      walletConnectVersion: 2,
       enableExplorer: false,
       explorerRecommendedWalletIds: "NONE",
-
-      ...walletConnect.web3Modal,
+      ...walletConnect.walletConnectModal,
       // explorerRecommendedWalletIds: [
       // https://walletconnect.com/explorer?type=wallet&version=2&chains=cosmos%3Acosmoshub-4
       // keplr doesn't have complete app object better hide it for now and use getKeplr

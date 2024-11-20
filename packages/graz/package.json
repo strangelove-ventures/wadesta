@@ -1,7 +1,7 @@
 {
   "name": "graz",
   "description": "React hooks for Cosmos",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "author": "Griko Nibras <griko@strange.love>",
   "repository": "https://github.com/graz-sh/graz.git",
   "homepage": "https://github.com/graz-sh/graz",
@@ -60,10 +60,10 @@
     "@tanstack/react-query": "4.35.0",
     "@terra-money/station-connector": "1.1.0",
     "@vectis/extension-client": "^0.7.2",
-    "@walletconnect/sign-client": "2.10.0",
-    "@walletconnect/types": "2.10.0",
-    "@walletconnect/utils": "2.10.0",
-    "@web3modal/standalone": "2.4.3",
+    "@walletconnect/sign-client": "2.17.2",
+    "@walletconnect/types": "2.17.2",
+    "@walletconnect/utils": "2.17.2",
+    "@walletconnect/modal": "2.7.0",
     "cosmos-directory-client": "0.0.6",
     "long": "4",
     "zustand": "4.5.2"
