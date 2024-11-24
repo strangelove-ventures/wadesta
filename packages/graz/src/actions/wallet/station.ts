@@ -1,8 +1,8 @@
-import type { ChainInfo, DirectSignResponse, KeplrSignOptions, Key, SignDoc, StdSignDoc } from "@keplr-wallet/types";
+import type { ChainInfo, DirectSignResponse, KeplrSignOptions, SignDoc, StdSignDoc } from "@keplr-wallet/types";
 import type { ChainInfoResponse } from "@terra-money/station-connector/keplrConnector";
 
 import { useGrazInternalStore } from "../../store";
-import type { Wallet } from "../../types/wallet";
+import type { Key, Wallet } from "../../types/wallet";
 import { clearSession } from ".";
 
 /**
@@ -60,7 +60,11 @@ export const getStation = (): Wallet => {
 
     const experimentalSuggestChain = async (chainInfo: ChainInfo) => {
       try {
+        if (!chainInfo.bech32Config) throw new Error("Bech32Config is required");
+        if (!chainInfo.stakeCurrency) throw new Error("StakeCurrency is required");
+
         const chainInfoResponse: ChainInfoResponse = Object.assign(chainInfo, {
+          bech32Config: chainInfo.bech32Config,
           chainSymbolImageUrl: chainInfo.chainSymbolImageUrl || "",
           stakeCurrency: {
             coinDecimals: chainInfo.stakeCurrency.coinDecimals,

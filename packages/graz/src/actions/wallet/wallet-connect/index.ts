@@ -1,13 +1,13 @@
 import type { AminoSignResponse } from "@cosmjs/amino";
 import type { AccountData, Algo, DirectSignResponse } from "@cosmjs/proto-signing";
-import type { Keplr, Key } from "@keplr-wallet/types";
+import type { Keplr } from "@keplr-wallet/types";
 import { SignClient } from "@walletconnect/sign-client";
 import type { ISignClient, SignClientTypes } from "@walletconnect/types";
 import { getSdkError } from "@walletconnect/utils";
 import Long from "long";
 
 import { useGrazInternalStore, useGrazSessionStore } from "../../../store";
-import { type SignAminoParams, type SignDirectParams, type Wallet, WalletType } from "../../../types/wallet";
+import { Key, type SignAminoParams, type SignDirectParams, type Wallet, WalletType } from "../../../types/wallet";
 import { isAndroid, isIos, isMobile } from "../../../utils/os";
 import { promiseWithTimeout } from "../../../utils/timeout";
 import type { GetWalletConnectParams, WalletConnectSignDirectResponse } from "./types";

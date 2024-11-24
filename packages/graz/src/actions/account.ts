@@ -1,10 +1,10 @@
 import type { OfflineDirectSigner } from "@cosmjs/proto-signing";
-import type { ChainInfo, Key, OfflineAminoSigner } from "@keplr-wallet/types";
+import type { ChainInfo, OfflineAminoSigner } from "@keplr-wallet/types";
 
 import { RECONNECT_SESSION_KEY } from "../constant";
 import { grazSessionDefaultValues, useGrazInternalStore, useGrazSessionStore } from "../store";
 import type { Maybe } from "../types/core";
-import type { WalletType } from "../types/wallet";
+import type { Key, WalletType } from "../types/wallet";
 import type { ChainId } from "../utils/multi-chain";
 import { checkWallet, getWallet, isCapsule, isWalletConnect } from "./wallet";
 
