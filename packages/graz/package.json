@@ -52,6 +52,7 @@
     "react": ">=17"
   },
   "dependencies": {
+    "@keplr-wallet/types": "0.12.156",
     "@cosmsnap/snapper": "0.1.29",
     "@dao-dao/cosmiframe": "0.1.0",
     "@keplr-wallet/cosmos": "0.12.156",
@@ -68,7 +69,6 @@
     "zustand": "4.5.2"
   },
   "devDependencies": {
-    "@keplr-wallet/types": "0.12.156",
     "@initia/initia-registry-types": "0.0.20",
     "@types/node": "^18.17.15",
     "@types/react": "^18.2.21",

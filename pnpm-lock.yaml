@@ -240,6 +240,9 @@ importers:
       '@keplr-wallet/cosmos':
         specifier: 0.12.156
         version: 0.12.156(starknet@6.11.0)
+      '@keplr-wallet/types':
+        specifier: 0.12.156
+        version: 0.12.156(starknet@6.11.0)
       '@leapwallet/cosmos-social-login-capsule-provider':
         specifier: ^0.0.41
         version: 0.0.41(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.31.3)(fp-ts@2.1.1)
@@ -280,9 +283,6 @@ importers:
       '@initia/initia-registry-types':
         specifier: 0.0.20
         version: 0.0.20
-      '@keplr-wallet/types':
-        specifier: 0.12.156
-        version: 0.12.156(starknet@6.11.0)
       '@types/node':
         specifier: ^18.17.15
         version: 18.17.15
