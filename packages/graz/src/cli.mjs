@@ -83,9 +83,9 @@ const generate = async () => {
     console.log("🐙\tDetected chain filtering flag, generating only given chain paths...");
   }
 
-  /** @type {Record<string, ChainInfo>} */
+  /** @type {Record<string, import("@keplr-wallet/types").ChainInfo>} */
   let mainnetRecord;
-  /** @type {Record<string, ChainInfo>} */
+  /** @type {Record<string, import("@keplr-wallet/types").ChainInfo>} */
   let testnetRecord;
 
   if (args["--endpoint"]) {
@@ -146,9 +146,9 @@ const generate = async () => {
 };
 
 /**
- * @param {Record<string, ChainInfo>} chains
+ * @param {Record<string, import("@keplr-wallet/types").ChainInfo>} chains
  * @param {string | undefined} filter
- * @returns {Record<string, ChainInfo>}
+ * @returns {Record<string, import("@keplr-wallet/types").ChainInfo>}
  */
 const filterChains = (chains, filter) => {
   if (!filter) return chains;

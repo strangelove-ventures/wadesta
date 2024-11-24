@@ -1,12 +1,12 @@
 import type { AminoSignResponse } from "@cosmjs/amino";
 import { fromBech32 } from "@cosmjs/encoding";
 import type { DirectSignResponse } from "@cosmjs/proto-signing";
-import type { Key } from "@keplr-wallet/types";
 import Long from "long";
 
 import { useGrazInternalStore } from "../../store";
-import type { SignAminoParams, SignDirectParams, Wallet } from "../../types/wallet";
+import type { Key, SignAminoParams, SignDirectParams, Wallet } from "../../types/wallet";
 import { clearSession } from ".";
+import { ChainInfo } from "@vectis/extension-client";
 
 /**
  * Function to return {@link Wallet} object and throws and error if it does not exist on `window`.
@@ -36,17 +36,26 @@ export const getVectis = (): Wallet => {
       };
     };
     const getOfflineSignerOnlyAmino = (...args: Parameters<Wallet["getOfflineSignerOnlyAmino"]>) => {
-      return vectis.getOfflineSignerAmino(...args);
+      const chainId = args[0];
+      return vectis.getOfflineSignerAmino(chainId);
     };
 
     const experimentalSuggestChain = async (...args: Parameters<Wallet["experimentalSuggestChain"]>) => {
       const [chainInfo] = args;
-      const adaptChainInfo = {
-        ...chainInfo,
+      if (!chainInfo.bech32Config) throw new Error("Bech32Config is required");
+      if (!chainInfo.stakeCurrency) throw new Error("StakeCurrency is required");
+      const adaptChainInfo: ChainInfo = {
         rpcUrl: chainInfo.rpc,
         restUrl: chainInfo.rest,
         prettyName: chainInfo.chainName.replace(" ", ""),
-        bech32Prefix: chainInfo.bech32Config.bech32PrefixAccAddr,
+        bech32Prefix: chainInfo.bech32Config?.bech32PrefixAccAddr,
+        currencies: chainInfo.currencies,
+        feeCurrencies: chainInfo.feeCurrencies,
+        chainId: chainInfo.chainId,
+        chainName: chainInfo.chainName,
+        bip44: chainInfo.bip44,
+        stakeCurrency: chainInfo.stakeCurrency,
+        features: chainInfo.features,
       };
       return vectis.suggestChains([adaptChainInfo]);
     };

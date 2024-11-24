@@ -1,4 +1,4 @@
-import type { Keplr, KeplrIntereactionOptions, Key } from "@keplr-wallet/types";
+import type { ChainInfo, Keplr, KeplrIntereactionOptions, Key as KeplrKey } from "@keplr-wallet/types";
 
 export enum WalletType {
   KEPLR = "keplr",
@@ -50,24 +50,21 @@ export const WALLET_TYPES = [
 
 export type Wallet = Pick<
   Keplr,
-  | "enable"
-  | "getKey"
-  | "getOfflineSigner"
-  | "getOfflineSignerAuto"
-  | "getOfflineSignerOnlyAmino"
-  | "experimentalSuggestChain"
-  | "signDirect"
-  | "signAmino"
+  "enable" | "getOfflineSigner" | "getOfflineSignerAuto" | "getOfflineSignerOnlyAmino" | "signDirect" | "signAmino"
 > & {
+  experimentalSuggestChain: (chainInfo: Omit<ChainInfo, "nodeProvider">) => Promise<void>;
   signArbitrary?: Keplr["signArbitrary"];
   subscription?: (reconnect: () => void) => () => void;
   init?: () => Promise<unknown>;
   disable?: (chainIds?: string | undefined) => Promise<void>;
   setDefaultOptions?: (options: KeplrIntereactionOptions) => void;
   onAfterLoginSuccessful?: () => Promise<void>;
+  getKey: (chainId: string) => Promise<Key>;
 };
 
 export type SignDirectParams = Parameters<Wallet["signDirect"]>;
 export type SignAminoParams = Parameters<Wallet["signAmino"]>;
 
 export type KnownKeys = Record<string, Key>;
+
+export type Key = Omit<KeplrKey, "ethereumHexAddress">;
