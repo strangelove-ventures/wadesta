@@ -305,24 +305,12 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
   };
 
   const getAccount = async (chainId: string): Promise<AccountData> => {
-    const { wcSignClients } = useGrazSessionStore.getState();
-    const wcSignClient = wcSignClients.get(walletType);
-    if (!wcSignClient) throw new Error("walletConnect.signClient is not defined");
-    const topic = getSession([chainId])?.topic;
-    if (!topic) throw new Error("No wallet connect session");
-    const result: { address: string; algo: string; pubkey: string }[] = await wcSignClient.request({
-      topic,
-      chainId: `cosmos:${chainId}`,
-      request: {
-        method: "cosmos_getAccounts",
-        params: {},
-      },
-    });
-    if (!result[0]) throw new Error("No wallet connect account");
+    const key = await getKey(chainId);
+
     return {
-      address: result[0].address,
-      algo: result[0].algo as Algo,
-      pubkey: new Uint8Array(Buffer.from(result[0].pubkey, encoding)),
+      address: key.bech32Address,
+      algo: key.algo as Algo,
+      pubkey: key.pubKey,
     };
   };
 
@@ -339,7 +327,10 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     const key = keys.find((x) => x.chainId === chainId);
     if (!key) throw new Error(`No wallet connect key for chainId ${chainId}`);
 
-    return key;
+    return {
+      ...key,
+      pubKey: Buffer.from(String(key.pubKey), encoding) as unknown as Uint8Array,
+    };
   };
 
   const wcSignDirect = async (...args: SignDirectParams) => {
@@ -354,7 +345,8 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
 
     if (!signDoc.bodyBytes) throw new Error("No bodyBytes");
     if (!signDoc.authInfoBytes) throw new Error("No authInfoBytes");
-    const req = {
+    redirectToApp();
+    const result: WalletConnectSignDirectResponse = await wcSignClient.request({
       topic,
       chainId: `cosmos:${chainId}`,
       request: {
@@ -362,16 +354,14 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
         params: {
           signerAddress: signer,
           signDoc: {
-            ...signDoc,
-            bodyBytes: Buffer.from(signDoc.bodyBytes).toString(encoding),
-            authInfoBytes: Buffer.from(signDoc.authInfoBytes).toString(encoding),
+            chainId: signDoc.chainId,
             accountNumber: signDoc.accountNumber?.toString(),
+            bodyBytes: signDoc.bodyBytes ? Buffer.from(signDoc.bodyBytes).toString(encoding) : null,
+            authInfoBytes: signDoc.authInfoBytes ? Buffer.from(signDoc.authInfoBytes).toString(encoding) : null,
           },
         },
       },
-    };
-    redirectToApp();
-    const result: WalletConnectSignDirectResponse = await wcSignClient.request(req);
+    });
     return result;
   };
 
@@ -380,10 +370,12 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     const { signature, signed } = await wcSignDirect(chainId, signer, signDoc);
     return {
       signed: {
-        chainId: signed.chainId,
-        accountNumber: Long.fromString(signed.accountNumber, false),
-        authInfoBytes: new Uint8Array(Buffer.from(signed.authInfoBytes, encoding)),
-        bodyBytes: new Uint8Array(Buffer.from(signed.bodyBytes, encoding)),
+        chainId: signed.chainId ?? "",
+        accountNumber: signed.accountNumber ? Long.fromString(signed.accountNumber) : new Long(0),
+        authInfoBytes: signed.authInfoBytes
+          ? new Uint8Array(Buffer.from(signed.authInfoBytes, encoding))
+          : new Uint8Array([]),
+        bodyBytes: signed.bodyBytes ? new Uint8Array(Buffer.from(signed.bodyBytes, encoding)) : new Uint8Array([]),
       },
       signature,
     };

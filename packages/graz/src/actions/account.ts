@@ -188,6 +188,8 @@ export const reconnect = async (args?: ReconnectArgs) => {
   try {
     const isWalletReady = checkWallet(_reconnectConnector || undefined);
     if (recentChains && isWalletReady && _reconnectConnector) {
+      const isWC = isWalletConnect(_reconnectConnector);
+      if (isWC) return;
       const key = await connect({
         chainId: recentChains,
         walletType: _reconnectConnector,
