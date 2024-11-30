@@ -9,7 +9,7 @@ interface WalletConnectStore {
     name?: string;
     ...SignClientTypes.Options
   } | null;
-  web3Modal?: {
+  walletConnectModal?: {
     themeMode?: 'dark' | 'light'
     privacyPolicyUrl?: string
     termsOfServiceUrl?: string

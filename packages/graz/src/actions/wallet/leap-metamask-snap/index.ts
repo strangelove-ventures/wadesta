@@ -1,17 +1,9 @@
-import type {
-  AccountData,
-  Algo,
-  AminoSignResponse,
-  DirectSignResponse,
-  Keplr,
-  Key,
-  StdSignDoc,
-} from "@keplr-wallet/types";
+import type { AccountData, Algo, AminoSignResponse, DirectSignResponse, Keplr, StdSignDoc } from "@keplr-wallet/types";
 // eslint-disable-next-line import/no-named-as-default
 import Long from "long";
 
 import { useGrazInternalStore } from "../../../store";
-import type { KnownKeys, SignAminoParams, SignDirectParams, Wallet } from "../../../types/wallet";
+import type { Key, KnownKeys, SignAminoParams, SignDirectParams, Wallet } from "../../../types/wallet";
 import type { ChainId } from "../../../utils/multi-chain";
 import type { GetSnapsResponse, Snap } from "./types";
 

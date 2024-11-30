@@ -4,6 +4,11 @@ sidebar_position: 8
 
 # Changelog
 
+## Version 0.1.26
+
+- Wallet connect modal uses `@walletconnect/modal` instead of deprecated `web3modal`
+- Renamed prop `walletConnect.web3Modal` to `walletConnect.walletConnectModal`
+
 ## Version 0.1.19
 
 - Added Compass wallet integration

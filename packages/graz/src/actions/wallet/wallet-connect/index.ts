@@ -1,16 +1,17 @@
 import type { AminoSignResponse } from "@cosmjs/amino";
 import type { AccountData, Algo, DirectSignResponse } from "@cosmjs/proto-signing";
-import type { Keplr, Key } from "@keplr-wallet/types";
+import type { Keplr } from "@keplr-wallet/types";
 import { SignClient } from "@walletconnect/sign-client";
 import type { ISignClient, SignClientTypes } from "@walletconnect/types";
 import { getSdkError } from "@walletconnect/utils";
 import Long from "long";
 
 import { useGrazInternalStore, useGrazSessionStore } from "../../../store";
-import { type SignAminoParams, type SignDirectParams, type Wallet, WalletType } from "../../../types/wallet";
+import { Key, type SignAminoParams, type SignDirectParams, type Wallet, WalletType } from "../../../types/wallet";
 import { isAndroid, isIos, isMobile } from "../../../utils/os";
 import { promiseWithTimeout } from "../../../utils/timeout";
 import type { GetWalletConnectParams, WalletConnectSignDirectResponse } from "./types";
+import { WalletConnectModal } from "@walletconnect/modal";
 
 export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
   if (!useGrazInternalStore.getState().walletConnect?.options?.projectId?.trim()) {
@@ -77,8 +78,8 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       const { wcSignClients } = useGrazSessionStore.getState();
       const wcSignClient = wcSignClients.get(walletType);
       if (!wcSignClient) throw new Error("walletConnect.signClient is not defined");
-
-      const lastSession = wcSignClient.session.getAll().at(-1);
+      const allSession = wcSignClient.session.getAll();
+      const lastSession = allSession.at(-1);
       if (!lastSession) return;
 
       const isValid = lastSession.expiry * 1000 > Date.now() + 1000;
@@ -88,19 +89,11 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       }
 
       try {
-        const chainSession = wcSignClient.find({
-          requiredNamespaces: {
-            cosmos: {
-              methods: ["cosmos_getAccounts", "cosmos_signAmino", "cosmos_signDirect"],
-              chains: chainId.map((i) => `cosmos:${i}`),
-              events: ["chainChanged", "accountsChanged"],
-            },
-          },
-        });
-        if (!chainSession.length) {
+        const chainSession = allSession.find((x) => x.requiredNamespaces.cosmos?.chains?.includes(`cosmos:${chainId}`));
+        if (!chainSession) {
           throw new Error("no session");
         }
-        return chainSession.at(-1);
+        return chainSession;
       } catch (error) {
         if (!(error as Error).message.toLowerCase().includes("no matching key")) throw error;
       }
@@ -187,21 +180,17 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
 
   const enable = async (_chainId: string | string[]) => {
     const chainId = typeof _chainId === "string" ? [_chainId] : _chainId;
-    const { wcSignClients } = useGrazSessionStore.getState();
+    const { wcSignClients, activeChainIds } = useGrazSessionStore.getState();
     const signClient = wcSignClients.get(walletType);
     if (!signClient) throw new Error("enable walletConnect.signClient is not defined");
     const { walletConnect, chains } = useGrazInternalStore.getState();
     if (!walletConnect?.options?.projectId) throw new Error("walletConnect.options.projectId is not defined");
 
-    const { Web3Modal } = await import("@web3modal/standalone");
-
-    const web3Modal = new Web3Modal({
+    const walletConnectModal = new WalletConnectModal({
       projectId: walletConnect.options.projectId,
-      walletConnectVersion: 2,
       enableExplorer: false,
       explorerRecommendedWalletIds: "NONE",
-
-      ...walletConnect.web3Modal,
+      ...walletConnect.walletConnectModal,
       // explorerRecommendedWalletIds: [
       // https://walletconnect.com/explorer?type=wallet&version=2&chains=cosmos%3Acosmoshub-4
       // keplr doesn't have complete app object better hide it for now and use getKeplr
@@ -233,7 +222,7 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       );
       if (!uri) throw new Error("No wallet connect uri");
       if (!params) {
-        await web3Modal.openModal({ uri });
+        await walletConnectModal.openModal({ uri });
       } else {
         redirectToApp(uri);
       }
@@ -260,7 +249,6 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
                   pubKey: x.pubKey,
                 };
               });
-
               useGrazSessionStore.setState((prev) => ({
                 accounts: { ...(prev.accounts || {}), ...resAcc },
               }));
@@ -280,18 +268,18 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       try {
         const controller = new AbortController();
         const signal = controller.signal;
-        web3Modal.subscribeModal((state) => {
+        walletConnectModal.subscribeModal((state) => {
           if (!state.open) {
             controller.abort();
           }
         });
         await approving(signal);
       } catch (error) {
-        web3Modal.closeModal();
+        walletConnectModal.closeModal();
         if (!(error as Error).message.toLowerCase().includes("no matching key")) return Promise.reject(error);
       }
       if (!params) {
-        web3Modal.closeModal();
+        walletConnectModal.closeModal();
       }
       return Promise.resolve();
     }
@@ -299,7 +287,9 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
       await promiseWithTimeout(
         (async () => {
           const resultAcccounts = Object.fromEntries(
-            await Promise.all(chainId.map(async (c): Promise<[string, Key]> => [c, await getKey(c)])),
+            await Promise.all(
+              (activeChainIds || chainId)?.map(async (c): Promise<[string, Key]> => [c, await getKey(c)]),
+            ),
           );
           useGrazSessionStore.setState({
             accounts: resultAcccounts,
@@ -315,24 +305,12 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
   };
 
   const getAccount = async (chainId: string): Promise<AccountData> => {
-    const { wcSignClients } = useGrazSessionStore.getState();
-    const wcSignClient = wcSignClients.get(walletType);
-    if (!wcSignClient) throw new Error("walletConnect.signClient is not defined");
-    const topic = getSession([chainId])?.topic;
-    if (!topic) throw new Error("No wallet connect session");
-    const result: { address: string; algo: string; pubkey: string }[] = await wcSignClient.request({
-      topic,
-      chainId: `cosmos:${chainId}`,
-      request: {
-        method: "cosmos_getAccounts",
-        params: {},
-      },
-    });
-    if (!result[0]) throw new Error("No wallet connect account");
+    const key = await getKey(chainId);
+
     return {
-      address: result[0].address,
-      algo: result[0].algo as Algo,
-      pubkey: new Uint8Array(Buffer.from(result[0].pubkey, encoding)),
+      address: key.bech32Address,
+      algo: key.algo as Algo,
+      pubkey: key.pubKey,
     };
   };
 
@@ -342,10 +320,17 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     if (!session?.topic) throw new Error("No wallet connect session");
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const key: Key | undefined = session.sessionProperties && JSON.parse(String(session.sessionProperties.keys))[0];
-    if (!key) throw new Error("No wallet connect key");
+    const keys: (Key & { chainId: string })[] | undefined =
+      session.sessionProperties && JSON.parse(String(session.sessionProperties.keys));
+    if (!keys) throw new Error("No wallet connect key");
+    if (keys.length === 0) throw new Error("No wallet connect session");
+    const key = keys.find((x) => x.chainId === chainId);
+    if (!key) throw new Error(`No wallet connect key for chainId ${chainId}`);
 
-    return key;
+    return {
+      ...key,
+      pubKey: Buffer.from(String(key.pubKey), encoding) as unknown as Uint8Array,
+    };
   };
 
   const wcSignDirect = async (...args: SignDirectParams) => {
@@ -360,7 +345,8 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
 
     if (!signDoc.bodyBytes) throw new Error("No bodyBytes");
     if (!signDoc.authInfoBytes) throw new Error("No authInfoBytes");
-    const req = {
+    redirectToApp();
+    const result: WalletConnectSignDirectResponse = await wcSignClient.request({
       topic,
       chainId: `cosmos:${chainId}`,
       request: {
@@ -368,16 +354,14 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
         params: {
           signerAddress: signer,
           signDoc: {
-            ...signDoc,
-            bodyBytes: Buffer.from(signDoc.bodyBytes).toString(encoding),
-            authInfoBytes: Buffer.from(signDoc.authInfoBytes).toString(encoding),
+            chainId: signDoc.chainId,
             accountNumber: signDoc.accountNumber?.toString(),
+            bodyBytes: signDoc.bodyBytes ? Buffer.from(signDoc.bodyBytes).toString(encoding) : null,
+            authInfoBytes: signDoc.authInfoBytes ? Buffer.from(signDoc.authInfoBytes).toString(encoding) : null,
           },
         },
       },
-    };
-    redirectToApp();
-    const result: WalletConnectSignDirectResponse = await wcSignClient.request(req);
+    });
     return result;
   };
 
@@ -386,10 +370,12 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     const { signature, signed } = await wcSignDirect(chainId, signer, signDoc);
     return {
       signed: {
-        chainId: signed.chainId,
-        accountNumber: Long.fromString(signed.accountNumber, false),
-        authInfoBytes: new Uint8Array(Buffer.from(signed.authInfoBytes, encoding)),
-        bodyBytes: new Uint8Array(Buffer.from(signed.bodyBytes, encoding)),
+        chainId: signed.chainId ?? "",
+        accountNumber: signed.accountNumber ? Long.fromString(signed.accountNumber) : new Long(0),
+        authInfoBytes: signed.authInfoBytes
+          ? new Uint8Array(Buffer.from(signed.authInfoBytes, encoding))
+          : new Uint8Array([]),
+        bodyBytes: signed.bodyBytes ? new Uint8Array(Buffer.from(signed.bodyBytes, encoding)) : new Uint8Array([]),
       },
       signature,
     };

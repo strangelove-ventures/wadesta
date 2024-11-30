@@ -7,11 +7,11 @@ import {
 } from "@cosmjs/amino";
 import { fromBech32 } from "@cosmjs/encoding";
 import type { DirectSignResponse } from "@cosmjs/proto-signing";
-import type { Keplr, Key } from "@keplr-wallet/types";
+import type { Keplr } from "@keplr-wallet/types";
 
 import { RECONNECT_SESSION_KEY } from "../../constant";
 import { useGrazInternalStore, useGrazSessionStore } from "../../store";
-import type { SignAminoParams, SignDirectParams, Wallet } from "../../types/wallet";
+import type { Key, SignAminoParams, SignDirectParams, Wallet } from "../../types/wallet";
 import { WalletType } from "../../types/wallet";
 
 export const getCapsule = (): Wallet => {

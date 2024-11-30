@@ -4,6 +4,24 @@ sidebar_position: 3
 
 # Migration Guide
 
+## 0.1.26 Breaking Changes
+
+### WalletConnect
+
+Wallet connect modal uses `@walletconnect/modal` instead of deprecated `web3modal`
+Renamed prop `walletConnect.web3Modal` to `walletConnect.walletConnectModal`
+
+```diff
+<GrazProvider
+  grazOptions={{
+    walletConnect: {
+-     web3Modal: web3ModalOptions
++     walletConnectModal: walletConnectModalOptions
+    }
+  }}
+>
+```
+
 ## 0.1.18 Breaking Changes
 
 ### Signing client hooks
