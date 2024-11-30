@@ -1,14 +1,15 @@
 import type { ChainInfo, Keplr } from "@keplr-wallet/types";
 import type { CapsuleProvider } from "@leapwallet/cosmos-social-login-capsule-provider";
-import type { ISignClient, SignClientTypes } from "@walletconnect/types";
 import type { WalletConnectModalConfig } from "@walletconnect/modal";
+import type { ISignClient, SignClientTypes } from "@walletconnect/types";
 import { create } from "zustand";
 import type { PersistOptions } from "zustand/middleware";
 import { createJSONStorage } from "zustand/middleware";
 import { persist, subscribeWithSelector } from "zustand/middleware";
 
 import type { Dictionary } from "../types/core";
-import { Key, WalletType } from "../types/wallet";
+import type { Key } from "../types/wallet";
+import { WalletType } from "../types/wallet";
 
 export interface ChainConfig {
   path?: string;
