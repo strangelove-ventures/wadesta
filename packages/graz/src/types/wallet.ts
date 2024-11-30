@@ -1,4 +1,12 @@
-import type { ChainInfo, Keplr, KeplrIntereactionOptions, Key as KeplrKey } from "@keplr-wallet/types";
+import type { OfflineAminoSigner } from "@cosmjs/amino";
+import type { DirectSignResponse, OfflineDirectSigner } from "@cosmjs/proto-signing";
+import type {
+  ChainInfo,
+  Keplr,
+  KeplrIntereactionOptions,
+  KeplrSignOptions,
+  Key as KeplrKey,
+} from "@keplr-wallet/types";
 
 export enum WalletType {
   KEPLR = "keplr",
@@ -48,10 +56,7 @@ export const WALLET_TYPES = [
   WalletType.OKX,
 ];
 
-export type Wallet = Pick<
-  Keplr,
-  "enable" | "getOfflineSigner" | "getOfflineSignerAuto" | "getOfflineSignerOnlyAmino" | "signDirect" | "signAmino"
-> & {
+export type Wallet = Pick<Keplr, "enable" | "getOfflineSignerOnlyAmino" | "signAmino"> & {
   experimentalSuggestChain: (chainInfo: Omit<ChainInfo, "nodeProvider">) => Promise<void>;
   signArbitrary?: Keplr["signArbitrary"];
   subscription?: (reconnect: () => void) => () => void;
@@ -60,6 +65,19 @@ export type Wallet = Pick<
   setDefaultOptions?: (options: KeplrIntereactionOptions) => void;
   onAfterLoginSuccessful?: () => Promise<void>;
   getKey: (chainId: string) => Promise<Key>;
+  getOfflineSigner: (chainId: string) => OfflineAminoSigner | OfflineDirectSigner;
+  getOfflineSignerAuto: (chainId: string) => Promise<OfflineAminoSigner | OfflineDirectSigner>;
+  signDirect: (
+    chainId: string,
+    signer: string,
+    signDoc: {
+      bodyBytes?: Uint8Array | null;
+      authInfoBytes?: Uint8Array | null;
+      chainId?: string | null;
+      accountNumber?: bigint | null;
+    },
+    signOptions?: KeplrSignOptions,
+  ) => Promise<DirectSignResponse>;
 };
 
 export type SignDirectParams = Parameters<Wallet["signDirect"]>;
