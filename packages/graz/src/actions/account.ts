@@ -204,7 +204,7 @@ export const reconnect = async (args?: ReconnectArgs) => {
 };
 
 export interface OfflineSigners {
-  offlineSigner: OfflineAminoSigner & OfflineDirectSigner;
+  offlineSigner: OfflineAminoSigner | OfflineDirectSigner;
   offlineSignerAmino: OfflineAminoSigner;
   offlineSignerAuto: OfflineAminoSigner | OfflineDirectSigner;
 }
