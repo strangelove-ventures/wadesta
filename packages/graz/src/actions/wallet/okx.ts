@@ -34,10 +34,12 @@ export const getOkx = (): Wallet => {
     const setDefaultOptions = (options: KeplrIntereactionOptions) => {
       okxWallet.defaultOptions = options;
     };
+
+    // TODO: CHECK IF THIS IS THE CORRECT WAY TO CAST
     const res = Object.assign(okxWallet, {
       subscription,
       setDefaultOptions,
-    });
+    }) as unknown as Wallet;
     return res;
   }
 

@@ -80,6 +80,7 @@ export const getInitia = (): Wallet => {
         pubKey: account.pubkey,
         bech32Address: account.address,
         address: rawAddress,
+        ethereumHexAddress: "",
         isNanoLedger: false,
         isKeystone: false,
       };

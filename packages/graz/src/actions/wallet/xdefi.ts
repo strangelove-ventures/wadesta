@@ -29,9 +29,10 @@ export const getXDefi = (): Wallet => {
         window.removeEventListener("keplr_keystorechange", listener);
       };
     };
+    // TODO: CHECK IF THIS IS THE CORRECT WAY TO CAST
     const res = Object.assign(xdefi, {
       subscription,
-    });
+    }) as unknown as Wallet;
 
     return res;
   }

@@ -35,10 +35,11 @@ export const getCosmostation = (): Wallet => {
     const setDefaultOptions = (options: KeplrIntereactionOptions) => {
       cosmostation.defaultOptions = options;
     };
+    // TODO: CHECK IF THIS IS THE CORRECT WAY TO CAST
     const res = Object.assign(cosmostation, {
       subscription,
       setDefaultOptions,
-    });
+    }) as unknown as Wallet;
     return res;
   }
 
