@@ -52,19 +52,17 @@ export const useSendTokens = ({
   const { data: account } = useAccount();
   const accountAddress = account?.bech32Address;
 
-  const mutation = useMutation(
-    ["USE_SEND_TOKENS", onError, onLoading, onSuccess, accountAddress],
-    (args: SendTokensArgs) => sendTokens({ senderAddress: accountAddress, ...args }),
-    {
-      onError: (err, data) => Promise.resolve(onError?.(err, data)),
-      onMutate: onLoading,
-      onSuccess: (txResponse) => Promise.resolve(onSuccess?.(txResponse)),
-    },
-  );
+  const mutation = useMutation({
+    mutationKey: ["USE_SEND_TOKENS", onError, onLoading, onSuccess, accountAddress],
+    mutationFn: (args: SendTokensArgs) => sendTokens({ senderAddress: accountAddress, ...args }),
+    onError: (err, data) => Promise.resolve(onError?.(err, data)),
+    onMutate: onLoading,
+    onSuccess: (txResponse) => Promise.resolve(onSuccess?.(txResponse)),
+  });
 
   return {
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     sendTokens: mutation.mutate,
     sendTokensAsync: mutation.mutateAsync,
@@ -99,19 +97,17 @@ export const useSendIbcTokens = ({
   const { data: account } = useAccount();
   const accountAddress = account?.bech32Address;
 
-  const mutation = useMutation(
-    ["USE_SEND_IBC_TOKENS", onError, onLoading, onSuccess, accountAddress],
-    (args: SendIbcTokensArgs) => sendIbcTokens({ senderAddress: accountAddress, ...args }),
-    {
-      onError: (err, data) => Promise.resolve(onError?.(err, data)),
-      onMutate: onLoading,
-      onSuccess: (txResponse) => Promise.resolve(onSuccess?.(txResponse)),
-    },
-  );
+  const mutation = useMutation({
+    mutationKey: ["USE_SEND_IBC_TOKENS", onError, onLoading, onSuccess, accountAddress],
+    mutationFn: (args: SendIbcTokensArgs) => sendIbcTokens({ senderAddress: accountAddress, ...args }),
+    onError: (err, data) => Promise.resolve(onError?.(err, data)),
+    onMutate: onLoading,
+    onSuccess: (txResponse) => Promise.resolve(onSuccess?.(txResponse)),
+  });
 
   return {
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     sendIbcTokens: mutation.mutate,
     sendIbcTokensAsync: mutation.mutateAsync,
@@ -165,19 +161,17 @@ export const useInstantiateContract = <Message extends Record<string, unknown>>(
     return instantiateContract(contractArgs);
   };
 
-  const mutation = useMutation(
-    ["USE_INSTANTIATE_CONTRACT", onError, onLoading, onSuccess, codeId, accountAddress],
+  const mutation = useMutation({
+    mutationKey: ["USE_INSTANTIATE_CONTRACT", onError, onLoading, onSuccess, codeId, accountAddress],
     mutationFn,
-    {
-      onError: (err, data) => Promise.resolve(onError?.(err, data)),
-      onMutate: onLoading,
-      onSuccess: (instantiateResult) => Promise.resolve(onSuccess?.(instantiateResult)),
-    },
-  );
+    onError: (err, data) => Promise.resolve(onError?.(err, data)),
+    onMutate: onLoading,
+    onSuccess: (instantiateResult) => Promise.resolve(onSuccess?.(instantiateResult)),
+  });
 
   return {
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     instantiateContract: mutation.mutate,
     instantiateContractAsync: mutation.mutateAsync,
@@ -242,19 +236,17 @@ export const useExecuteContract = <Message extends Record<string, unknown>>({
     return executeContract(executeArgs);
   };
 
-  const mutation = useMutation(
-    ["USE_EXECUTE_CONTRACT", onError, onLoading, onSuccess, contractAddress, accountAddress],
+  const mutation = useMutation({
+    mutationKey: ["USE_EXECUTE_CONTRACT", onError, onLoading, onSuccess, contractAddress, accountAddress],
     mutationFn,
-    {
-      onError: (err, data) => Promise.resolve(onError?.(err, data)),
-      onMutate: onLoading,
-      onSuccess: (executeResult) => Promise.resolve(onSuccess?.(executeResult)),
-    },
-  );
+    onError: (err, data) => Promise.resolve(onError?.(err, data)),
+    onMutate: onLoading,
+    onSuccess: (executeResult) => Promise.resolve(onSuccess?.(executeResult)),
+  });
 
   return {
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     executeContract: mutation.mutate,
     executeContractAsync: mutation.mutateAsync,
@@ -275,16 +267,14 @@ export const useQuerySmart = <TData, TError>(args?: {
   queryMsg?: Record<string, unknown>;
 }): UseQueryResult<TData, TError> => {
   const { data: client } = useCosmWasmClient();
-  const query: UseQueryResult<TData, TError> = useQuery(
-    ["USE_QUERY_SMART", args?.address, args?.queryMsg, client],
-    ({ queryKey: [, _address] }) => {
+  const query: UseQueryResult<TData, TError> = useQuery({
+    queryKey: ["USE_QUERY_SMART", args?.address, args?.queryMsg, client],
+    queryFn: ({ queryKey: [, _address] }) => {
       if (!args?.address || !args.queryMsg) throw new Error("address or queryMsg undefined");
       return getQuerySmart(args.address, args.queryMsg, client);
     },
-    {
-      enabled: Boolean(args?.address) && Boolean(args?.queryMsg) && Boolean(client),
-    },
-  );
+    enabled: Boolean(args?.address) && Boolean(args?.queryMsg) && Boolean(client),
+  });
 
   return query;
 };
@@ -302,16 +292,14 @@ export const useQueryRaw = <TError>(args?: {
 }): UseQueryResult<Uint8Array | null, TError> => {
   const { data: client } = useCosmWasmClient();
   const queryKey = ["USE_QUERY_RAW", args?.key, args?.address, client] as const;
-  const query: UseQueryResult<Uint8Array | null, TError> = useQuery(
+  const query: UseQueryResult<Uint8Array | null, TError> = useQuery({
     queryKey,
-    ({ queryKey: [, _address] }) => {
+    queryFn: ({ queryKey: [, _address] }) => {
       if (!args?.address || !args.key) throw new Error("address or key undefined");
       return getQueryRaw(args.address, args.key, client);
     },
-    {
-      enabled: Boolean(args?.address) && Boolean(args?.key) && Boolean(client),
-    },
-  );
+    enabled: Boolean(args?.address) && Boolean(args?.key) && Boolean(client),
+  });
 
   return query;
 };

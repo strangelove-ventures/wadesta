@@ -57,7 +57,7 @@
     "@dao-dao/cosmiframe": "0.1.0",
     "@keplr-wallet/cosmos": "0.12.156",
     "@metamask/providers": "12.0.0",
-    "@tanstack/react-query": "4.35.0",
+    "@tanstack/react-query": "5.62.0",
     "@terra-money/station-connector": "1.1.0",
     "@vectis/extension-client": "^0.7.2",
     "@walletconnect/sign-client": "2.17.2",
