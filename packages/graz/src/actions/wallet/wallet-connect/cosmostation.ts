@@ -23,6 +23,7 @@ export const getWCCosmostation = (): Wallet => {
     walletType: WalletType.WC_COSMOSTATION_MOBILE,
     formatNativeUrl: (appUrl, wcUri, _os) => {
       const plainAppUrl = appUrl.replaceAll("/", "").replaceAll(":", "");
+      if (!wcUri) return `${plainAppUrl}://wc`;
       return `${plainAppUrl}://wc?${wcUri}`;
     },
   };
