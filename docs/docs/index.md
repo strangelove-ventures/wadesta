@@ -52,7 +52,7 @@ pnpm add @cosmjs/cosmwasm-stargate @cosmjs/launchpad @cosmjs/proto-signing @cosm
 
 ## Quick start
 
-Wrap your React app with `<GrazProvider />` and use available `graz` hooks anywhere:
+Wrap your React app with `<QueryClientProvider />` and `<GrazProvider />`, and use available `graz` hooks anywhere:
 
 ```tsx
 import { GrazProvider } from "graz";
@@ -65,13 +65,15 @@ const cosmoshub: ChainInfo = {
 
 function App() {
   return (
-    <GrazProvider
-      grazOptions={{
-        chains: [cosmoshub],
-      }}
-    >
-      <Wallet />
-    </GrazProvider>
+    <QueryClientProvider queryClient={queryClient}>
+      <GrazProvider
+        grazOptions={{
+          chains: [cosmoshub],
+        }}
+      >
+        <Wallet />
+      </GrazProvider>
+    </QueryClientProvider>
   );
 }
 ```
