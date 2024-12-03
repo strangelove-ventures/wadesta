@@ -23,14 +23,20 @@ export const getWCKeplr = (): Wallet => {
     walletType: WalletType.WC_KEPLR_MOBILE,
     formatNativeUrl: (appUrl, wcUri, os) => {
       const plainAppUrl = appUrl.replaceAll("/", "").replaceAll(":", "");
-      const encoded = encodeURIComponent(wcUri);
+      const encoded = wcUri && encodeURIComponent(wcUri);
       switch (os) {
-        case "ios":
+        case "ios": {
+          if (!encoded) return `${plainAppUrl}://wcV2`;
           return `${plainAppUrl}://wcV2?${encoded}`;
-        case "android":
+        }
+        case "android": {
+          if (!encoded) return `${plainAppUrl}://wcV2#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;`;
           return `${plainAppUrl}://wcV2?${encoded}#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;`;
-        default:
+        }
+        default: {
+          if (!encoded) return `${plainAppUrl}://wc`;
           return `${plainAppUrl}://wc?uri=${encoded}`;
+        }
       }
     },
   };

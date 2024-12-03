@@ -23,12 +23,16 @@ export const getWCClot = (): Wallet => {
     walletType: WalletType.WC_CLOT_MOBILE,
     formatNativeUrl: (appUrl, wcUri, os) => {
       const plainAppUrl = appUrl.replaceAll("/", "").replaceAll(":", "");
-      const encoded = encodeURIComponent(wcUri);
+      const encoded = wcUri && encodeURIComponent(wcUri);
       switch (os) {
-        case "ios":
+        case "ios": {
+          if (!encoded) return `${plainAppUrl}://wcV2`;
           return `${plainAppUrl}://wcV2?${encoded}`;
-        default:
+        }
+        default: {
+          if (!encoded) return `${plainAppUrl}://wc`;
           return `${plainAppUrl}://wc?uri=${encoded}`;
+        }
       }
     },
   };

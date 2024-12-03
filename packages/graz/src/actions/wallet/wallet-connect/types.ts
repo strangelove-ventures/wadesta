@@ -27,5 +27,5 @@ export interface GetWalletConnectParams {
       android: string;
     };
   };
-  formatNativeUrl: (appUrl: string, wcUri: string, os?: "android" | "ios") => string;
+  formatNativeUrl: (appUrl: string, wcUri?: string, os?: "android" | "ios") => string;
 }
