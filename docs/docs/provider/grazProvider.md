@@ -6,7 +6,10 @@ Graz uses `@tanstack/react-query`'s features under the hood, hence you need to w
 #### Usage
 
 ```tsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GrazProvider, WalletType } from "graz";
+
+const queryClient = new QueryClient();
 
 const cosmoshub = {
   chainId: "cosmoshub-4",

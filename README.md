@@ -55,7 +55,10 @@ pnpm add @cosmjs/cosmwasm-stargate @cosmjs/launchpad @cosmjs/proto-signing @cosm
 Wrap your React app with `<QueryClientProvider />` and `<GrazProvider />`, and use available `graz` hooks anywhere:
 
 ```jsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GrazProvider } from "graz";
+
+const queryClient = new QueryClient();
 
 const cosmoshub: ChainInfo = {
   chainId: "cosmoshub-4",
