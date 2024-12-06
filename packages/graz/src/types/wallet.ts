@@ -60,6 +60,8 @@ export type Wallet = Pick<
   setDefaultOptions?: (options: KeplrIntereactionOptions) => void;
   onAfterLoginSuccessful?: () => Promise<void>;
   getKey: (chainId: string) => Promise<Key>;
+  signEthereum?: Keplr["signEthereum"];
+  experimentalSignEIP712CosmosTx_v0?: Keplr["experimentalSignEIP712CosmosTx_v0"];
 };
 
 export type SignDirectParams = Parameters<Wallet["signDirect"]>;
