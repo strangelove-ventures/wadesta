@@ -1,49 +1,43 @@
-import type { QueryClientProviderProps } from "@tanstack/react-query";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { type FC, useEffect } from "react";
+import { type FC, type ReactNode, useEffect } from "react";
 
 import type { ConfigureGrazArgs } from "../actions/configure";
 import { configureGraz } from "../actions/configure";
 import { ClientOnly } from "./client-only";
 import { GrazEvents } from "./events";
 
-const queryClient = new QueryClient({
-  //
-});
-
-export type GrazProviderProps = Partial<QueryClientProviderProps> & {
+export interface GrazProviderProps {
   grazOptions: ConfigureGrazArgs;
-};
+  children: ReactNode;
+}
 
 /**
- * Provider component which extends `@tanstack/react-query`'s {@link QueryClientProvider} with built-in query client
- * and various `graz` side effects
- *
+ * Provider component configures various `graz` side effects.
+ * Graz uses `@tanstack/react-query`'s features under the hood, hence you need to wrap `GrazProvider` with `QueryClientProvider`.
  * @example
  * ```tsx
  * // example next.js application in _app.tsx
  * export default function CustomApp({ Component, pageProps }: AppProps) {
  *   return (
- *     <GrazProvider>
- *       <Component {...pageProps} />
- *     </GrazProvider>
+ *     <QueryClientProvider queryClient={queryClient}>
+ *       <GrazProvider grazOptions={grazOptions}>
+ *         <Component {...pageProps} />
+ *       </GrazProvider>
+ *     </QueryClientProvider>
  *   );
  * }
  * ```
  *
  * @see https://tanstack.com/query
  */
-export const GrazProvider: FC<GrazProviderProps> = ({ children, grazOptions, ...props }) => {
+export const GrazProvider: FC<GrazProviderProps> = ({ children, grazOptions }) => {
   useEffect(() => {
     configureGraz(grazOptions);
   }, [grazOptions]);
 
   return (
-    <QueryClientProvider key="graz-provider" client={queryClient} {...props}>
-      <ClientOnly>
-        {children}
-        <GrazEvents />
-      </ClientOnly>
-    </QueryClientProvider>
+    <ClientOnly>
+      {children}
+      <GrazEvents />
+    </ClientOnly>
   );
 };

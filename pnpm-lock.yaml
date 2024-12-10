@@ -78,6 +78,9 @@ importers:
       '@leapwallet/cosmos-social-login-capsule-provider-ui':
         specifier: ^0.0.58
         version: 0.0.58(@cosmjs/proto-signing@0.31.3)(@types/react-dom@18.2.7)(@types/react@18.2.21)(csstype@3.1.2)(osmojs@15.2.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))(protobufjs@7.2.3)(react-dom@18.2.0(react@18.2.0))(stridejs@0.6.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(tailwindcss@3.3.3)(zod@3.23.8)
+      '@tanstack/react-query':
+        specifier: 5.62.0
+        version: 5.62.0(react@18.2.0)
       framer-motion:
         specifier: ^10.16.4
         version: 10.16.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -130,6 +133,9 @@ importers:
       '@leapwallet/cosmos-social-login-capsule-provider-ui':
         specifier: ^0.0.58
         version: 0.0.58(@cosmjs/proto-signing@0.31.3)(@types/react-dom@18.2.7)(@types/react@18.2.21)(csstype@3.1.2)(osmojs@15.2.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))(protobufjs@7.2.3)(react-dom@18.2.0(react@18.2.0))(stridejs@0.6.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(tailwindcss@3.3.3)(zod@3.23.8)
+      '@tanstack/react-query':
+        specifier: 5.62.0
+        version: 5.62.0(react@18.2.0)
       bignumber.js:
         specifier: ^9.1.2
         version: 9.1.2
@@ -173,6 +179,9 @@ importers:
 
   example/vite:
     dependencies:
+      '@tanstack/react-query':
+        specifier: 5.62.0
+        version: 5.62.0(react@18.2.0)
       graz:
         specifier: workspace:*
         version: link:../../packages/graz
@@ -250,8 +259,8 @@ importers:
         specifier: 12.0.0
         version: 12.0.0
       '@tanstack/react-query':
-        specifier: 4.35.0
-        version: 4.35.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: '>=5.62.0'
+        version: 5.62.0(react@18.2.0)
       '@terra-money/station-connector':
         specifier: 1.1.0
         version: 1.1.0(@cosmjs/amino@0.31.3)(@terra-money/feather.js@3.0.0-beta.2)(axios@1.6.8)
@@ -3712,20 +3721,13 @@ packages:
     resolution: {integrity: sha512-XIB2XbzHTN6ieIjfIMV9hlVcfPU26s2vafYWQcZHWXHOxiaRZYEDKEwdl129Zyg50+foYV2jCgtrqSA6qNuNSA==}
     engines: {node: '>=6'}
 
-  '@tanstack/query-core@4.35.0':
-    resolution: {integrity: sha512-4GMcKQuLZQi6RFBiBZNsLhl+hQGYScRZ5ZoVq8QAzfqz9M7vcGin/2YdSESwl7WaV+Qzsb5CZOAbMBes4lNTnA==}
+  '@tanstack/query-core@5.62.0':
+    resolution: {integrity: sha512-sx38bGrqF9bop92AXOvzDr0L9fWDas5zXdPglxa9cuqeVSWS7lY6OnVyl/oodfXjgOGRk79IfCpgVmxrbHuFHg==}
 
-  '@tanstack/react-query@4.35.0':
-    resolution: {integrity: sha512-LLYDNnM9ewYHgjm2rzhk4KG/puN2rdoqCUD+N9+V7SwlsYwJk5ypX58rpkoZAhFyZ+KmFUJ7Iv2lIEOoUqydIg==}
+  '@tanstack/react-query@5.62.0':
+    resolution: {integrity: sha512-tj2ltjAn2a3fs+Dqonlvs6GyLQ/LKVJE2DVSYW+8pJ3P6/VCVGrfqv5UEchmlP7tLOvvtZcOuSyI2ooVlR5Yqw==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
+      react: ^18 || ^19
 
   '@terra-money/feather.js@3.0.0-beta.2':
     resolution: {integrity: sha512-H048FhtK8G3lIPoVC0rN8Z+jUcJS44twXI+r7k1LY1K49MVUMArP6e7XqLiJONzBZCkEQE/W05F9ogCPrqMaHQ==}
@@ -14646,15 +14648,12 @@ snapshots:
     dependencies:
       defer-to-connect: 1.1.3
 
-  '@tanstack/query-core@4.35.0': {}
+  '@tanstack/query-core@5.62.0': {}
 
-  '@tanstack/react-query@4.35.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@tanstack/react-query@5.62.0(react@18.2.0)':
     dependencies:
-      '@tanstack/query-core': 4.35.0
+      '@tanstack/query-core': 5.62.0
       react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    optionalDependencies:
-      react-dom: 18.2.0(react@18.2.0)
 
   '@terra-money/feather.js@3.0.0-beta.2':
     dependencies:

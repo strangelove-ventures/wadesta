@@ -1,54 +1,62 @@
 # GrazProvider
 
-Provider component which wraps @tanstack/react-query's `QueryClientProvider` and various graz side effects
+Provider component which configures various graz side effects.
+Graz uses `@tanstack/react-query`'s features under the hood, hence you need to wrap `GrazProvider` with `QueryClientProvider`.
 
 #### Usage
 
 ```tsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GrazProvider, WalletType } from "graz";
+
+const queryClient = new QueryClient();
 
 const cosmoshub = {
   chainId: "cosmoshub-4",
   chainName: "Cosmos Hub",
   // ... rest of cosmoshub ChainInfo
-}
+};
 
 const sommelier = {
   chainId: "sommelier-1",
   chainName: "Sommelier",
   // ... rest of sommelier ChainInfo
-}
+};
 
 // example next.js application in _app.tsx
 export default function CustomApp({ Component, pageProps }: AppProps) {
+  const onNotFound = () => {
+    console.log("not found");
+  };
+
   return (
-    <GrazProvider
-      grazOptions={{
-        chains: [cosmoshub, sommelier],
-        chainsConfig: {
-          "cosmoshub-4": {
-            gas: {
-              price: "",
-              denom: ""
-            }
+    <QueryClientProvider queryClient={queryClient}>
+      <GrazProvider
+        grazOptions={{
+          chains: [cosmoshub, sommelier],
+          chainsConfig: {
+            "cosmoshub-4": {
+              gas: {
+                price: "",
+                denom: "",
+              },
+            },
+            "sommelier-1": {
+              gas: {
+                price: "",
+                denom: "",
+              },
+            },
           },
-          "sommelier-1": {
-            gas: {
-              price: "",
-              denom: ""
-            }
-          }
-        }
-        defaultWallet: WalletType.LEAP,
-        onNotFound: () => {
-          console.log("not found")
-        },
-        multiChainFetchConcurrency: 6
-        // ...
-      }}
-    >
-      <Component {...pageProps} />
-    </GrazProvider>
+          defaultWallet: WalletType.LEAP,
+          onNotFound,
+          multiChainFetchConcurrency: 6,
+          // ...
+        }}
+      >
+        <Component {...pageProps} />
+      </GrazProvider>
+    </QueryClientProvider>
   );
 }
 ```
