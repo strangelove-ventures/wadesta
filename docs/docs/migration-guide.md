@@ -4,6 +4,25 @@ sidebar_position: 3
 
 # Migration Guide
 
+## 0.2.0 Breaking Changes
+
+We updates the react-query version to 5.62.0 and removes QueryClientProvider initialisation from Graz Provider. As a results, dApps must now wrap Graz provider with QueryClientProvider on their end. Also note that react-query has been added as peer dependency now.
+
+```diff
++ import { QueryClient, QueryClientProvider } from 'react-query';
+  import { GrazProvider } from 'graz';
+
++  const queryClient = new QueryClient();
+
++  <QueryClientProvider client={queryClient}>
+    <GrazProvider grazOptions={{
+      // ... Your options
+    }}>
+      // children
+    </GrazProvider>
++  </QueryClientProvider>
+```
+
 ## 0.1.26 Breaking Changes
 
 ### WalletConnect
