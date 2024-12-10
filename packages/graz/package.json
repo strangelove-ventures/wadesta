@@ -49,7 +49,7 @@
     "@cosmjs/stargate": "<=0.31.3",
     "@cosmjs/tendermint-rpc": "<=0.31.3",
     "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.41",
-    "@tanstack/react-query": "5.62.0",
+    "@tanstack/react-query": ">=5.62.0",
     "react": ">=17"
   },
   "dependencies": {
