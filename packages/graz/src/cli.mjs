@@ -238,7 +238,7 @@ const makeRecord = async (client, { filter = "" } = {}) => {
             coinMinimalDenom:
               chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units[0]?.denom || token.denom,
             coinDecimals: Number(chain.assets?.find((asset) => asset.denom === token.denom)?.decimals),
-            coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || "",
+            coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || undefined,
             gasPriceStep: {
               low: Number(token.low_gas_price),
               average: Number(token.average_gas_price),
@@ -252,7 +252,7 @@ const makeRecord = async (client, { filter = "" } = {}) => {
           coinMinimalDenom:
             chain.assets?.find((asset) => asset.denom === token.denom)?.denom_units[0]?.denom || token.denom,
           coinDecimals: Number(chain.assets?.find((asset) => asset.denom === token.denom)?.decimals),
-          coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || "",
+          coinGeckoId: chain.assets?.find((asset) => asset.denom === token.denom)?.coingecko_id || undefined,
         };
       });
 
