@@ -1,7 +1,7 @@
 import type { ChainInfo } from "@keplr-wallet/types";
 
 import type { CapsuleConfig, ChainConfig, GrazInternalStore, IframeOptions } from "../store";
-import { useGrazInternalStore } from "../store";
+import { useGrazInternalStore, useGrazSessionStore } from "../store";
 import type { WalletType } from "../types/wallet";
 
 export interface ConfigureGrazArgs {
@@ -26,9 +26,22 @@ export interface ConfigureGrazArgs {
    * Options to enable iframe wallet connection.
    */
   iframeOptions?: IframeOptions;
+  prefixStorageKey?: string;
 }
 
 export const configureGraz = (args: ConfigureGrazArgs): ConfigureGrazArgs => {
+  if (args.prefixStorageKey) {
+    useGrazInternalStore.persist.setOptions({
+      name: `${args.prefixStorageKey}-graz-internal`,
+    });
+    useGrazSessionStore.persist.setOptions({
+      name: `${args.prefixStorageKey}-graz-session`,
+    });
+    useGrazInternalStore.persist.rehydrate();
+    useGrazSessionStore.persist.rehydrate();
+    localStorage.removeItem("graz-internal");
+    sessionStorage.removeItem("graz-session");
+  }
   useGrazInternalStore.setState((prev) => ({
     iframeOptions: args.iframeOptions || prev.iframeOptions,
     walletConnect: args.walletConnect || prev.walletConnect,

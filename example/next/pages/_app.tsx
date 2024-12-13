@@ -16,6 +16,7 @@ const CustomApp: NextPage<AppProps> = ({ Component, pageProps }) => {
         <GrazProvider
           grazOptions={{
             chains,
+            prefixStorageKey: 'next',
             onReconnectFailed: () => {
               console.log("reconnect failed");
             },
