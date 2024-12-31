@@ -65,8 +65,8 @@ export type Wallet = Pick<Keplr, "enable" | "getOfflineSignerOnlyAmino" | "signA
   setDefaultOptions?: (options: KeplrIntereactionOptions) => void;
   onAfterLoginSuccessful?: () => Promise<void>;
   getKey: (chainId: string) => Promise<Key>;
-  getOfflineSigner: (chainId: string) => OfflineAminoSigner | OfflineDirectSigner;
-  getOfflineSignerAuto: (chainId: string) => Promise<OfflineAminoSigner | OfflineDirectSigner>;
+  getOfflineSigner: (chainId: string, signOptions?: KeplrSignOptions) => OfflineAminoSigner | OfflineDirectSigner;
+  getOfflineSignerAuto: (chainId: string) => Promise<OfflineDirectSigner | OfflineAminoSigner>;
   signDirect: (
     chainId: string,
     signer: string,
