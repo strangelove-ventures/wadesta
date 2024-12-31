@@ -147,9 +147,9 @@ export const useBalances = <TMulti extends MultiChainHookArgs>(
     [address, args?.chainId, chains, clients],
   );
 
-  return useQuery(
+  return useQuery({
     queryKey,
-    async ({ queryKey: [, _clients, _chains, _address] }) => {
+    queryFn: async ({ queryKey: [, _clients, _chains, _address] }) => {
       if (!_address) {
         throw new Error("address is not defined");
       }
@@ -168,18 +168,16 @@ export const useBalances = <TMulti extends MultiChainHookArgs>(
       });
       return res;
     },
-    {
-      enabled:
-        Boolean(address) &&
-        Boolean(chains) &&
-        chains.length > 0 &&
-        !isEmpty(clients) &&
-        (args?.enabled === undefined ? true : args.enabled),
-      refetchOnMount: false,
-      refetchOnReconnect: true,
-      refetchOnWindowFocus: false,
-    },
-  );
+    enabled:
+      Boolean(address) &&
+      Boolean(chains) &&
+      chains.length > 0 &&
+      !isEmpty(clients) &&
+      (args?.enabled === undefined ? true : args.enabled),
+    refetchOnMount: false,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: false,
+  });
 };
 
 /**
@@ -218,19 +216,17 @@ export const useBalance = <TMulti extends MultiChainHookArgs>(
 
   const queryKey = ["USE_BALANCE", args.denom, balances, chains, address, args.chainId] as const;
 
-  const query = useQuery(
+  const query = useQuery({
     queryKey,
-    ({ queryKey: [, _denom, _balances] }) => {
+    queryFn: ({ queryKey: [, _denom, _balances] }) => {
       return _balances?.find((x) => x.denom === _denom);
     },
-    {
-      enabled:
-        Boolean(args.denom) &&
-        Boolean(balances) &&
-        Boolean(balances?.length) &&
-        (args.enabled === undefined ? true : args.enabled),
-    },
-  );
+    enabled:
+      Boolean(args.denom) &&
+      Boolean(balances) &&
+      Boolean(balances?.length) &&
+      (args.enabled === undefined ? true : args.enabled),
+  });
 
   return {
     ...query,
@@ -278,8 +274,10 @@ export type UseConnectChainArgs = MutationEventArgs<ConnectArgs, ConnectResult>;
  * @see {@link connect}
  */
 export const useConnect = ({ onError, onLoading, onSuccess }: UseConnectChainArgs = {}) => {
-  const queryKey = ["USE_CONNECT", onError, onLoading, onSuccess];
-  const mutation = useMutation(queryKey, connect, {
+  const mutationKey = ["USE_CONNECT", onError, onLoading, onSuccess];
+  const mutation = useMutation({
+    mutationKey,
+    mutationFn: connect,
     onError: (err, args) => onError?.(err, args),
     onMutate: onLoading,
     onSuccess: (connectResult) => Promise.resolve(onSuccess?.(connectResult)),
@@ -289,7 +287,7 @@ export const useConnect = ({ onError, onLoading, onSuccess }: UseConnectChainArg
     connect: (args?: ConnectArgs) => mutation.mutate(args),
     connectAsync: (args?: ConnectArgs) => mutation.mutateAsync(args),
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     isSupported: Boolean(isSupported),
     status: mutation.status,
@@ -321,8 +319,10 @@ export const useConnect = ({ onError, onLoading, onSuccess }: UseConnectChainArg
  * @see {@link disconnect}
  */
 export const useDisconnect = ({ onError, onLoading, onSuccess }: MutationEventArgs = {}) => {
-  const queryKey = ["USE_DISCONNECT", onError, onLoading, onSuccess];
-  const mutation = useMutation(queryKey, disconnect, {
+  const mutationKey = ["USE_DISCONNECT", onError, onLoading, onSuccess];
+  const mutation = useMutation({
+    mutationKey,
+    mutationFn: disconnect,
     onError: (err) => Promise.resolve(onError?.(err, undefined)),
     onMutate: onLoading,
     onSuccess: () => Promise.resolve(onSuccess?.(undefined)),
@@ -332,7 +332,7 @@ export const useDisconnect = ({ onError, onLoading, onSuccess }: MutationEventAr
     disconnect: (args?: { chainId?: ChainId }) => mutation.mutate(args),
     disconnectAsync: (args?: { chainId?: ChainId }) => mutation.mutateAsync(args),
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     status: mutation.status,
   };
@@ -418,9 +418,9 @@ export const useBalanceStaked = <TMulti extends MultiChainHookArgs>(
 
   const queryKey = useMemo(() => ["USE_BALANCE_STAKED", client, chains, address] as const, [chains, address, client]);
 
-  return useQuery(
+  return useQuery({
     queryKey,
-    async ({ queryKey: [, _client, _chains, _address] }) => {
+    queryFn: async ({ queryKey: [, _client, _chains, _address] }) => {
       if (!_address) {
         throw new Error("address is not defined");
       }
@@ -434,11 +434,9 @@ export const useBalanceStaked = <TMulti extends MultiChainHookArgs>(
       });
       return res;
     },
-    {
-      enabled: Boolean(address) && Boolean(chains) && chains.length > 0 && Boolean(client),
-      refetchOnMount: false,
-      refetchOnReconnect: true,
-      refetchOnWindowFocus: false,
-    },
-  );
+    enabled: Boolean(address) && Boolean(chains) && chains.length > 0 && Boolean(client),
+    refetchOnMount: false,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: false,
+  });
 };

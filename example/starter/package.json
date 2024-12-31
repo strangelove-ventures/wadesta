@@ -16,6 +16,7 @@
     "@emotion/styled": "11.11.0",
     "@graz-sh/types": "^0.0.4",
     "@leapwallet/cosmos-social-login-capsule-provider-ui": "^0.0.58",
+    "@tanstack/react-query": "5.62.0",
     "bignumber.js": "^9.1.2",
     "framer-motion": "^10.16.4",
     "graz": "workspace:*",

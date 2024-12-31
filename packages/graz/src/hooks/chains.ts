@@ -89,11 +89,11 @@ export const useChainInfos = ({ chainId }: { chainId?: string[] }) => {
 export const useActiveChainCurrency = ({ denom }: { denom: string }): UseQueryResult<AppCurrency | undefined> => {
   const chains = useActiveChains();
   const queryKey = ["USE_ACTIVE_CHAIN_CURRENCY", denom] as const;
-  const query = useQuery(
+  const query = useQuery({
     queryKey,
-    ({ queryKey: [, _denom] }) =>
+    queryFn: ({ queryKey: [, _denom] }) =>
       chains?.find((c) => c.currencies.find((x) => x.coinMinimalDenom === _denom))?.currencies.find((x) => x),
-  );
+  });
   return query;
 };
 
@@ -118,17 +118,15 @@ export const useQueryClientValidators = <T extends QueryClient & StakingExtensio
 }): UseQueryResult<QueryValidatorsResponse> => {
   const status = args.status ?? "BOND_STATUS_BONDED";
   const queryKey = ["USE_ACTIVE_CHAIN_VALIDATORS", args.queryClient, status] as const;
-  const query = useQuery(
+  const query = useQuery({
     queryKey,
-    async ({ queryKey: [, _queryClient, _status] }) => {
+    queryFn: async ({ queryKey: [, _queryClient, _status] }) => {
       if (!_queryClient) throw new Error("Query client is not defined");
       const res = await _queryClient.staking.validators(_status);
       return res;
     },
-    {
-      enabled: typeof args.queryClient !== "undefined",
-    },
-  );
+    enabled: typeof args.queryClient !== "undefined",
+  });
   return query;
 };
 
@@ -196,8 +194,10 @@ export type UseSuggestChainArgs = MutationEventArgs<ChainInfo>;
  * ```
  */
 export const useSuggestChain = ({ onError, onLoading, onSuccess }: UseSuggestChainArgs = {}) => {
-  const queryKey = ["USE_SUGGEST_CHAIN", onError, onLoading, onSuccess];
-  const mutation = useMutation(queryKey, suggestChain, {
+  const mutationKey = ["USE_SUGGEST_CHAIN", onError, onLoading, onSuccess];
+  const mutation = useMutation({
+    mutationKey,
+    mutationFn: suggestChain,
     onError: (err, args) => Promise.resolve(onError?.(err, args.chainInfo)),
     onMutate: (data) => onLoading?.(data.chainInfo),
     onSuccess: (chainInfo) => Promise.resolve(onSuccess?.(chainInfo)),
@@ -205,7 +205,7 @@ export const useSuggestChain = ({ onError, onLoading, onSuccess }: UseSuggestCha
 
   return {
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     suggest: mutation.mutate,
     suggestAsync: mutation.mutateAsync,
@@ -246,8 +246,10 @@ export type UseSuggestChainAndConnectArgs = MutationEventArgs<SuggestChainAndCon
  * ```
  */
 export const useSuggestChainAndConnect = ({ onError, onLoading, onSuccess }: UseSuggestChainAndConnectArgs = {}) => {
-  const queryKey = ["USE_SUGGEST_CHAIN_AND_CONNECT", onError, onLoading, onSuccess];
-  const mutation = useMutation(queryKey, suggestChainAndConnect, {
+  const mutationKey = ["USE_SUGGEST_CHAIN_AND_CONNECT", onError, onLoading, onSuccess];
+  const mutation = useMutation({
+    mutationKey,
+    mutationFn: suggestChainAndConnect,
     onError: (err, args) => Promise.resolve(onError?.(err, args)),
     onMutate: (args) => onLoading?.(args),
     onSuccess: (res) => Promise.resolve(onSuccess?.(res)),
@@ -255,7 +257,7 @@ export const useSuggestChainAndConnect = ({ onError, onLoading, onSuccess }: Use
   const { data: isSupported } = useCheckWallet();
   return {
     error: mutation.error,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     isSupported: Boolean(isSupported),
     status: mutation.status,

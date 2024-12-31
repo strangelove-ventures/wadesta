@@ -23,14 +23,20 @@ export const getWCLeap = (): Wallet => {
     walletType: WalletType.WC_LEAP_MOBILE,
     formatNativeUrl: (appUrl, wcUri, os) => {
       const plainAppUrl = appUrl.replaceAll("/", "").replaceAll(":", "");
-      const encoded = encodeURIComponent(wcUri);
+      const encoded = wcUri && encodeURIComponent(wcUri);
       switch (os) {
-        case "ios":
+        case "ios": {
+          if (!encoded) return `${plainAppUrl}://wcV2`;
           return `${plainAppUrl}://wcV2?${encoded}`;
-        case "android":
+        }
+        case "android": {
+          if (!encoded) return `${plainAppUrl}://wcV2#Intent;package=io.leapwallet.cosmos;scheme=leapwallet;end;`;
           return `${plainAppUrl}://wcV2?${encoded}#Intent;package=io.leapwallet.cosmos;scheme=leapwallet;end;`;
-        default:
+        }
+        default: {
+          if (!encoded) return `${plainAppUrl}://wc`;
           return `${plainAppUrl}://wc?uri=${encoded}`;
+        }
       }
     },
   };

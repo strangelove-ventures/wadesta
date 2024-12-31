@@ -27,20 +27,12 @@ export const getWalletConnect = (params?: GetWalletConnectParams): Wallet => {
     const { appUrl, formatNativeUrl } = params;
     if (!isMobile()) return;
     if (isAndroid()) {
-      if (!wcUri) {
-        window.open(appUrl.mobile.android, "_self", "noreferrer noopener");
-      } else {
-        const href = formatNativeUrl(appUrl.mobile.android, wcUri, "android");
-        window.open(href, "_self", "noreferrer noopener");
-      }
+      const href = formatNativeUrl(appUrl.mobile.android, wcUri, "android");
+      window.open(href, "_self", "noreferrer noopener");
     }
     if (isIos()) {
-      if (!wcUri) {
-        window.open(appUrl.mobile.ios, "_self", "noreferrer noopener");
-      } else {
-        const href = formatNativeUrl(appUrl.mobile.ios, wcUri, "ios");
-        window.open(href, "_self", "noreferrer noopener");
-      }
+      const href = formatNativeUrl(appUrl.mobile.ios, wcUri, "ios");
+      window.open(href, "_self", "noreferrer noopener");
     }
   };
 

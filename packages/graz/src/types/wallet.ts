@@ -78,6 +78,8 @@ export type Wallet = Pick<Keplr, "enable" | "getOfflineSignerOnlyAmino" | "signA
     },
     signOptions?: KeplrSignOptions,
   ) => Promise<DirectSignResponse>;
+  signEthereum?: Keplr["signEthereum"];
+  experimentalSignEIP712CosmosTx_v0?: Keplr["experimentalSignEIP712CosmosTx_v0"];
 };
 
 export type SignDirectParams = Parameters<Wallet["signDirect"]>;

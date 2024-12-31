@@ -1,7 +1,7 @@
 {
   "name": "graz",
   "description": "React hooks for Cosmos",
-  "version": "0.1.29",
+  "version": "0.2.0-alpha.1",
   "author": "Griko Nibras <griko@strange.love>",
   "repository": "https://github.com/graz-sh/graz.git",
   "homepage": "https://github.com/graz-sh/graz",
@@ -49,9 +49,16 @@
     "@cosmjs/stargate": "0.32.4",
     "@cosmjs/tendermint-rpc": "0.32.4",
     "@leapwallet/cosmos-social-login-capsule-provider": "^0.0.41",
+    "@tanstack/react-query": ">=5.62.0",
     "react": ">=17"
   },
   "dependencies": {
+    "@cosmjs/amino": "0.31.3",
+    "@cosmjs/cosmwasm-stargate": "0.31.3",
+    "@cosmjs/launchpad": "0.27.1",
+    "@cosmjs/proto-signing": "0.31.3",
+    "@cosmjs/stargate": "0.31.3",
+    "@cosmjs/tendermint-rpc": "0.31.3",
     "@keplr-wallet/types": "0.12.156",
     "@cosmsnap/snapper": "0.1.29",
     "@dao-dao/cosmiframe": "0.1.0",

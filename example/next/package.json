@@ -13,6 +13,7 @@
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
     "@leapwallet/cosmos-social-login-capsule-provider-ui": "^0.0.58",
+    "@tanstack/react-query": "5.62.0",
     "framer-motion": "^10.16.4",
     "graz": "workspace:*",
     "next": "^13.4.19",
