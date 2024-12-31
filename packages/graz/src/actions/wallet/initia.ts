@@ -19,7 +19,7 @@ import { clearSession } from ".";
 export interface InitiaWallet {
   getVersion: () => Promise<string>;
   getAddress: (chainId?: string) => Promise<string>;
-  getOfflineSigner: (chainId: string) => OfflineDirectSigner;
+  getOfflineSigner: (chainId: string) => OfflineDirectSigner & OfflineAminoSigner;
   getOfflineSignerOnlyAmino: (chainId: string) => OfflineAminoSigner;
   requestAddInitiaLayer: (chain: Partial<Chain>) => Promise<void>;
   signAndBroadcastSync: (chainId: string, txBody: Uint8Array, gas: number) => Promise<string>;
@@ -80,13 +80,12 @@ export const getInitia = (): Wallet => {
         pubKey: account.pubkey,
         bech32Address: account.address,
         address: rawAddress,
-        ethereumHexAddress: "",
         isNanoLedger: false,
         isKeystone: false,
       };
     };
 
-    const getOfflineSigner = (chainId: string) => {
+    const getOfflineSigner = (chainId: string): OfflineDirectSigner & OfflineAminoSigner => {
       const directSigner = initia.getOfflineSigner(chainId);
       const aminoSigner = initia.getOfflineSignerOnlyAmino(chainId);
 
