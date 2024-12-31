@@ -1,12 +1,12 @@
-import type { AminoSignResponse } from "@cosmjs/amino";
+import type { AminoSignResponse, OfflineAminoSigner } from "@cosmjs/amino";
 import { fromBech32 } from "@cosmjs/encoding";
-import type { DirectSignResponse } from "@cosmjs/proto-signing";
+import type { DirectSignResponse, OfflineDirectSigner } from "@cosmjs/proto-signing";
+import type { ChainInfo } from "@vectis/extension-client";
 import Long from "long";
 
 import { useGrazInternalStore } from "../../store";
 import type { Key, SignAminoParams, SignDirectParams, Wallet } from "../../types/wallet";
 import { clearSession } from ".";
-import { ChainInfo } from "@vectis/extension-client";
 
 /**
  * Function to return {@link Wallet} object and throws and error if it does not exist on `window`.
@@ -48,7 +48,7 @@ export const getVectis = (): Wallet => {
         rpcUrl: chainInfo.rpc,
         restUrl: chainInfo.rest,
         prettyName: chainInfo.chainName.replace(" ", ""),
-        bech32Prefix: chainInfo.bech32Config?.bech32PrefixAccAddr,
+        bech32Prefix: chainInfo.bech32Config.bech32PrefixAccAddr,
         currencies: chainInfo.currencies,
         feeCurrencies: chainInfo.feeCurrencies,
         chainId: chainInfo.chainId,
@@ -75,12 +75,20 @@ export const getVectis = (): Wallet => {
 
     const signDirect = async (...args: SignDirectParams): Promise<DirectSignResponse> => {
       const { 1: signer, 2: signDoc } = args;
-      return vectis.signDirect(signer, {
+      const response = await vectis.signDirect(signer, {
         bodyBytes: signDoc.bodyBytes || Uint8Array.from([]),
         authInfoBytes: signDoc.authInfoBytes || Uint8Array.from([]),
         accountNumber: Long.fromString(signDoc.accountNumber?.toString() || "", false),
         chainId: signDoc.chainId || "",
       });
+
+      return {
+        ...response,
+        signed: {
+          ...response.signed,
+          accountNumber: BigInt(signDoc.accountNumber ?? 0),
+        },
+      };
     };
 
     const signAmino = async (...args: SignAminoParams): Promise<AminoSignResponse> => {
@@ -88,10 +96,14 @@ export const getVectis = (): Wallet => {
       return vectis.signAmino(signer, signDoc);
     };
 
+    const getOfflineSignerAuto = (chainId: string): Promise<OfflineAminoSigner | OfflineDirectSigner> => {
+      return vectis.getOfflineSignerAuto(chainId) as unknown as Promise<OfflineAminoSigner | OfflineDirectSigner>;
+    };
+
     return {
       enable: (chainId: string | string[]) => vectis.enable(chainId),
       getOfflineSigner: (chainId: string) => vectis.getOfflineSigner(chainId),
-      getOfflineSignerAuto: (chainId: string) => vectis.getOfflineSignerAuto(chainId),
+      getOfflineSignerAuto,
       getKey,
       subscription,
       getOfflineSignerOnlyAmino,

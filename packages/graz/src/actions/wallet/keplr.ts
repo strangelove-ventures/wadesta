@@ -34,10 +34,12 @@ export const getKeplr = (): Wallet => {
     const setDefaultOptions = (options: KeplrIntereactionOptions) => {
       keplr.defaultOptions = options;
     };
+
+    // TODO: CHECK IF THIS IS THE CORRECT WAY TO CAST
     const res = Object.assign(keplr, {
       subscription,
       setDefaultOptions,
-    });
+    }) as unknown as Wallet;
 
     return res;
   }

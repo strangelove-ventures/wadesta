@@ -34,10 +34,13 @@ export const getLeap = (): Wallet => {
     const setDefaultOptions = (options: KeplrIntereactionOptions) => {
       leap.defaultOptions = options;
     };
+
+    // TODO: CHECK IF THIS IS THE CORRECT WAY TO CAST
     const res = Object.assign(leap, {
       subscription,
       setDefaultOptions,
-    });
+    }) as unknown as Wallet;
+
     return res;
   }
 

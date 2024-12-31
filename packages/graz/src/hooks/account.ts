@@ -158,7 +158,9 @@ export const useBalances = <TMulti extends MultiChainHookArgs>(
         if (!stargateClient) {
           throw new Error(`Client is not ready ${_chain.chainId}`);
         }
-        if (!_chain.bech32Config?.bech32PrefixAccAddr) throw new Error(`Bech32Config is missing ${_chain.chainId}`);
+        if (!_chain.bech32Config) {
+          throw new Error(`bech32Config is not defined for ${_chain.chainId}`);
+        }
         const balances = await stargateClient.getAllBalances(
           toBech32(_chain.bech32Config.bech32PrefixAccAddr, fromBech32(_address).data),
         );
